@@ -35,9 +35,12 @@ class Person
     /** @Column(type="string") **/
     protected $email;
 
+    /** @Column(type="datetime") **/
+    protected $dataIscrizione;
+
     protected $discr = "person";
 
-    public function __construct($name, $surname, $idImmagine, $password, $description, $email)
+    public function __construct($name, $surname, $idImmagine, $password, $description, $email, $dataIscrizione)
     {
         $this->name = $name;
         $this->surname = $surname;
@@ -45,6 +48,7 @@ class Person
         $this->password = $password;
         $this->idImmagine = $idImmagine;
         $this->description = $description;
+        $this->dataIscrizione = $dataIscrizione;
     }
 
     /**
@@ -143,5 +147,20 @@ class Person
         $this->email = $email;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDataIscrizione()
+    {
+        return $this->dataIscrizione;
+    }
+
+    /**
+     * @param mixed $dataIscrizione
+     */
+    public function setDataIscrizione($dataIscrizione)
+    {
+        $this->dataIscrizione = $dataIscrizione;
+    }
 
 }
