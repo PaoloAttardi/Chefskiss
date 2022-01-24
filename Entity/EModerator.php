@@ -22,4 +22,46 @@ class Moderator extends Person
         $this->dataPromozione = $dataPromozione;
         $this->idBadge = $idBadge;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIdBadge()
+    {
+        return $this->idBadge;
+    }
+
+    /**
+     * @param mixed $idBadge
+     */
+    public function setIdBadge($idBadge)
+    {
+        $this->idBadge = $idBadge;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataPromozione()
+    {
+        return $this->dataPromozione;
+    }
+
+    /**
+     * @param mixed $dataPromozione
+     */
+    public function setDataPromozione($dataPromozione)
+    {
+        $this->dataPromozione = $dataPromozione;
+    }
+
 }

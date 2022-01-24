@@ -163,4 +163,12 @@ class Person
         $this->dataIscrizione = $dataIscrizione;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
 }

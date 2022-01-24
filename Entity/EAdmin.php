@@ -18,4 +18,5 @@ class Admin extends Person
     {
         $this->idBadge = $idBadge;
     }
+
 }
