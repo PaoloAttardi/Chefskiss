@@ -4,7 +4,7 @@
  * @Entity @Table(name="moderator")
  **/
 
-class Moderator extends Person
+class EModerator extends EPerson
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
     protected $idUser;

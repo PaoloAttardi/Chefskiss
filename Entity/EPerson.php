@@ -7,7 +7,7 @@
  * @DiscriminatorMap({"person" = "Person", "user" = "User", "admin" = "Admin", "moderator" = "Moderator"})
  **/
 
-class Person
+class EPerson
 {
     /** @Id @Column(type="integer") @GeneratedValue
      * @OneToOne(targetEntity="user")

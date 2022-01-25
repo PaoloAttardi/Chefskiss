@@ -4,7 +4,7 @@
  * @Entity @Table(name="user")
  **/
 
-class User extends Person
+class EUser extends EPerson
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
     protected $idUser;
