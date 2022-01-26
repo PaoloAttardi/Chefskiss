@@ -1,59 +1,67 @@
 <?php
 
+/**
+ * @Entity @Table(name="ricetta")
+ **/
 class ERicetta
 {
 
-
+    /** @Id @Column(type="integer") @GeneratedValue**/
     private $idRicetta;
 
-
+    /** @Column(type="string") **/
     private $ingredienti;
     
-    
+    /** @Column(type="string") **/
     private $procedimento;
     
-    
+    /** @Column(type="integer") 
+     * @OneToOne(targetEntity="categoria")
+    **/
     private $categoria;
     
-    
+    /** @Column(type="date") **/
     private $data;
     
-    
+    /** @Column(type="integer") 
+     * @OneToOne(targetEntity="person")
+    **/
     private $autore;
     
+    /** @Column(type="string") **/
+    private $nomeRicetta;
     
-    private $nome_ricetta;
+    /** @Column(type="integer") **/
+    private $dosiPersone;
     
+    /** @Column(type="integer") 
+     * @OneToOne(targetEntity="immagine")
+    **/
+    private $idImmagine;
     
-    private $dosi_persone;
-    
-    
-    private $id_immagine;
-    
-    
+    /** @Column(type="integer"), options = {"default" : 0} **/
     private $valutazione;
 
 
     /**
-     * @param string $ingredienti
-     * @param string $procedimento
-     * @param string $categoria
-     * @param DateTime $data_pubblicazione
-     * @param int $autore
-     * @param int $id
-     * @param $dosi_persone
+     * @param $ingredienti
+     * @param $procedimento
+     * @param $categoria
+     * @param $data_pubblicazione
+     * @param $autore
+     * @param $dosiPersone
      */
     public function __construct($ingredienti=null, $procedimento=null, $categoria=null, $data_pubblicazione=null,
-                                 $autore=null, $nome_ricetta=null, $dosi_persone=null, $id_immagine=null, $valutazione=null)
+                                 $autore=null, $nomeRicetta=null, $dosiPersone=null, $idImmagine=null, $valutazione=null)
     {
         $this->ingredienti = $ingredienti;
         $this->procedimento = $procedimento;
         $this->categoria = $categoria;
         $this->data = $data_pubblicazione;
         $this->autore = $autore;
-        $this->nome_ricetta = $nome_ricetta;
-        $this->dosi_persone = $dosi_persone;
-        $this->id_immagine = $id_immagine;
+        $this->nomeRicetta = $nomeRicetta;
+        $this->dosiPersone = $dosiPersone;
+        $this->idImmagine = $idImmagine;
         $this->valutazione = $valutazione;
     }
 
@@ -62,15 +70,15 @@ class ERicetta
      */
     public function getDosiPersone()
     {
-        return $this->dosi_persone;
+        return $this->dosiPersone;
     }
 
     /**
-     * @param mixed|null $dosi_persone
+     * @param mixed|null $dosiPersone
      */
-    public function setDosiPersone($dosi_persone): void
+    public function setDosiPersone($dosiPersone): void
     {
-        $this->dosi_persone = $dosi_persone;
+        $this->dosiPersone = $dosiPersone;
     }
 
     /**
@@ -78,15 +86,15 @@ class ERicetta
      */
     public function getNomeRicetta()
     {
-        return $this->nome_ricetta;
+        return $this->nomeRicetta;
     }
 
     /**
-     * @param mixed|null $nome_ricetta
+     * @param mixed|null $nomeRicetta
      */
-    public function setNomeRicetta($nome_ricetta): void
+    public function setNomeRicetta($nomeRicetta): void
     {
-        $this->nome_ricetta = $nome_ricetta;
+        $this->nomeRicetta = $nomeRicetta;
     }
 
     public function getIngredienti()
@@ -105,9 +113,9 @@ class ERicetta
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdRicetta()
     {
-        return $this->id;
+        return $this->idRicetta;
     }
 
     /**
@@ -151,11 +159,11 @@ class ERicetta
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $idRicetta
      */
-    public function setId($id)
+    public function setIdRicetta($idRicetta)
     {
-        $this->id = $id;
+        $this->idRicetta = $idRicetta;
     }
 
     /**
@@ -182,33 +190,22 @@ class ERicetta
         $this->autore = $autore;
     }
 
-    public function parseIngredienti(){
-        $array = explode(', ', $this->getIngredienti());
-        $ingredienti = array();
-        for ($i = 0; $i < count($array); $i++){
-            $ingredienti[$i] = $array[$i];
-            //var_dump($ingredienti[$i]);
-        }
-
-        return $ingredienti;
-    }
-
     /**
-     * Get the value of id_immagine
+     * Get the value of idImmagine
      */ 
-    public function getId_immagine()
+    public function getidImmagine()
     {
-        return $this->id_immagine;
+        return $this->idImmagine;
     }
 
     /**
-     * Set the value of id_immagine
+     * Set the value of idImmagine
      *
      * @return  self
      */ 
-    public function setId_immagine($id_immagine)
+    public function setidImmagine($idImmagine)
     {
-        $this->id_immagine = $id_immagine;
+        $this->idImmagine = $idImmagine;
 
         return $this;
     }

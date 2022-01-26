@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Entity @Table(name="immagine")
+ **/
 class EImmagine{
 
     /** @Id @Column(type="integer") @GeneratedValue**/
