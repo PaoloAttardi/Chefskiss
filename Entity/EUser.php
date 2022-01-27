@@ -84,4 +84,12 @@ class EUser extends EPerson
     }
 
 
+
+    /**
+     * Get the value of discr
+     */ 
+    public function getDiscr()
+    {
+        return $this->discr;
+    }
 }

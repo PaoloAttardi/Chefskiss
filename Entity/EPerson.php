@@ -151,4 +151,12 @@ class EPerson
         return $this->idUser;
     }
 
+
+    /**
+     * Get the value of discr
+     */ 
+    public function getDiscr()
+    {
+        return $this->discr;
+    }
 }

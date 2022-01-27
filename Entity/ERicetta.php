@@ -51,8 +51,8 @@ class ERicetta
      * @param $autore
      * @param $dosiPersone
      */
-    public function __construct($ingredienti=null, $procedimento=null, $categoria=null, $data_pubblicazione=null,
-                                 $autore=null, $nomeRicetta=null, $dosiPersone=null, $idImmagine=null, $valutazione=null)
+    public function __construct($ingredienti, $procedimento, $categoria, $data_pubblicazione,
+                                 $autore, $nomeRicetta, $dosiPersone, $idImmagine, $valutazione)
     {
         $this->ingredienti = $ingredienti;
         $this->procedimento = $procedimento;

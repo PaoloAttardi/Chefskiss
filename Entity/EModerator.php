@@ -66,4 +66,12 @@ class EModerator extends EPerson
         $this->dataPromozione = $dataPromozione;
     }
 
+
+    /**
+     * Get the value of discr
+     */ 
+    public function getDiscr()
+    {
+        return $this->discr;
+    }
 }

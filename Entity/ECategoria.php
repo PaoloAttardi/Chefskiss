@@ -12,11 +12,18 @@ class ECategoria{
     /** @Column(type="string") **/
     private $categoria;
 
+    /** @Column(type="integer") 
+     * @OneToOne(targetEntity="immagine")
+    **/
+    private $idImmagine;
+
     /**
      * @param $categoria
+     * @param $idImmagine
      */
-    public function __construct($categoria){
+    public function __construct($categoria, $idImmagine){
         $this->categoria = $categoria;
+        $this->idImmagine = $idImmagine;
     }
 
 
@@ -50,6 +57,26 @@ class ECategoria{
     public function setIdCategoria($idCategoria)
     {
         $this->idCategoria = $idCategoria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idImmagine
+     */ 
+    public function getIdImmagine()
+    {
+        return $this->idImmagine;
+    }
+
+    /**
+     * Set the value of idImmagine
+     *
+     * @return  self
+     */ 
+    public function setIdImmagine($idImmagine)
+    {
+        $this->idImmagine = $idImmagine;
 
         return $this;
     }
