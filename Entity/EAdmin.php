@@ -4,7 +4,9 @@
  * @Entity @Table(name="admin")
  **/
 
-class EAdmin extends EPerson
+require_once('EPersona.php');
+
+class EAdmin extends EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
     protected $idUser;

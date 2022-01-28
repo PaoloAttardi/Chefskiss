@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @Entity @Table(name="user")
+ * @Entity @Table(name="utente")
  **/
 
-class EUser extends EPerson
+class EUtente extends EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
     protected $idUser;

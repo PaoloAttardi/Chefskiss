@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @Entity @Table(name="person")
- * @InheritanceType("SINGLE_TABLE")
+ * @Entity @Table(name="persona")
+ * @InheritanceType("JOINED")
  * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"person" = "Person", "user" = "User", "admin" = "Admin", "moderator" = "Moderator"})
+ * @DiscriminatorMap({"persona" = "EPersona", "utente" = "EUtente", "admin" = "EAdmin", "moderatore" = "EModeratore"})
  **/
 
-class EPerson
+class EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue
-     * @OneToOne(targetEntity="user")
+     * @OneToOne(targetEntity="utente")
      * @OneToOne(targetEntity="admin")
-     * @OneToOne(targetEntity="moderator")
+     * @OneToOne(targetEntity="moderatore")
      * @JoinColumn(name="idUser", referencedColumnName="idUser")
      **/
     protected $idUser;
@@ -35,7 +35,7 @@ class EPerson
     /** @Column(type="string") **/
     protected $email;
 
-    protected $discr = "person";
+    protected $discr = "persona";
 
     public function __construct($name, $surname, $idImmagine, $password, $description, $email)
     {
@@ -158,5 +158,17 @@ class EPerson
     public function getDiscr()
     {
         return $this->discr;
+    }
+
+    /**
+     * Set the value of idUser
+     *
+     * @return  self
+     */ 
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+
+        return $this;
     }
 }
