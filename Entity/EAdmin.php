@@ -18,9 +18,15 @@ class EAdmin extends EPersona
 
     protected $discr = "admin";
 
-    public function __construct($idBadge)
+    public function __construct($idBadge, $name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->idBadge = $idBadge;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->password = $password;
+        $this->idImmagine = $idImmagine;
+        $this->description = $description;
     }
 
 

@@ -19,10 +19,16 @@ class EModeratore extends EPersona
 
     protected $discr = "moderator";
 
-    public function __construct($idBadge, $dataPromozione)
+    public function __construct($idBadge, $dataPromozione, $name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->dataPromozione = $dataPromozione;
         $this->idBadge = $idBadge;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->password = $password;
+        $this->idImmagine = $idImmagine;
+        $this->description = $description;
     }
 
     /**

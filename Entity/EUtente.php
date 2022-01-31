@@ -20,11 +20,17 @@ class EUtente extends EPersona
 
     protected $discr = "user";
 
-    public function __construct($ban, $dataFineBan, $idModerator)
+    public function __construct($ban, $dataFineBan, $idModerator, $name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->ban = $ban;
         $this->dataFineBan = $dataFineBan;
         $this->idModerator = $idModerator;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->password = $password;
+        $this->idImmagine = $idImmagine;
+        $this->description = $description;
     }
 
     /**
