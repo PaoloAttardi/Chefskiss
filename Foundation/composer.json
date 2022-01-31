@@ -1,8 +1,12 @@
 {
     "require": {
         "doctrine/orm": "^2.11",
-        "symfony/yaml": "2.*",
+        "symfony/yaml": "4.*",
         "symfony/cache": "^5.3",
-	"doctrine/annotations": "^1.13"
+	"doctrine/annotations": "^1.13",
+        "symfony/dependency-injection": "^5.4"
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.36"
     }
 }
