@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'b0942da29d45944c2f1ab691dc93e0f5e06edd2e',
         'name' => '__root__',
         'dev' => true,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'b0942da29d45944c2f1ab691dc93e0f5e06edd2e',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -449,12 +449,12 @@
             'dev_requirement' => false,
         ),
         'symfony/runtime' => array(
-            'pretty_version' => 'v5.4.3',
-            'version' => '5.4.3.0',
+            'pretty_version' => 'v6.0.3',
+            'version' => '6.0.3.0',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../symfony/runtime',
             'aliases' => array(),
-            'reference' => '354ce8493868594339cafe17ef67aba874c12158',
+            'reference' => '3b1ee78e883101439eb6c033feb43a5eea7fe190',
             'dev_requirement' => false,
         ),
         'symfony/service-contracts' => array(

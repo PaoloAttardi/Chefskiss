@@ -66,4 +66,8 @@ final class Connection extends AbstractConnectionMiddleware
 
         return $this->connection->getWrappedConnection();
     }
+
+    public function insert(string $string, array $array)
+    {
+    }
 }
