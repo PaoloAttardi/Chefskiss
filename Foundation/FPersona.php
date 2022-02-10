@@ -3,13 +3,13 @@
 
 class FPersona extends Fdb
 {
-    private static string $entity = '../Entity/EPersona';
+    private static string $entity = 'EPersona';
 
     private static string $alias= 'persona';
 
     private static string $class = 'FPersona';
 
-    private static string $values = '(:idUser,:name, :surname, :idImmagine, :password, :description,:email,:discr)';
+    private static string $values = 'idUser';
 
 
     /**
@@ -48,28 +48,9 @@ class FPersona extends Fdb
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $persona = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        if (sizeof($parametri) > 0) {
-            $rows_number = $db->getRowNum(static::getClass(), $parametri);
-        } else {
-            $rows_number = $db->getRowNum(static::getClass());
-        }
-        if(($result != null) && ($rows_number == 1)) {
-            $persona = new EPersona($result['name'], $result['surname'], $result['idImmagine'], $result['password'], $result['description'],$result['email']);
-            $persona->setId($result['idPersona']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $post = array();
-                for($i = 0; $i < count($result); $i++){
-                    $persona[] = new EPersona($result[$i]['name'], $result[$i]['surname'], $result[$i]['idImmagine'], $result[$i]['password'], $result[$i]['description'],$result[$i]['email']);
-                    $persona[$i]->setId($result[$i]['idPersona']);
-                }
-            }
-        }
-        return $persona;
+        return $result;
     }
 
     public static function insert($object){
@@ -113,5 +94,11 @@ class FPersona extends Fdb
             $utente = self::loadByField(array(['email', '=', $result['email']]));
         }
         return $utente;
+    }
+
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
+        return $result;
     }
 }

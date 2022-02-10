@@ -9,7 +9,7 @@ class FCategoria extends Fdb{
 
     private static $class = 'FCategoria';
 
-    private static $values = '(:idCategoria, :categoria, :idImmagine)';
+    private static $values = 'idCategoria';
 
     public function __construct(){
     }
@@ -47,28 +47,9 @@ class FCategoria extends Fdb{
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $categoria = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        if (sizeof($parametri) > 0) {
-            $rows_number = $db->getRowNum(static::getClass(), $parametri);
-        } else {
-            $rows_number = $db->getRowNum(static::getClass());
-        }
-        if(($result != null) && ($rows_number == 1)) {
-            $categoria = new ECategoria($result['categoria'], $result['idImmagine']);
-            $categoria->setId($result['idCategoria']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $categoria = array();
-                for($i = 0; $i < sizeof($result); $i++){
-                    $categoria[] = new ECategoria($result[$i]['categoria'], $result[$i]['idImmagine']);
-                    $categoria[$i]->setIdCategoria($result[$i]['idCategoria']);
-                }
-            }
-        }
-        return $categoria;
+        return $result;
     }
 
     public static function insert($object){
@@ -101,6 +82,12 @@ class FCategoria extends Fdb{
     public static function search($parametri=array(), $ordinamento='', $limite=''){
         $db = parent::getInstance();
         $result = $db->searchDb(self::$class, $parametri, $ordinamento, $limite);
+        return $result;
+    }
+
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
         return $result;
     }
 }

@@ -52,47 +52,6 @@ class Fdb
     }
 
     /**
-     * Questa funzione carica in $result il risultato di una query. Può produrre sia risultati singoli
-     * che array di risultati (se le righe prodotte sono maggiori di una)
-     * @param $class
-     * @param $field
-     * @param $id
-     * @return array|mixed|null
-     */
-    /*public function loadDb($class, $field='', $criterio='', $id='')
-    {
-        try {
-            if ($field == '' || $id == '' || $criterio == ''){
-                $query = "SELECT " . $class::getAlias() . " FROM `" . $class::getEntity() . '` ';
-            } else {
-                $query = "SELECT * FROM " . $class::getEntity() . " WHERE " . $field . $criterio . "'" . $id . "';";
-            }
-
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $num = $stmt->rowCount();
-            if ($num == 0) {
-                $result = null;        //nessuna riga interessata. return null
-            } elseif ($num == 1) {                          //nel caso in cui una sola riga fosse interessata
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo 'sono quA';//ritorna una sola riga
-            } else {
-                $result = array();                         //nel caso in cui piu' righe fossero interessate
-                $stmt->setFetchMode(PDO::FETCH_ASSOC);   //imposta la modalità di fetch come array associativo
-                while ($row = $stmt->fetch())
-                    $result[] = $row;
-            }
-            // $this->closeDbConnection();
-            return $result;
-        } catch (PDOException $e) {
-            echo "Attenzione errore: " . $e->getMessage();
-            $this->_em->rollBack();
-            return null;
-        }
-    }
-    */
-
-    /**
      * Verifica l'accesso di un utente, controllando le credenziali (email e password) siano presenti nel db
      * @param $email
      * @param $pass
@@ -103,7 +62,7 @@ class Fdb
             $qb = $this->_em->createQueryBuilder();
             $class = 'FPersona';
             $qb->select($class::getAlias())
-                ->from($class::getEntity())
+                ->from($class::getEntity(), $class::getAlias())
                 ->where($class::getAlias() . ".email = :email")
                 ->where($class::getAlias() . ".email = :password")
                 ->setParameters(new ArrayCollection([
@@ -134,7 +93,7 @@ class Fdb
         try {
             $this->_em->persist($object);
             $this->_em->flush();
-            $id = $this->_em->lastInsertId();
+            $id = $object->getId();
             return $id;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -148,7 +107,7 @@ class Fdb
 		try {
             $this->_em->persist($object);
             $this->_em->flush();
-            $id = $this->_em->lastInsertId();
+            $id = $object->getId();
             return $id;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -160,10 +119,10 @@ class Fdb
     public function updateDB ($class, $field, $newvalue, $pk, $id)
     {
         try {
-            $qb = $this->em->createQueryBuilder();
+            $qb = $this->_em->createQueryBuilder();
             $query = $qb->update($class::getEntity(), $class::getAlias())
                     ->set($class::getAlias() . '.' . $field, ':identifier')
-                    ->where($class::getAlias() . '.id = :id')
+                    ->where($class::getAlias() . '.' . $class::getValues() . ' = :id')
                     ->setParameter('identifier', $newvalue)
                     ->setParameter('id', $id)
                     ->getQuery();
@@ -178,41 +137,6 @@ class Fdb
     }
 
     /**
-     * Questa funzione verifica quante righe sono state prodotte da una determinata query
-     * @param $class
-     * @param $field
-     * @param $id
-     * @return int|null
-     */
-    /*public function getRowNum($class, $parametri = array(), $ordinamento = '', $limite = ''){
-        $filtro = '';
-        try {
-            //$this->_em->beginTransaction();
-            for ($i = 0; $i < sizeof($parametri); $i++) {
-                if ($i > 0) $filtro .= ' AND';
-                $filtro .= ' `' . $parametri[$i][0] . '` ' . $parametri[$i][1] . ' \'' . $parametri[$i][2] . '\'';
-            }
-            $query = 'SELECT * ' .
-                'FROM `' . $class::getEntity() . '` ';
-            if ($filtro != '')
-                $query .= 'WHERE ' . $filtro . ' ';
-            if ($ordinamento != '')
-                $query .= 'ORDER BY ' . $ordinamento . ' ';
-            if ($limite != '')
-                $query .= 'LIMIT ' . $limite . ' ';
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $num = $stmt->rowCount();
-            $this->closeConn();
-            return $num;
-        } catch (PDOException $e) {
-            echo "Attenzione errore: " . $e->getMessage();
-            $this->_em->rollBack();
-            return null;
-        }
-    }*/
-
-    /**
      * Questa funzione permette di caricare dal db solo una determinata colonna di una tabella
      * @param $class
      * @param $coloumn
@@ -224,8 +148,8 @@ class Fdb
         try {
             $qb = $this->_em->createQueryBuilder();
             //$class = 'FPersona';
-            $qb->select($class::getAlias() . $coloumn)
-                ->from($class::getEntity());
+            $qb->select($class::getAlias() . '.' . $coloumn)
+                ->from($class::getEntity(), $class::getAlias());
             if ($order != '') $qb->orderBy($order);
             if ($limit != '') $qb->setMaxResults($limit);
             $query = $qb->getQuery();
@@ -305,10 +229,10 @@ class Fdb
     public function searchDb($class, $parametri = array(), $order = '', $limit = ''){
         try {
             $qb = $this->_em->createQueryBuilder();
-            $qb->select($class::getEntity(), $class::getAlias())
-                ->from($class::getEntity());
+            $qb->select($class::getAlias())
+                ->from($class::getEntity(), $class::getAlias());
             for ($i = 0; $i < sizeof($parametri); $i++) {
-                $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  '= :parametro')
+                $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  ' :parametro')
                     ->setParameter('parametro', $parametri[$i][2]);
             }
             if ($order != '') $qb->orderBy($order);

@@ -2,13 +2,13 @@
 
 class FRecensione extends Fdb{
 
-    private static $entity = '../Entity/ERecensione';
+    private static $entity = 'ERecensione';
 
     private static $alias= 'recensione';
 
     private static $class = 'FRecensione';
 
-    private static $values = '(:idRecensione,:commento, :valutazione, :idRicetta, :dataPubblicazione, :idAutore)';
+    private static $values = 'idRecensione';
 
     public function __construct(){
     }
@@ -55,29 +55,9 @@ class FRecensione extends Fdb{
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $recensione = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        //var_dump($result);
-        if (sizeof($parametri) > 0) {
-            $rows_number = $db->getRowNum(static::getClass(), $parametri);
-        } else {
-            $rows_number = $db->getRowNum(static::getClass());
-        }
-        if(($result != null) && ($rows_number == 1)) {
-            $recensione = new ERecensione($result['commento'], $result['valutazione'], $result['idRicetta'], $result['dataPubblicazione'], $result['idAutore']);
-            $recensione->setId($result['idRecensione']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $recensione = array();
-                for($i = 0; $i < sizeof($result); $i++){
-                    $recensione[] = new ERecensione($result[$i]['commento'], $result[$i]['valutazione'], $result[$i]['idRicetta'], $result[$i]['dataPubblicazione'], $result[$i]['idAutore']);
-                    $recensione[$i]->setId($result[$i]['idRecensione']);
-                }
-            }
-        }
-        return $recensione;
+        return $result;
     }
 
     public static function update($field, $newvalue, $primkey, $val){
@@ -117,6 +97,12 @@ class FRecensione extends Fdb{
     public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
         $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
+        return $result;
+    }
+
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
         return $result;
     }
 }

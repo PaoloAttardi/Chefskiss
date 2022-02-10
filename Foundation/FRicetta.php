@@ -2,13 +2,13 @@
 
 class FRicetta extends Fdb {
 
-    private static $entity = '../Entity/ERicetta';
+    private static $entity = 'ERicetta';
 
     private static $alias= 'ricetta';
 
     private static $class = 'FRicetta';
 
-    private static $values = '(:idRicetta, :ingredienti, :procedimento, :idCategoria, :data, :idAutore, :nomeRicetta, :dosiPersone, :idImmagine, :valutazione)';
+    private static $values = 'idRicetta';
 
     public function __construct(){
     }
@@ -42,7 +42,6 @@ class FRicetta extends Fdb {
      */
     public static function getValues(): string
     {
-        echo '';
         return self::$values;
     }
 
@@ -55,33 +54,9 @@ class FRicetta extends Fdb {
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $ricetta = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        //var_dump($result);
-        if (sizeof($parametri) > 0) {
-            $rows_number = $db->getRowNum(static::getClass(), $parametri);
-        } else {
-            $rows_number = $db->getRowNum(static::getClass());
-        }
-        if(($result != null) && ($rows_number == 1)) {
-            $ricetta = new ERicetta($result['ingredienti'], $result['procedimento'], $result['categoria'], $result['data'], $result['idAutore'], $result['nomeRicetta'], $result['dosiPersone'], $result['idImmagine'], $result['valutazione']);
-            self::getValutazioneRicetta($ricetta);
-            $ricetta->setId($result['idRicetta']);
-            self::update('valutazione', self::getValutazioneRicetta($ricetta), 'idRicetta', $ricetta->getIdRicetta());
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $ricetta = array();
-                for($i = 0; $i < sizeof($result); $i++){
-                    $ricetta[] = new ERicetta($result[$i]['ingredienti'], $result[$i]['procedimento'], $result[$i]['categoria'], $result[$i]['data'], $result[$i]['idAutore'], $result[$i]['nomeRicetta'], $result[$i]['dosiPersone'], $result[$i]['idImmagine'], $result[$i]['valutazione']);
-                    self::getValutazioneRicetta($ricetta[$i]);
-                    $ricetta[$i]->setId($result[$i]['idRicetta']);
-                    self::update('valutazione', self::getValutazioneRicetta($ricetta[$i]), 'idRicetta', $ricetta[$i]->getIdRicetta());
-                }
-            }
-        }
-        return $ricetta;
+        return $result;
     }
 
     public static function update($field, $newvalue, $primkey, $val){
@@ -104,14 +79,6 @@ class FRicetta extends Fdb {
         if ($result != null) return true;
         else return false;
     }
-
-    public static function filterByCategoria($categoria, $ordinamento='', $limite=''){
-        $db = parent::getInstance();
-        $ricetteFiltrate = $db->loadDb(self::$class, array(['idCategoria', '=', $categoria]), $ordinamento, $limite);
-        return $ricetteFiltrate;
-
-    }
-
 
     public static function search($parametri=array(), $ordinamento='', $limite=''){
         $db = parent::getInstance();

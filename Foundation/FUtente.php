@@ -5,13 +5,13 @@
 
 class FUtente extends Fdb{
 
-    private static $entity = '../Entity/EUser';
+    private static $entity = 'EUser';
 
     private static $alias= 'user';
 
     private static $class = 'FUtente';
 
-    private static $values = '(:ban, :dataFineBan, :idModeratore, :idUser)';
+    private static $values = 'idUser';
 
     public function __construct(){
     }
@@ -48,33 +48,16 @@ class FUtente extends Fdb{
         return self::$values;
     }
 
-
-
     public static function insert($object){
         $db = parent::getInstance();
         $id = $db->insertDb( $object);
         $object->setId($id);
     }
 
-    public static function loadById( $ordinamento = '', $limite = ''){
-        $utente = null;
+    public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
-        $result = $db->searchDb(static::getClass(), 'idUser', $ordinamento, $limite);
-        $rows_number = $db->getRowNum(static::getClass());
-        if(($result != null) && ($rows_number == 1)) {
-            $utente = new EUtente($result['ban'], $result['dataFineBan'],$result['idModeratore'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
-            $utente->setId($result['idUser']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $utente = array();
-                for($i = 0; $i < count($result); $i++){
-                    $utente[] = new EUtente($result[$i]['ban'], $result[$i]['dataFineBan'],$result[$i]['idModeratore'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
-                    $utente[$i]->setId($result[$i]['idUser']);
-                }
-            }
-        }
-        return $utente;
+        $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
+        return $result;
     }
 
     public static function update($field, $newvalue, $pk, $val){
@@ -107,6 +90,12 @@ class FUtente extends Fdb{
     public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
         $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
+        return $result;
+    }
+
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
         return $result;
     }
 

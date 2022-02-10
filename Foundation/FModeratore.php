@@ -3,13 +3,13 @@
 
 class FModeratore extends Fdb{
 
-    private static string $entity = '../Entity/EModeratore';
+    private static string $entity = 'EModeratore';
 
     private static string $alias= 'moderatore';
 
     private static string $class = 'FModeratore';
 
-    private static string $values = '(:idBadge, :dataPromozione, :idUser)';
+    private static string $values = 'idUser';
 
     public function __construct(){
     }
@@ -53,25 +53,10 @@ class FModeratore extends Fdb{
         $object->setId($id);
     }
 
-    public static function loadById( $ordinamento = '', $limite = ''){
-        $moderatore = null;
+    public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
-        $result = $db->searchDb(static::getClass(), 'idUser', $ordinamento, $limite);
-        $rows_number = $db->getRowNum(static::getClass());
-        if(($result != null) && ($rows_number == 1)) {
-            $moderatore = new EModeratore( $result['idBadge'],$result['dataPromozione'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
-            $moderatore->setId($result['idUser']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $moderatore = array();
-                for($i = 0; $i < count($result); $i++){
-                    $moderatroe[] = new EModeratore( $result[$i]['idBadge'],$result[$i]['dataPromozione'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
-                    $moderatore[$i]->setId($result[$i]['idUser']);
-                }
-            }
-        }
-        return $moderatore;
+        $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
+        return $result;
     }
 
     public static function update($field, $newvalue, $pk, $val){
@@ -107,6 +92,10 @@ class FModeratore extends Fdb{
         return $result;
     }
 
-
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
+        return $result;
+    }
 
 }

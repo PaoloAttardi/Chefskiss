@@ -110,4 +110,9 @@ class EUtente extends EPersona
 
         return $this;
     }
+
+    public function checkIfLogged(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        return $pm::loadLogin($this->email, $this->password);
+    }
 }

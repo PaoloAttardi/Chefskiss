@@ -2,13 +2,13 @@
 
 class FCommento extends Fdb{
 
-    private static $entity = '../Entity/ECommento';
+    private static $entity = 'ECommento';
 
     private static $alias= 'commento';
 
     private static $class = 'FCommento';
 
-    private static $values = '(:idCommento, :idAutore, :testo, :idPost, :data, :upVote)';
+    private static $values = 'idCommento';
 
     public function __construct(){
     }
@@ -55,25 +55,10 @@ class FCommento extends Fdb{
         return $id;
     }
 
-    public static function loadByField($field, $val, $criterio){
-        $comment = null;
+    public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
-        $result = $db->searchDb(static::getClass(), $field, $val, $criterio);
-        $rows_number = $db->getRowNum(static::getClass(), $field, $val);
-        if(($result != null) && ($rows_number == 1)) {
-            $comment = new ECommento($result['idPost'],$result['idAutore'],$result['testo'], $result['data'],$result['upVote']);
-            $comment->setId($result['idCommento']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $comment = array();
-                for($i = 0; $i < count($result); $i++){
-                    $comment[] = new ECommento($result[$i]['idPost'],$result[$i]['idAutore'],$result[$i]['testo'], $result[$i]['data'],$result[$i]['upVote']);
-                    $comment[$i]->setId($result[$i]['idCommento']);
-                }
-            }
-        }
-        return $comment;
+        $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
+        return $result;
     }
 
     public static function update($field, $newvalue, $pk, $val){
@@ -106,6 +91,12 @@ class FCommento extends Fdb{
     public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
         $db = parent::getInstance();
         $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
+        return $result;
+    }
+
+    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
+        $db = parent::getInstance();
+        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
         return $result;
     }
 

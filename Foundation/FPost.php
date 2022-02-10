@@ -2,13 +2,13 @@
 
 class FPost extends Fdb{
 
-    private static $entity = '../Entity/EPost';
+    private static $entity = 'EPost';
 
     private static $alias= 'post';
 
     private static $class = 'FPost';
 
-    private static $values = '(:idPost, :titolo, :idAutore, :domanda,  :idCategoria, :dataPubblicazione)';
+    private static $values = 'idPost';
     
     public function __construct(){
     }
@@ -54,28 +54,9 @@ class FPost extends Fdb{
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $post = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        if (sizeof($parametri) > 0) {
-            $rows_number = $db->getRowNum(static::getClass(), $parametri);
-        } else {
-            $rows_number = $db->getRowNum(static::getClass());
-        }
-        if(($result != null) && ($rows_number == 1)) {
-            $post = new EPost($result['titolo'], $result['idAutore'], $result['domanda'], $result['idCategoria'], $result['dataPubblicazione']);
-            $post->setId($result['idPost']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $post = array();
-                for($i = 0; $i < count($result); $i++){
-                    $post[] = new EPost($result[$i]['titolo'], $result[$i]['idAutore'], $result[$i]['domanda'], $result[$i]['idCategoria'], $result[$i]['dataPubblicazione']);
-                    $post[$i]->setId($result[$i]['idPost']);
-                }
-            }
-        }
-        return $post;
+        return $result;
     }
 
     public static function update($field, $newvalue, $pk, $val){

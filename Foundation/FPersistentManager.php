@@ -16,7 +16,7 @@ class FPersistentManager
     }
 
     public static function loadLogin($user, $pass){
-        $ris = FUtente::loadLogin($user, $pass);
+        $ris = FPersona::loadLogin($user, $pass);
         return $ris;
     }
 
@@ -58,11 +58,8 @@ class FPersistentManager
     }
 
     public static function loadDefCol($class, $coloumns, $order='', $limit=''){
-        if ($class == 'FPost' || $class == 'FRicetta') {
-            $ris = $class::loadDefCol($coloumns, $order, $limit);
-            return $ris;
-        } else
-            return null;
+        $ris = $class::loadDefCol($coloumns, $order, $limit);
+        return $ris;
     }
 
 }
