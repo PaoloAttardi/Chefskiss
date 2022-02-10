@@ -3,7 +3,7 @@
 class FCategoria extends Fdb{
 
 
-    private static $entity = '../Entity/ECategoria';
+    private static $entity = 'ECategoria';
 
     private static $alias= 'categoria';
 

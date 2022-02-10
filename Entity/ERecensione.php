@@ -61,7 +61,7 @@ class ERecensione
     /**
      * @return mixed
      */
-    public function getIdRecensione()
+    public function getId()
     {
         return $this->idRecensione;
     }
@@ -109,7 +109,7 @@ class ERecensione
     /**
      * @param mixed $id
      */
-    public function setIdRecensione($idRecensione)
+    public function setId($idRecensione)
     {
         $this->idRecensione = $idRecensione;
     }

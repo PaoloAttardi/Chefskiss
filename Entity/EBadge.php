@@ -21,7 +21,7 @@ class EBadge
     /**
      * Get the value of idBadge
      */ 
-    public function getIdBadge()
+    public function getId()
     {
         return $this->idBadge;
     }
@@ -31,7 +31,7 @@ class EBadge
      *
      * @return  self
      */ 
-    public function setIdBadge($idBadge)
+    public function setId($idBadge)
     {
         $this->idBadge = $idBadge;
 

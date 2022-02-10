@@ -37,7 +37,7 @@ class EImmagine{
     /**
      * Get the value of id
      */ 
-    public function getIdImmagine()
+    public function getId()
     {
         return $this->idImmagine;
     }

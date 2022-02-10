@@ -142,7 +142,7 @@ class EPost {
     /**
      * Get the value of id
      */ 
-    public function getIdPost()
+    public function getId()
     {
         return $this->idPost;
     }
@@ -152,7 +152,7 @@ class EPost {
      *
      * @return  self
      */ 
-    public function setIdPost($idPost)
+    public function setId($idPost)
     {
         $this->idPost = $idPost;
 
