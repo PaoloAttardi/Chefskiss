@@ -34,7 +34,7 @@ class EModeratore extends EPersona
     /**
      * @return mixed
      */
-    public function getIdUser()
+    public function getId()
     {
         return $this->idUser;
     }
@@ -79,5 +79,17 @@ class EModeratore extends EPersona
     public function getDiscr()
     {
         return $this->discr;
+    }
+
+    /**
+     * Set the value of idUser
+     *
+     * @return  self
+     */ 
+    public function setId($idUser)
+    {
+        $this->idUser = $idUser;
+
+        return $this;
     }
 }

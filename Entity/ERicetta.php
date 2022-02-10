@@ -112,7 +112,7 @@ class ERicetta
     /**
      * @return mixed
      */
-    public function getIdRicetta()
+    public function getId()
     {
         return $this->idRicetta;
     }
@@ -160,7 +160,7 @@ class ERicetta
     /**
      * @param mixed $idRicetta
      */
-    public function setIdRicetta($idRicetta)
+    public function setId($idRicetta)
     {
         $this->idRicetta = $idRicetta;
     }

@@ -33,7 +33,7 @@ class EAdmin extends EPersona
     /**
      * Get the value of idBadge
      */ 
-    public function getIdBadge()
+    public function getId()
     {
         return $this->idBadge;
     }
@@ -43,7 +43,7 @@ class EAdmin extends EPersona
      *
      * @return  self
      */ 
-    public function setIdBadge($idBadge)
+    public function setId($idBadge)
     {
         $this->idBadge = $idBadge;
 

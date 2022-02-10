@@ -22,7 +22,7 @@ function getEntityManager() : \Doctrine\ORM\EntityManager
         # set up configuration parameters for doctrine.
         # Make sure you have installed the php7.0-sqlite package.
         $connectionParams = array(
-            'dbname' => 'chefskiss2.0',
+            'dbname' => 'test',
             'user' => 'root',
             'password' => 'pippo',
             'host' => '127.0.0.1',

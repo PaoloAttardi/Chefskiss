@@ -3,6 +3,8 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 
+require_once 'Utility/USingleton.php';
+require_once('bootstrap.php');
 class Fdb
 {
 
@@ -221,7 +223,7 @@ class Fdb
     public function loadDefColDb($class, $coloumn, $order='', $limit=''){
         try {
             $qb = $this->_em->createQueryBuilder();
-            $class = 'FPersona';
+            //$class = 'FPersona';
             $qb->select($class::getAlias() . $coloumn)
                 ->from($class::getEntity());
             if ($order != '') $qb->orderBy($order);
@@ -270,8 +272,8 @@ class Fdb
     {
         try {
             $qb = $this->_em->createQueryBuilder();
-            $qb->select($class::getEntity(), $class::getAlias())
-                ->from($class::getEntity())
+            $qb->select($class::getAlias())
+                ->from($class::getEntity(), $class::getAlias())
                 ->where($class::getAlias() . '.' . $field . '= :id')
                 ->setParameter('id', $id);
             $query = $qb->getQuery();

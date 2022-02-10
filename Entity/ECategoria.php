@@ -44,7 +44,7 @@ class ECategoria{
     /**
      * Get the value of id
      */ 
-    public function getIdCategoria()
+    public function getId()
     {
         return $this->idCategoria;
     }
@@ -54,7 +54,7 @@ class ECategoria{
      *
      * @return  self
      */ 
-    public function setIdCategoria($idCategoria)
+    public function setId($idCategoria)
     {
         $this->idCategoria = $idCategoria;
 

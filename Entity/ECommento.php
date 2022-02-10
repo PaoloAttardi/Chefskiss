@@ -123,7 +123,7 @@ class ECommento {
     /**
      * Get the value of idCommento
      */ 
-    public function getIdCommento()
+    public function getId()
     {
         return $this->idCommento;
     }
@@ -133,7 +133,7 @@ class ECommento {
      *
      * @return  self
      */ 
-    public function setIdCommento($idCommento)
+    public function setId($idCommento)
     {
         $this->idCommento = $idCommento;
 

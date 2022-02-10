@@ -146,7 +146,7 @@ class EPersona
     /**
      * @return mixed
      */
-    public function getIdUser()
+    public function getId()
     {
         return $this->idUser;
     }
@@ -165,7 +165,7 @@ class EPersona
      *
      * @return  self
      */ 
-    public function setIdUser($idUser)
+    public function setId($idUser)
     {
         $this->idUser = $idUser;
 
