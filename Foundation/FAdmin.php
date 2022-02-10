@@ -48,19 +48,10 @@ class FAdmin extends Fdb
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param Eadmin $admin
-     */
-    public static function bind($stmt, EModeratore $moderatore)
-    {
-        $stmt->bindValue(':idBadge', $moderatore->getIdBadge(), PDO::PARAM_INT);
-    }
-
     public static function insert($object)
     {
         $db = parent::getInstance();
-        $id = $db->insertDb(self::$class, $object);
+        $id = $db->insertDb( $object);
         $object->setId($id);
     }
 
@@ -72,13 +63,13 @@ class FAdmin extends Fdb
         $rows_number = $db->getRowNum(static::getClass());
         if (($result != null) && ($rows_number == 1)) {
             $admin = new EAdmin($result['idBadge'], $result['name'], $result['surname'], $result['idImmagine'], $result['password'], $result['description'], $result['email']);
-            $admin->setIdUser($result['idUser']);
+            $admin->setId($result['idUser']);
         } else {
             if (($result != null) && ($rows_number > 1)) {
                 $admin = array();
                 for ($i = 0; $i < count($result); $i++) {
                     $admin[] = new EAdmin($result[$i]['idBadge'], $result[$i]['name'], $result[$i]['surname'], $result[$i]['idImmagine'], $result[$i]['password'], $result[$i]['description'], $result[$i]['email']);
-                    $admin[$i]->setIdUser($result[$i]['idUser']);
+                    $admin[$i]->setId($result[$i]['idUser']);
                 }
             }
         }

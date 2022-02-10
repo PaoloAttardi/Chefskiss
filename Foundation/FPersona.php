@@ -47,20 +47,6 @@ class FPersona extends Fdb
     public function __construct(){
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param Erecensione $recensione
-     */
-    public static function bind($stmt, EPersona $persona){
-        $stmt->bindValue(':idUsere', $persona->getIdUser(), PDO::PARAM_INT);
-        $stmt->bindValue(':name', $persona->getName(),PDO::PARAM_STR);
-        $stmt->bindValue(':surname', $persona->getSurname(), PDO::PARAM_STR);
-        $stmt->bindValue(':idImmagine', $persona->getIdImmagine(), PDO::PARAM_INT);
-        $stmt->bindValue(':password', $persona->getPassword(), PDO::PARAM_STR);
-        $stmt->bindValue(':description', $persona->getDescription(), PDO::PARAM_STR);
-        $stmt->bindValue(':email', $persona->getEmail(), PDO::PARAM_STR);
-    }
-
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
         $persona = null;
         $db = parent::getInstance();
@@ -72,14 +58,14 @@ class FPersona extends Fdb
         }
         if(($result != null) && ($rows_number == 1)) {
             $persona = new EPersona($result['name'], $result['surname'], $result['idImmagine'], $result['password'], $result['description'],$result['email']);
-            $persona->setIdUser($result['idPersona']);
+            $persona->setId($result['idPersona']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $persona[] = new EPersona($result[$i]['name'], $result[$i]['surname'], $result[$i]['idImmagine'], $result[$i]['password'], $result[$i]['description'],$result[$i]['email']);
-                    $persona[$i]->setIdUser($result[$i]['idPersona']);
+                    $persona[$i]->setId($result[$i]['idPersona']);
                 }
             }
         }

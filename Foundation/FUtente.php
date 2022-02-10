@@ -48,19 +48,11 @@ class FUtente extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param EUtente $user
-     */
-    public static function bind($stmt, EUtente $user){
-        $stmt->bindValue(':ban', $user->getBan(), PDO::PARAM_BOOL);
-        $stmt->bindValue(':idModeratore', $user->getIdModerator(), PDO::PARAM_INT);
-        $stmt->bindValue(':data_fine_ban', $user->getDataFineBan(), PDO::PARAM_STR);
-    }
+
 
     public static function insert($object){
         $db = parent::getInstance();
-        $id = $db->insertDb(self::$class, $object);
+        $id = $db->insertDb( $object);
         $object->setId($id);
     }
 
@@ -71,14 +63,14 @@ class FUtente extends Fdb{
         $rows_number = $db->getRowNum(static::getClass());
         if(($result != null) && ($rows_number == 1)) {
             $utente = new EUtente($result['ban'], $result['dataFineBan'],$result['idModeratore'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
-            $utente->setIdUser($result['idUser']);
+            $utente->setId($result['idUser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $utente = array();
                 for($i = 0; $i < count($result); $i++){
                     $utente[] = new EUtente($result[$i]['ban'], $result[$i]['dataFineBan'],$result[$i]['idModeratore'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
-                    $utente[$i]->setIdUser($result[$i]['idUser']);
+                    $utente[$i]->setId($result[$i]['idUser']);
                 }
             }
         }

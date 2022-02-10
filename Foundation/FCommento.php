@@ -47,19 +47,6 @@ class FCommento extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param ECommento $comment
-     */
-    public static function bind($stmt, ECommento $comment){
-        $stmt->bindValue(':idCommento', $comment->getIdCommento(), PDO::PARAM_INT);
-        $stmt->bindValue(':idAutore', $comment->getAutore(), PDO::PARAM_INT);
-        $stmt->bindValue(':testo', $comment->getTesto(), PDO::PARAM_STR);
-        $stmt->bindValue(':idPost', $comment->getIdPost(), PDO::PARAM_INT);
-        $stmt->bindValue(':data', $comment->getData(), PDO::PARAM_STR);
-        $stmt->bindValue(':upVote', $comment->getUpVote(), PDO::PARAM_BOOL);
-
-    }
 
     public static function insert($object){
         $db = parent::getInstance();
@@ -75,14 +62,14 @@ class FCommento extends Fdb{
         $rows_number = $db->getRowNum(static::getClass(), $field, $val);
         if(($result != null) && ($rows_number == 1)) {
             $comment = new ECommento($result['idPost'],$result['idAutore'],$result['testo'], $result['data'],$result['upVote']);
-            $comment->setIdCommento($result['idCommento']);
+            $comment->setId($result['idCommento']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $comment[] = new ECommento($result[$i]['idPost'],$result[$i]['idAutore'],$result[$i]['testo'], $result[$i]['data'],$result[$i]['upVote']);
-                    $comment[$i]->setIdCommento($result[$i]['idCommento']);
+                    $comment[$i]->setId($result[$i]['idCommento']);
                 }
             }
         }

@@ -48,24 +48,6 @@ class FRicetta extends Fdb {
 
 
 
-    /**
-     * @param PDOStatement $stmt
-     * @param ERicetta $ricetta
-     */
-    public static function bind($stmt, ERicetta $ricetta){
-        $stmt->bindValue(':ingredienti', $ricetta->getIngredienti(),PDO::PARAM_STR);
-        $stmt->bindValue(':procedimento', $ricetta->getProcedimento(), PDO::PARAM_STR);
-        $stmt->bindValue(':idCategoria', $ricetta->getCategoria(), PDO::PARAM_INT);
-        $stmt->bindValue(':data', $ricetta->getDataPubblicazione(), PDO::PARAM_STR);
-        $stmt->bindValue(':idAutore', $ricetta->getAutore(), PDO::PARAM_INT);
-        $stmt->bindValue(':nomeRicetta', $ricetta->getNomeRicetta(), PDO::PARAM_STR);
-        $stmt->bindValue(':dosiPersone', $ricetta->getDosiPersone(), PDO::PARAM_INT);
-        $stmt->bindValue(':idImmagine', $ricetta->getidImmagine(), PDO::PARAM_INT);
-        $stmt->bindValue(':valutazione', $ricetta->getValutazione(), PDO::PARAM_INT);
-        $stmt->bindValue(':idRicetta', $ricetta->getIdRicetta(), PDO::PARAM_INT);
-
-    }
-
     public static function insert($object){
         $db = parent::getInstance();
         $id = $db->insertDb( $object);
@@ -85,7 +67,7 @@ class FRicetta extends Fdb {
         if(($result != null) && ($rows_number == 1)) {
             $ricetta = new ERicetta($result['ingredienti'], $result['procedimento'], $result['categoria'], $result['data'], $result['idAutore'], $result['nomeRicetta'], $result['dosiPersone'], $result['idImmagine'], $result['valutazione']);
             self::getValutazioneRicetta($ricetta);
-            $ricetta->setIdRicetta($result['idRicetta']);
+            $ricetta->setId($result['idRicetta']);
             self::update('valutazione', self::getValutazioneRicetta($ricetta), 'idRicetta', $ricetta->getIdRicetta());
         }
         else {
@@ -94,7 +76,7 @@ class FRicetta extends Fdb {
                 for($i = 0; $i < sizeof($result); $i++){
                     $ricetta[] = new ERicetta($result[$i]['ingredienti'], $result[$i]['procedimento'], $result[$i]['categoria'], $result[$i]['data'], $result[$i]['idAutore'], $result[$i]['nomeRicetta'], $result[$i]['dosiPersone'], $result[$i]['idImmagine'], $result[$i]['valutazione']);
                     self::getValutazioneRicetta($ricetta[$i]);
-                    $ricetta[$i]->setIdRicetta($result[$i]['idRicetta']);
+                    $ricetta[$i]->setId($result[$i]['idRicetta']);
                     self::update('valutazione', self::getValutazioneRicetta($ricetta[$i]), 'idRicetta', $ricetta[$i]->getIdRicetta());
                 }
             }

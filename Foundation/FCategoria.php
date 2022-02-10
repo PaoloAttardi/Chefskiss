@@ -46,16 +46,6 @@ class FCategoria extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param ECategoria $categoria
-     */
-    public static function bind($stmt, ECategoria $categoria){
-        $stmt->bindValue(':categoria', $categoria->getCategoria(), PDO::PARAM_STR);
-        $stmt->bindValue(':idCategoria', $categoria->getIdCategoria(), PDO::PARAM_INT);
-        $stmt->bindValue(':idImmagine', $categoria->getIdImmagine(), PDO::PARAM_INT);
-    }
-
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
         $categoria = null;
         $db = parent::getInstance();
@@ -67,7 +57,7 @@ class FCategoria extends Fdb{
         }
         if(($result != null) && ($rows_number == 1)) {
             $categoria = new ECategoria($result['categoria'], $result['idImmagine']);
-            $categoria->setIdCategoria($result['idCategoria']);
+            $categoria->setId($result['idCategoria']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -114,5 +104,3 @@ class FCategoria extends Fdb{
         return $result;
     }
 }
-
-?>

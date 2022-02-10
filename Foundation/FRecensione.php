@@ -48,21 +48,6 @@ class FRecensione extends Fdb{
     }
 
 
-
-    /**
-     * @param PDOStatement $stmt
-     * @param Erecensione $recensione
-     */
-    public static function bind($stmt, ERecensione $recensione){
-        $stmt->bindValue(':idRecensione', $recensione->getIdRecensione(), PDO::PARAM_INT);
-        $stmt->bindValue(':commento', $recensione->getCommento(),PDO::PARAM_STR);
-        $stmt->bindValue(':valutazione', $recensione->getValutazione(), PDO::PARAM_INT);
-        $stmt->bindValue(':idRicetta', $recensione->getIdRicetta(), PDO::PARAM_INT);
-        $stmt->bindValue(':data', $recensione->getdataPubblicazione(), PDO::PARAM_STR);
-        $stmt->bindValue(':idAutore', $recensione->getAutore(), PDO::PARAM_INT);
-
-    }
-
     public static function insert($object){
         $db = parent::getInstance();
         $id = $db->insertDb( $object);
@@ -81,14 +66,14 @@ class FRecensione extends Fdb{
         }
         if(($result != null) && ($rows_number == 1)) {
             $recensione = new ERecensione($result['commento'], $result['valutazione'], $result['idRicetta'], $result['dataPubblicazione'], $result['idAutore']);
-            $recensione->setIdRecensione($result['idRecensione']);
+            $recensione->setId($result['idRecensione']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $recensione = array();
                 for($i = 0; $i < sizeof($result); $i++){
                     $recensione[] = new ERecensione($result[$i]['commento'], $result[$i]['valutazione'], $result[$i]['idRicetta'], $result[$i]['dataPubblicazione'], $result[$i]['idAutore']);
-                    $recensione[$i]->setIdRecensione($result[$i]['idRecensione']);
+                    $recensione[$i]->setId($result[$i]['idRecensione']);
                 }
             }
         }

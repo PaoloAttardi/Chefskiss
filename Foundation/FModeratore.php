@@ -46,14 +46,6 @@ class FModeratore extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param EModeratore $moderatore
-     */
-    public static function bind($stmt, EModeratore $moderatore){
-        $stmt->bindValue(':idBadge', $moderatore->getIdBadge(), PDO::PARAM_INT);
-        $stmt->bindValue(':dataPromozione', $moderatore->getDataPromozione(), PDO::PARAM_STR);
-    }
 
     public static function insert($object){
         $db = parent::getInstance();
@@ -68,14 +60,14 @@ class FModeratore extends Fdb{
         $rows_number = $db->getRowNum(static::getClass());
         if(($result != null) && ($rows_number == 1)) {
             $moderatore = new EModeratore( $result['idBadge'],$result['dataPromozione'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
-            $moderatore->setIdUser($result['idUser']);
+            $moderatore->setId($result['idUser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $moderatore = array();
                 for($i = 0; $i < count($result); $i++){
                     $moderatroe[] = new EModeratore( $result[$i]['idBadge'],$result[$i]['dataPromozione'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
-                    $moderatore[$i]->setIdUser($result[$i]['idUser']);
+                    $moderatore[$i]->setId($result[$i]['idUser']);
                 }
             }
         }

@@ -46,18 +46,6 @@ class FPost extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param EPost $post
-     */
-    public static function bind($stmt, EPost $post){
-        $stmt->bindValue(':idPost', $post->getIdPost(), PDO::PARAM_INT);
-        $stmt->bindValue(':titolo', $post->getTitolo(), PDO::PARAM_STR);
-        $stmt->bindValue(':idAutore', $post->getAutore(), PDO::PARAM_INT);
-        $stmt->bindValue(':domanda', $post->getDomanda(), PDO::PARAM_STR);
-        $stmt->bindValue(':idCategoria', $post->getCategoria(), PDO::PARAM_STR);
-        $stmt->bindValue(':dataPubblicazione', $post->getdataPubblicazione(), PDO::PARAM_STR);
-    }
 
     public static function insert($object){
         $db = parent::getInstance();
@@ -76,14 +64,14 @@ class FPost extends Fdb{
         }
         if(($result != null) && ($rows_number == 1)) {
             $post = new EPost($result['titolo'], $result['idAutore'], $result['domanda'], $result['idCategoria'], $result['dataPubblicazione']);
-            $post->setIdPost($result['idPost']);
+            $post->setId($result['idPost']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $post[] = new EPost($result[$i]['titolo'], $result[$i]['idAutore'], $result[$i]['domanda'], $result[$i]['idCategoria'], $result[$i]['dataPubblicazione']);
-                    $post[$i]->setIdPost($result[$i]['idPost']);
+                    $post[$i]->setId($result[$i]['idPost']);
                 }
             }
         }
