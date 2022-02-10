@@ -1,5 +1,8 @@
 <?php
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
+
 class Fdb
 {
 
@@ -54,13 +57,13 @@ class Fdb
      * @param $id
      * @return array|mixed|null
      */
-    public function loadDb($class, $field='', $criterio='', $id='')
+    /*public function loadDb($class, $field='', $criterio='', $id='')
     {
         try {
             if ($field == '' || $id == '' || $criterio == ''){
-                $query = "SELECT * FROM `" . $class::getTable() . '` ';
+                $query = "SELECT " . $class::getAlias() . " FROM `" . $class::getEntity() . '` ';
             } else {
-                $query = "SELECT * FROM " . $class::getTable() . " WHERE " . $field . $criterio . "'" . $id . "';";
+                $query = "SELECT * FROM " . $class::getEntity() . " WHERE " . $field . $criterio . "'" . $id . "';";
             }
 
             $stmt = $this->_em->prepare($query);
@@ -85,6 +88,7 @@ class Fdb
             return null;
         }
     }
+    */
 
     /**
      * Verifica l'accesso di un utente, controllando le credenziali (email e password) siano presenti nel db
@@ -94,17 +98,23 @@ class Fdb
      */
     public function checkIfLogged($email, $pass){
         try {
-            $class = 'FUtente';
-            $query = 'SELECT * FROM ' . $class::getTable() . " WHERE email ='" . $email . "' AND password ='" . $pass . "';";
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $num = $stmt->rowCount();
-            if ($num == 0) {
+            $qb = $this->_em->createQueryBuilder();
+            $class = 'FPersona';
+            $qb->select($class::getAlias())
+                ->from($class::getEntity())
+                ->where($class::getAlias() . ".email = :email")
+                ->where($class::getAlias() . ".email = :password")
+                ->setParameters(new ArrayCollection([
+                    new Parameter('email', $email),
+                    new Parameter('password', $pass)
+                ]));
+            $query = $qb->getQuery();
+            $result = $query->getResult();
+            // $result = $query->getArrayResult(); risultati memorizzati in un array(?)
+            if (count($result) == 0) {
                 $result = null;
-            } else {
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
             }
-            return $result;
+            else return $result;
         } catch (PDOException $e){
             echo "Attenzione errore: " . $e->getMessage();
             $this->_em->rollBack();
@@ -117,17 +127,12 @@ class Fdb
      * @param $class
      * @return bool|mixed
      */
-    public function insertDb($class, $object){
+    public function insertDb($object){
 
         try {
-            $this->_em->beginTransaction();
-            $query = "INSERT INTO `" . $class::getTable() . "` " . str_replace(array(':', ',', ')'), array('`', '`,', '`)'), $class::getValues()) . " VALUES " . $class::getValues();
-            $stmt = $this->_em->prepare($query);
-            $class::bind($stmt, $object);
-            $stmt->execute();
+            $this->_em->persist($object);
+            $this->_em->flush();
             $id = $this->_em->lastInsertId();
-            $this->_em->commit();
-            $this->closeConn();
             return $id;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -137,16 +142,11 @@ class Fdb
 
     }
 
-    public function storeMedia($class , $obj,$nome_file) {
+    public function storeMedia($object) {
 		try {
-            $this->_em->beginTransaction();
-            $query = "INSERT INTO `" . $class::getTable() . "` " . str_replace(array(':', ',', ')'), array('`', '`,', '`)'), $class::getValues()) . " VALUES " . $class::getValues();
-            $stmt = $this->_em->prepare($query);
-            $class::bind($stmt, $obj, $nome_file);
-            $stmt->execute();
+            $this->_em->persist($object);
+            $this->_em->flush();
             $id = $this->_em->lastInsertId();
-            $this->_em->commit();
-            $this->closeConn();
             return $id;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -158,14 +158,16 @@ class Fdb
     public function updateDB ($class, $field, $newvalue, $pk, $id)
     {
         try {
-            $this->_em->beginTransaction();
-            $query = "UPDATE " . $class::getTable() . ' SET ' . $field . '="' . addslashes($newvalue) . '" WHERE ' . $pk . '="' . $id . '";';
+            $qb = $this->em->createQueryBuilder();
+            $query = $qb->update($class::getEntity(), $class::getAlias())
+                    ->set($class::getAlias() . '.' . $field, ':identifier')
+                    ->where($class::getAlias() . '.id = :id')
+                    ->setParameter('identifier', $newvalue)
+                    ->setParameter('id', $id)
+                    ->getQuery();
+            $result = $query->execute();
             //var_dump($query);
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $this->_em->commit();
-            $this->closeConn();
-            return true;
+            return $result;
         } catch (PDOException $e) {
             echo "Attenzione errore: " . $e->getMessage();
             $this->_em->rollBack();
@@ -180,7 +182,7 @@ class Fdb
      * @param $id
      * @return int|null
      */
-    public function getRowNum($class, $parametri = array(), $ordinamento = '', $limite = ''){
+    /*public function getRowNum($class, $parametri = array(), $ordinamento = '', $limite = ''){
         $filtro = '';
         try {
             //$this->_em->beginTransaction();
@@ -189,7 +191,7 @@ class Fdb
                 $filtro .= ' `' . $parametri[$i][0] . '` ' . $parametri[$i][1] . ' \'' . $parametri[$i][2] . '\'';
             }
             $query = 'SELECT * ' .
-                'FROM `' . $class::getTable() . '` ';
+                'FROM `' . $class::getEntity() . '` ';
             if ($filtro != '')
                 $query .= 'WHERE ' . $filtro . ' ';
             if ($ordinamento != '')
@@ -206,34 +208,30 @@ class Fdb
             $this->_em->rollBack();
             return null;
         }
-    }
+    }*/
 
-    public function loadDefColDb($class, $coloumns, $order='', $limit=''){
-        $cols = '';
+    /**
+     * Questa funzione permette di caricare dal db solo una determinata colonna di una tabella
+     * @param $class
+     * @param $coloumn
+     * @param $order
+     * @param $limit
+     * @return int|null
+     */
+    public function loadDefColDb($class, $coloumn, $order='', $limit=''){
         try {
-            for ($i = 0; $i < count($coloumns); $i++){
-                if ($i > 0) $cols .= ', ';
-                $cols .= $coloumns[$i];
-            }
-            $query = 'SELECT ' . $cols . ' FROM '. $class::getTable();
-            if ($order != '')
-                $query .= ' ORDER BY ' . $order . ' DESC';
-            if ($limit != '')
-                $query .= ' LIMIT ' . $limit;
-
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $numRow = $stmt->rowCount();
-            if ($numRow == 0){
+            $qb = $this->_em->createQueryBuilder();
+            $class = 'FPersona';
+            $qb->select($class::getAlias() . $coloumn)
+                ->from($class::getEntity());
+            if ($order != '') $qb->orderBy($order);
+            if ($limit != '') $qb->setMaxResults($limit);
+            $query = $qb->getQuery();
+            $result = $query->getResult();
+            if (count($result) == 0) {
                 $result = null;
-            } elseif ($numRow == 1) {
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            } else {
-                $result = array();
-                $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $stmt->fetch()) $result[] = $row;
             }
-            return $result;
+            else return $result;
         } catch (PDOException $e){
             echo $e->getMessage();
             return null;
@@ -248,14 +246,15 @@ class Fdb
     public function deleteDB ($class, $field, $id)
     {
         try {
+            $qb = $this->_em->createQueryBuilder();
             $result = null;
-            $this->_em->beginTransaction();
             $esiste = $this->existDB($class, $field, $id);
             if ($esiste) {
-                $query = "DELETE FROM " . $class::getTable() . " WHERE " . $field . "='" . $id . "';";
-                $stmt = $this->_em->prepare($query);
-                $stmt->execute();
-                $this->_em->commit();
+                $qb->delete($class::getEntity(), $class::getAlias())
+                    ->where($class::getAlias() . '.' . $field . '= :id')
+                    ->setParameter('id', $id);
+                $query = $qb->getQuery();
+                $result = $query->getResult();
                 $this->closeConn();
                 $result = true;
             }
@@ -267,18 +266,16 @@ class Fdb
         return $result;
     }
 
-    /**
-     * Funzione che esegue la query precedentemente istanziata
-     * @return bool
-     */
-
     public function existDB ($class, $field, $id)
     {
         try {
-            $query = "SELECT * FROM " . $class::getTable() . " WHERE " . $field . "='" . $id . "'";
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $qb = $this->_em->createQueryBuilder();
+            $qb->select($class::getEntity(), $class::getAlias())
+                ->from($class::getEntity())
+                ->where($class::getAlias() . '.' . $field . '= :id')
+                ->setParameter('id', $id);
+            $query = $qb->getQuery();
+            $result = $query->getResult();
             if (count($result) == 1) return $result[0];  //rimane solo l'array interno
             else if (count($result) > 1) return $result;  //resituisce array di array
             $this->closeConn();
@@ -303,33 +300,19 @@ class Fdb
      * @param string $limite
      * @return array|false
      */
-    public function searchDb($class, $parametri = array(), $ordinamento = '', $limite = ''){
-        $filtro = '';
+    public function searchDb($class, $parametri = array(), $order = '', $limit = ''){
         try {
+            $qb = $this->_em->createQueryBuilder();
+            $qb->select($class::getEntity(), $class::getAlias())
+                ->from($class::getEntity());
             for ($i = 0; $i < sizeof($parametri); $i++) {
-                if ($i > 0) $filtro .= ' AND';
-                $filtro .= ' `' . $parametri[$i][0] . '` ' . $parametri[$i][1] . ' \'' . $parametri[$i][2] . '\'';
+                $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  '= :parametro')
+                    ->setParameter('parametro', $parametri[$i][2]);
             }
-            $query = 'SELECT * ' .
-                'FROM `' . $class::getTable() . '` ';
-            if ($filtro != '')
-                $query .= 'WHERE ' . $filtro . ' ';
-            if ($ordinamento != '')
-                $query .= 'ORDER BY ' . $ordinamento . ' ' . 'DESC ';
-            if ($limite != '')
-                $query .= 'LIMIT ' . $limite . ' ';
-            $stmt = $this->_em->prepare($query);
-            $stmt->execute();
-            $numRow = $stmt->rowCount();
-            if ($numRow == 0){
-                $result = null;
-            } elseif ($numRow == 1) {
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            } else {
-                $result = array();
-                $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $stmt->fetch()) $result[] = $row;
-            }
+            if ($order != '') $qb->orderBy($order);
+            if ($limit != '') $qb->setMaxResults($limit);
+            $query = $qb->getQuery();
+            $result = $query->getResult();
             return $result;
         } catch (PDOException $e){
             echo "Attenzione errore: " . $e->getMessage();
