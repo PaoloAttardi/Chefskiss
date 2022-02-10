@@ -1,21 +1,33 @@
 <?php
 
 class FImmagine extends Fdb{
-    private static $table = 'immagini';
+    private static $entity = '../Entity/EImmagine';
+
+    private static $alias= 'immagine';
 
     private static $class = 'FImmagine';
 
-    private static $values = '(:nome, :dimensione, :tipo, :immagine, :id)';
+    private static $values = '(idImmagine, :nome, :dimensione, :tipo, :immagine)';
 
     public function __construct(){}
 
     /**
      * @return string
      */
-    public static function getTable(): string
+    public static function getEntity(): string
     {
-        return self::$table;
+        return self::$entity;
     }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
+    }
+
+
 
     /**
      * @return string
@@ -40,7 +52,7 @@ class FImmagine extends Fdb{
     public static function bind($stmt, EImmagine $immagine, $nome_file){
         $path = $_FILES[$nome_file]['tmp_name'];
         $file = fopen($path, 'rb') or die ("Attenzione! Impossibile da aprire!");
-        $stmt->bindValue(':id', $immagine->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':idImmagine', $immagine->getIdImmagine(), PDO::PARAM_INT);
         $stmt->bindValue(':nome', $immagine->getNome(), PDO::PARAM_STR);
         $stmt->bindValue(':dimensione', $immagine->getDimensione(), PDO::PARAM_STR);
         $stmt->bindValue(':tipo', $immagine->getTipo(), PDO::PARAM_STR);
@@ -65,14 +77,15 @@ class FImmagine extends Fdb{
             $rows_number = $db->getRowNum(static::getClass());
         }
         if(($result != null) && ($rows_number == 1)) {
-            $immagine = new EImmagine($result['id'], $result['nome'], $result['dimensione'], $result['tipo'], base64_encode($result['immagine']));
+            $immagine = new EImmagine($result['nome'], $result['dimensione'], $result['tipo'], base64_encode($result['immagine']));
+            $immagine->setId($result['idImmagine']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $immagine = array();
                 for($i = 0; $i < sizeof($result); $i++){
-                    $immagine = new EImmagine($result[$i]['id'], $result[$i]['nome'], $result[$i]['dimensione'], $result[$i]['tipo'], base64_encode($result[$i]['immagine']));
-                }
+                    $immagine[] = new EImmagine($result[$i]['nome'], $result[$i]['dimensione'], $result[$i]['tipo'], base64_encode($result[$i]['immagine']));
+                    $immagine[$i]->setId($result[$i]['idImmagine']);                }
             }
         }
         return $immagine;

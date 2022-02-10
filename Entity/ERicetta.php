@@ -51,8 +51,7 @@ class ERicetta
      * @param $autore
      * @param $dosiPersone
      */
-    public function __construct($ingredienti, $procedimento, $categoria, $data_pubblicazione,
-                                 $autore, $nomeRicetta, $dosiPersone, $idImmagine, $valutazione)
+    public function __construct($ingredienti, $procedimento, $categoria, $data_pubblicazione,$autore, $nomeRicetta, $dosiPersone, $idImmagine, $valutazione)
     {
         $this->ingredienti = $ingredienti;
         $this->procedimento = $procedimento;
@@ -129,7 +128,7 @@ class ERicetta
     /**
      * @return mixed
      */
-    public function getData_()
+    public function getDataPubblicazione()
     {
         return $this->data;
     }
@@ -177,7 +176,7 @@ class ERicetta
     /**
      * @param mixed $data
      */
-    public function setData_($data)
+    public function setDataPubblicazione($data)
     {
         $this->data = $data;
     }

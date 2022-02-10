@@ -1,17 +1,15 @@
 <?php
 
-//require 'Fdb.php';
-//require 'Utility/USingleton.php';
 
-class FUtente extends Fdb{
+class FModeratore extends Fdb{
 
-    private static $entity = '../Entity/EUser';
+    private static string $entity = '../Entity/EModeratore';
 
-    private static $alias= 'user';
+    private static string $alias= 'moderatore';
 
-    private static $class = 'FUtente';
+    private static string $class = 'FModeratore';
 
-    private static $values = '(:ban, :dataFineBan, :idModeratore, :idUser)';
+    private static string $values = '(:idBadge, :dataPromozione, :idUser)';
 
     public function __construct(){
     }
@@ -50,12 +48,11 @@ class FUtente extends Fdb{
 
     /**
      * @param PDOStatement $stmt
-     * @param EUtente $user
+     * @param EModeratore $moderatore
      */
-    public static function bind($stmt, EUtente $user){
-        $stmt->bindValue(':ban', $user->getBan(), PDO::PARAM_BOOL);
-        $stmt->bindValue(':idModeratore', $user->getIdModerator(), PDO::PARAM_INT);
-        $stmt->bindValue(':data_fine_ban', $user->getDataFineBan(), PDO::PARAM_STR);
+    public static function bind($stmt, EModeratore $moderatore){
+        $stmt->bindValue(':idBadge', $moderatore->getIdBadge(), PDO::PARAM_INT);
+        $stmt->bindValue(':dataPromozione', $moderatore->getDataPromozione(), PDO::PARAM_STR);
     }
 
     public static function insert($object){
@@ -65,24 +62,24 @@ class FUtente extends Fdb{
     }
 
     public static function loadById( $ordinamento = '', $limite = ''){
-        $utente = null;
+        $moderatore = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), 'idUser', $ordinamento, $limite);
         $rows_number = $db->getRowNum(static::getClass());
         if(($result != null) && ($rows_number == 1)) {
-            $utente = new EUtente($result['ban'], $result['dataFineBan'],$result['idModeratore'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
-            $utente->setIdUser($result['idUser']);
+            $moderatore = new EModeratore( $result['idBadge'],$result['dataPromozione'],$result['name'],$result['surname'],$result['idImmagine'],$result['password'],$result['description'],$result['email']);
+            $moderatore->setIdUser($result['idUser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $utente = array();
+                $moderatore = array();
                 for($i = 0; $i < count($result); $i++){
-                    $utente[] = new EUtente($result[$i]['ban'], $result[$i]['dataFineBan'],$result[$i]['idModeratore'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
-                    $utente[$i]->setIdUser($result[$i]['idUser']);
+                    $moderatroe[] = new EModeratore( $result[$i]['idBadge'],$result[$i]['dataPromozione'],$result[$i]['name'],$result[$i]['surname'],$result[$i]['idImmagine'],$result[$i]['password'],$result[$i]['description'],$result[$i]['email']);
+                    $moderatore[$i]->setIdUser($result[$i]['idUser']);
                 }
             }
         }
-        return $utente;
+        return $moderatore;
     }
 
     public static function update($field, $newvalue, $pk, $val){
@@ -117,5 +114,7 @@ class FUtente extends Fdb{
         $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
         return $result;
     }
+
+
 
 }

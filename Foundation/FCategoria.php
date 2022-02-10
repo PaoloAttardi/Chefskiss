@@ -1,11 +1,15 @@
 <?php 
 
-class FCategorie extends Fdb{
-    private static $table = 'categorie';
+class FCategoria extends Fdb{
 
-    private static $class = 'FCategorie';
 
-    private static $values = '(:categoria, :id)';
+    private static $entity = '../Entity/ECategoria';
+
+    private static $alias= 'categoria';
+
+    private static $class = 'FCategoria';
+
+    private static $values = '(:idCategoria, :categoria, :idImmagine)';
 
     public function __construct(){
     }
@@ -13,9 +17,17 @@ class FCategorie extends Fdb{
     /**
      * @return string
      */
-    public static function getTable(): string
+    public static function getEntity(): string
     {
-        return self::$table;
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**
@@ -36,40 +48,42 @@ class FCategorie extends Fdb{
 
     /**
      * @param PDOStatement $stmt
-     * @param ECategorie $categorie
+     * @param ECategoria $categoria
      */
-    public static function bind($stmt, ECategorie $categorie){
-        $stmt->bindValue(':categoria', $categorie->getCategoria(), PDO::PARAM_STR);
-        $stmt->bindValue(':id', $categorie->getId(), PDO::PARAM_INT);
+    public static function bind($stmt, ECategoria $categoria){
+        $stmt->bindValue(':categoria', $categoria->getCategoria(), PDO::PARAM_STR);
+        $stmt->bindValue(':idCategoria', $categoria->getIdCategoria(), PDO::PARAM_INT);
+        $stmt->bindValue(':idImmagine', $categoria->getIdImmagine(), PDO::PARAM_INT);
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $categorie = null;
+        $categoria = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        //var_dump($result);
         if (sizeof($parametri) > 0) {
             $rows_number = $db->getRowNum(static::getClass(), $parametri);
         } else {
             $rows_number = $db->getRowNum(static::getClass());
         }
         if(($result != null) && ($rows_number == 1)) {
-            $categorie = new ECategorie($result['categoria'], $result['id']);
+            $categoria = new ECategoria($result['categoria'], $result['idImmagine']);
+            $categoria->setIdCategoria($result['idCategoria']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $categorie = array();
+                $categoria = array();
                 for($i = 0; $i < sizeof($result); $i++){
-                    $categorie[] = new ECategorie($result[$i]['categoria'], $result[$i]['id']);
+                    $categoria[] = new ECategoria($result[$i]['categoria'], $result[$i]['idImmagine']);
+                    $categoria[$i]->setIdCategoria($result[$i]['idCategoria']);
                 }
             }
         }
-        return $categorie;
+        return $categoria;
     }
 
     public static function insert($object){
         $db = parent::getInstance();
-        $id = $db->insertDb(self::$class, $object);
+        $id = $db->insertDb( $object);
         $object->setId($id);
     }
 

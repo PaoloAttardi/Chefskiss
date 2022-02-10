@@ -1,17 +1,16 @@
-<?php 
+<?php
 
-class FPost extends Fdb{
 
-    private static $entity = '../Entity/EPost';
+class FPersona extends Fdb
+{
+    private static string $entity = '../Entity/EPersona';
 
-    private static $alias= 'post';
+    private static string $alias= 'persona';
 
-    private static $class = 'FPost';
+    private static string $class = 'FPersona';
 
-    private static $values = '(:idPost, :titolo, :idAutore, :domanda,  :idCategoria, :dataPubblicazione)';
-    
-    public function __construct(){
-    }
+    private static string $values = '(:idUser,:name, :surname, :idImmagine, :password, :description,:email,:discr)';
+
 
     /**
      * @return string
@@ -29,7 +28,6 @@ class FPost extends Fdb{
         return self::$alias;
     }
 
-
     /**
      * @return string
      */
@@ -46,27 +44,25 @@ class FPost extends Fdb{
         return self::$values;
     }
 
-    /**
-     * @param PDOStatement $stmt
-     * @param EPost $post
-     */
-    public static function bind($stmt, EPost $post){
-        $stmt->bindValue(':idPost', $post->getIdPost(), PDO::PARAM_INT);
-        $stmt->bindValue(':titolo', $post->getTitolo(), PDO::PARAM_STR);
-        $stmt->bindValue(':idAutore', $post->getAutore(), PDO::PARAM_INT);
-        $stmt->bindValue(':domanda', $post->getDomanda(), PDO::PARAM_STR);
-        $stmt->bindValue(':idCategoria', $post->getCategoria(), PDO::PARAM_STR);
-        $stmt->bindValue(':dataPubblicazione', $post->getdataPubblicazione(), PDO::PARAM_STR);
+    public function __construct(){
     }
 
-    public static function insert($object){
-        $db = parent::getInstance();
-        $id = $db->insertDb( $object);
-        $object->setId($id);
+    /**
+     * @param PDOStatement $stmt
+     * @param Erecensione $recensione
+     */
+    public static function bind($stmt, EPersona $persona){
+        $stmt->bindValue(':idUsere', $persona->getIdUser(), PDO::PARAM_INT);
+        $stmt->bindValue(':name', $persona->getName(),PDO::PARAM_STR);
+        $stmt->bindValue(':surname', $persona->getSurname(), PDO::PARAM_STR);
+        $stmt->bindValue(':idImmagine', $persona->getIdImmagine(), PDO::PARAM_INT);
+        $stmt->bindValue(':password', $persona->getPassword(), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $persona->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':email', $persona->getEmail(), PDO::PARAM_STR);
     }
 
     public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $post = null;
+        $persona = null;
         $db = parent::getInstance();
         $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
         if (sizeof($parametri) > 0) {
@@ -75,19 +71,25 @@ class FPost extends Fdb{
             $rows_number = $db->getRowNum(static::getClass());
         }
         if(($result != null) && ($rows_number == 1)) {
-            $post = new EPost($result['titolo'], $result['idAutore'], $result['domanda'], $result['idCategoria'], $result['dataPubblicazione']);
-            $post->setIdPost($result['idPost']);
+            $persona = new EPersona($result['name'], $result['surname'], $result['idImmagine'], $result['password'], $result['description'],$result['email']);
+            $persona->setIdUser($result['idPersona']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
-                    $post[] = new EPost($result[$i]['titolo'], $result[$i]['idAutore'], $result[$i]['domanda'], $result[$i]['idCategoria'], $result[$i]['dataPubblicazione']);
-                    $post[$i]->setIdPost($result[$i]['idPost']);
+                    $persona[] = new EPersona($result[$i]['name'], $result[$i]['surname'], $result[$i]['idImmagine'], $result[$i]['password'], $result[$i]['description'],$result[$i]['email']);
+                    $persona[$i]->setIdUser($result[$i]['idPersona']);
                 }
             }
         }
-        return $post;
+        return $persona;
+    }
+
+    public static function insert($object){
+        $db = parent::getInstance();
+        $id = $db->insertDb($object);
+        $object->setId($id);
     }
 
     public static function update($field, $newvalue, $pk, $val){
@@ -117,23 +119,13 @@ class FPost extends Fdb{
         return $result;
     }
 
-    public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
-        $db = parent::getInstance();
-        $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
-        return $result;
-    }
-
-    public function filterByCategorie(String $categoria){
-        $db = parent::getInstance();
-        $result = $db->searchDB(self::class, array('idCategoria', '=', $categoria));
-        return $result;
-    }
-
-    public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
-        $db = parent::getInstance();
-        $result = $db->loadDefColDb(self::$class, $coloumns, $ordinamento, $limite);
-        return $result;
+    public static function loadLogin($user, $pass){
+        $utente = null;
+        $db = Fdb::getInstance();
+        $result = $db->checkIfLogged($user, $pass);
+        if (isset($result)){
+            $utente = self::loadByField(array(['email', '=', $result['email']]));
+        }
+        return $utente;
     }
 }
-
-?>
