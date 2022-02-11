@@ -137,5 +137,33 @@ class ERecensione
     {
         $this->autore = $autore;
     }
+
+    public static function getValutazioneRicetta($recensione){
+        $idRicetta = $recensione->getIdRicetta();
+        $valutazione = 0;
+        $pm = USingleton::getInstance('FPersistentManager');
+        $recensioni = $pm::load('FRecensione', array(['idRicetta', '=', $idRicetta]));
+        $ricetta = $pm::load('FRicetta', array(['idRicetta', '=', $idRicetta]));
+        if($recensione != null){
+            if(is_array($recensioni)){
+                for($i = 0; $i < sizeof($recensioni); $i++){
+                    if($recensioni[$i]->getValutazione() != 0){
+                        $voti[] = $recensioni[$i]->getValutazione();
+                    }
+                }
+                $voti[] = $recensione->getValutazione();
+                $valutazione = array_sum($voti)/sizeof($voti);
+                $ricetta->setValutazione((int)$valutazione);
+            }
+            else {
+                $valutazione = $recensione->getValutazione();
+                $ricetta->setValutazione($valutazione);
+            }
+        }
+        else $ricetta->setValutazione($valutazione);
+        $pm::update('valutazione', $valutazione, 'idRicetta', $idRicetta, 'FRicetta');
+        
+        return $valutazione;
+    }
 }
 

@@ -12,10 +12,10 @@ class EUtente extends EPersona
     /** @Column(type="boolean", options = {"default" : "false"}) **/
     protected $ban;
 
-    /** @Column(type="datetime") **/
+    /** @Column(type="datetime", nullable=true)**/
     protected $dataFineBan;
 
-    /** @Column(type="integer") **/
+    /** @Column(type="integer", nullable=true) **/
     protected $idModerator;
 
     protected $discr = "user";

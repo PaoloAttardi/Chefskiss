@@ -38,14 +38,6 @@ class FPersistentManager
         return $result;
     }
 
-    public static function filterByCategoria($class, $categoria){
-        $ris = null;
-        if ($class == 'FRicetta' || $class == 'FPost'){
-            $ris = $class::filterByCategoria($categoria);
-        } else echo "Metodo non supportato";
-        return $ris;
-    }
-
     public static function getRows($class, $parametri = array(), $ordinamento = '', $limite = ''){
         $ris = $class::getRows($parametri, $ordinamento, $limite);
         return $ris;

@@ -1,11 +1,8 @@
 <?php
 
-//require 'Fdb.php';
-//require 'Utility/USingleton.php';
-
 class FUtente extends Fdb{
 
-    private static $entity = 'EUser';
+    private static $entity = 'EUtente';
 
     private static $alias= 'user';
 

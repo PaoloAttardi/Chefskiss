@@ -23,13 +23,13 @@ class EPersona
     /** @Column(type="string") **/
     protected $surname;
 
-    /** @Column(type="integer") **/
+    /** @Column(type="integer", nullable=true) **/
     protected $idImmagine;
 
     /** @Column(type="string") **/
     protected $password;
 
-    /** @Column(type="string") **/
+    /** @Column(type="string", nullable=true) **/
     protected $description;
 
     /** @Column(type="string") **/
