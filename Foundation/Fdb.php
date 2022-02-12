@@ -148,7 +148,6 @@ class Fdb
     public function loadDefColDb($class, $coloumn, $order='', $limit=''){
         try {
             $qb = $this->_em->createQueryBuilder();
-            //$class = 'FPersona';
             $qb->select($class::getAlias() . '.' . $coloumn)
                 ->from($class::getEntity(), $class::getAlias());
             if ($order != '') $qb->orderBy($order);
@@ -223,11 +222,12 @@ class Fdb
     /**
      * Cerca all'interno del database
      * @param array $parametri
-     * @param string $ordinamento
-     * @param string $limite
+     * @param string $order
+     * @param string $offset primo elemento da restituire rispetto ad una ricerca (0 per restituire dal primo elemento)
+     * @param string $limit ultimo elemento da restituire rispetto ad una ricerca (0 per restituire dal primo elemento)
      * @return array|false
      */
-    public function searchDb($class, $parametri = array(), $order = '', $limit = ''){
+    public function searchDb($class, $parametri = array(), $order = '', $offset = '',$limit = ''){
         try {
             $qb = $this->_em->createQueryBuilder();
             $qb->select($class::getAlias())
@@ -237,9 +237,20 @@ class Fdb
                     ->setParameter('parametro', $parametri[$i][2]);
             }
             if ($order != '') $qb->orderBy($order);
-            if ($limit != '') $qb->setMaxResults($limit);
-            $query = $qb->getQuery();
-            $result = $query->getResult();
+            if ($offset != '' && $limit != ''){ 
+                $qb->setFirstResult($offset);
+                $qb->setMaxResults($limit);
+                $query = $qb->getQuery();
+                $paginator = new Doctrine\ORM\Tools\Pagination\Paginator($query);
+                // il valore 'data' dell'array result contiene tutti i risultati compresi tra i valori di offset e limite 
+                // il valore 'result' contiene invece il numero di risultati totali ottenuti dall'esecuzione della query
+                $result['data'] = $paginator->getIterator();
+                $result['total'] = $paginator->count();
+            }
+            else  {
+                $query = $qb->getQuery();
+                $result = $query->getResult();
+            }
             return $result;
         } catch (Exception $e){
             echo "Attenzione errore: " . $e->getMessage();

@@ -80,9 +80,9 @@ class FPersona extends Fdb
         else return false;
     }
 
-    public static function search($parametri=array(), $ordinamento='', $limite=''){
+    public static function search($parametri=array(), $ordinamento='', $offset='', $limite=''){
         $db = parent::getInstance();
-        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $limite);
+        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite);
         return $result;
     }
 

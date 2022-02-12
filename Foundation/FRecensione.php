@@ -81,22 +81,9 @@ class FRecensione extends Fdb{
         else return false;
     }
 
-    public static function filterByid($id){
+    public static function search($parametri=array(), $ordinamento='', $offset='', $limite=''){
         $db = parent::getInstance();
-        $recensioniFiltrate = $db->searchDb(self::$class, array(['id', '=', $id]));
-        return $recensioniFiltrate;
-    }
-
-
-    public static function search($parametri=array(), $ordinamento='', $limite=''){
-        $db = parent::getInstance();
-        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $limite);
-        return $result;
-    }
-
-    public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
-        $db = parent::getInstance();
-        $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
+        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite);
         return $result;
     }
 

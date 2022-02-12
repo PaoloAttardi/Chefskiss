@@ -80,43 +80,10 @@ class FRicetta extends Fdb {
         else return false;
     }
 
-    public static function search($parametri=array(), $ordinamento='', $limite=''){
+    public static function search($parametri=array(), $ordinamento='', $offset='', $limite=''){
         $db = parent::getInstance();
-        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $limite);
+        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite);
         return $result;
-    }
-
-    public static function getRows($parametri = array(), $ordinamento = '', $limite = ''){
-        $db = parent::getInstance();
-        $result = $db->getRowNum(self::$class, $parametri, $ordinamento, $limite);
-        return $result;
-    }
-
-    public static function getValutazioneRicetta($ricetta){
-        $id_ricetta = $ricetta->getId();
-        $valutazione = 0;
-        $pm = USingleton::getInstance('FPersistentManager');
-        $recensione = $pm::load('FRecensione', array(['idRicetta', '=', $id_ricetta]));
-        if($recensione != null){
-            if(is_array($recensione)){
-                for($i = 0; $i < sizeof($recensione); $i++){
-                    if($recensione[$i]->getValutazione() != 0){
-                        $voti[] = $recensione[$i]->getValutazione();
-                    }
-                }
-                $valutazione = array_sum($voti)/sizeof($voti);
-                $ricetta->setValutazione((int)$valutazione);
-            }
-            else {
-                $valutazione = $recensione->getValutazione();
-                $ricetta->setValutazione((int)$recensione->getValutazione());
-            }
-        }
-        else {
-            $valutazione = 0;
-            $ricetta->setValutazione($valutazione);
-        }
-        return $valutazione;
     }
 
     public static function loadDefCol($coloumns, $ordinamento='', $limite=''){
