@@ -9,7 +9,7 @@ class Fdb
 {
 
     /**
-     * @var $_em PDO Variabile che stabilisce la connessione con il database
+     * @var $_em Entity Manager Variabile che stabilisce la connessione con il database
      */
     private $_em;
 
@@ -21,8 +21,8 @@ class Fdb
         if (!$this->existConn()) {
             try {
                 $this->_em = getEntityManager();
-            } catch (PDOException $e) {
-                print $e->getMessage();
+            } catch (Exception $e) {
+                echo $e->getMessage();
             }
         }
 
@@ -76,7 +76,7 @@ class Fdb
                 $result = null;
             }
             else return $result;
-        } catch (PDOException $e){
+        } catch (Exception $e){
             echo "Attenzione errore: " . $e->getMessage();
             $this->_em->rollBack();
             return null;
@@ -89,15 +89,16 @@ class Fdb
      * @return bool|mixed
      */
     public function insertDb($object){
-
+        $this->_em->getConnection()->beginTransaction();
         try {
             $this->_em->persist($object);
             $this->_em->flush();
+            $this->_em->getConnection()->commit();
             $id = $object->getId();
             return $id;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
+            $this->_em->getConnection()->rollBack();
             echo $e->getMessage();
-            $this->_em->rollBack();
             return null;
         }
 
@@ -109,15 +110,14 @@ class Fdb
             $this->_em->flush();
             $id = $object->getId();
             return $id;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
-            $this->_em->rollBack();
             return null;
         }
 	}
 
-    public function updateDB ($class, $field, $newvalue, $pk, $id)
-    {
+    public function updateDB ($class, $field, $newvalue, $pk, $id){
+        $this->_em->getConnection()->beginTransaction();
         try {
             $qb = $this->_em->createQueryBuilder();
             $query = $qb->update($class::getEntity(), $class::getAlias())
@@ -127,9 +127,10 @@ class Fdb
                     ->setParameter('id', $id)
                     ->getQuery();
             $result = $query->execute();
+            $this->_em->getConnection()->commit();
             //var_dump($query);
             return $result;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Attenzione errore: " . $e->getMessage();
             $this->_em->rollBack();
             return false;
@@ -158,7 +159,7 @@ class Fdb
                 $result = null;
             }
             else return $result;
-        } catch (PDOException $e){
+        } catch (Exception $e){
             echo $e->getMessage();
             return null;
         }
@@ -169,11 +170,11 @@ class Fdb
      * @param $object
      * @return bool
      */
-    public function deleteDB ($class, $field, $id)
-    {
+    public function deleteDB ($class, $field, $id){
+        $this->_em->getConnection()->beginTransaction();
         try {
             $qb = $this->_em->createQueryBuilder();
-            $result = null;
+            $result = false;
             $esiste = $this->existDB($class, $field, $id);
             if ($esiste) {
                 $qb->delete($class::getEntity(), $class::getAlias())
@@ -184,7 +185,7 @@ class Fdb
                 $this->closeConn();
                 $result = true;
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Attenzione errore: " . $e->getMessage();
             $this->_em->rollBack();
             //return false;
@@ -205,7 +206,7 @@ class Fdb
             if (count($result) == 1) return $result[0];  //rimane solo l'array interno
             else if (count($result) > 1) return $result;  //resituisce array di array
             $this->closeConn();
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Attenzione errore: " . $e->getMessage();
             return null;
         }
@@ -240,9 +241,8 @@ class Fdb
             $query = $qb->getQuery();
             $result = $query->getResult();
             return $result;
-        } catch (PDOException $e){
+        } catch (Exception $e){
             echo "Attenzione errore: " . $e->getMessage();
-            $this->_em->rollBack();
             return null;
         }
     }
