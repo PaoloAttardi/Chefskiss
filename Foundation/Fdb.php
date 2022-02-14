@@ -101,8 +101,27 @@ class Fdb
             echo $e->getMessage();
             return null;
         }
-
     }
+
+        /**
+     * @param $object
+     * @param $class
+     * @return bool|mixed
+     */
+    public function insertDBTable($object){
+        $this->_em->getConnection()->beginTransaction();
+        try {
+            $this->_em->persist($object);
+            $this->_em->flush();
+            $this->_em->getConnection()->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->_em->getConnection()->rollBack();
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
 
     public function storeMedia($object) {
 		try {
