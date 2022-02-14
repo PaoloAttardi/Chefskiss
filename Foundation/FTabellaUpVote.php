@@ -1,14 +1,14 @@
 <?php
 
 
-class FAdmin extends Fdb
+class FTabellaUpVote extends Fdb
 {
 
     private static string $entity = 'ETabellaUpVote';
 
-    private static string $alias = 'admin';
+    private static string $alias = 'tabellaupvote';
 
-    private static string $class = 'FAdmin';
+    private static string $class = 'FTabellaUpVote';
 
     private static string $values = 'idUser';
 
@@ -61,13 +61,13 @@ class FAdmin extends Fdb
         return $result;
     }
 
-    public static function update($field, $newvalue, $pk, $val)
+    /*public static function update($field, $newvalue, $pk, $val)
     {
         $db = parent::getInstance();
         $result = $db->updateDB(self::getClass(), $field, $newvalue, $pk, $val);
         if ($result) return true;
         else return false;
-    }
+    }*/
 
     public static function delete($field, $id)
     {
