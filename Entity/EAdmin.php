@@ -4,6 +4,8 @@
  * @Entity @Table(name="admin")
  **/
 
+ require "EPersona.php";
+
 class EAdmin extends EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
