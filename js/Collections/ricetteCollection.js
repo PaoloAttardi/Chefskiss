@@ -6,7 +6,7 @@ define([
   ], function($, _, Backbone, ricettaModel){
     var ricettaCollection = Backbone.Collection.extend({
       model: ricettaModel,
-      url: "/api/ricette",
+      url: "/api/search/homeView",
       
       initialize: function(){
   

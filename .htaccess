@@ -3,5 +3,5 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /chefskiss/index.php [L]
+RewriteRule ^(.*)$ /chefskiss/index.html [L]
 </IfModule>

@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '../client/View/HomeView',
-    '../client/View/FooterView'
+    'View/HomeView',
+    'View/FooterView'
   ], function($, _, Backbone, HomeView, FooterView) {
   
     var AppRouter = Backbone.Router.extend({
