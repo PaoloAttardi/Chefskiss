@@ -9,8 +9,6 @@ class CFrontController
 
     public function run($path){
 
-        $method = $_SERVER['REQUEST_METHOD'];
-
         if (strpos($path, '?') != false){
             $url = explode('?', $path);
             $resource = explode('/', $url[0]);
@@ -22,8 +20,7 @@ class CFrontController
         array_shift($resource);
         array_shift($resource);
 
-        if ($resource[0] == 'api'){
-            array_shift($resource);
+        if($resource[0] != ''){
             $controller = 'C' . $resource[0];
             $dir = 'Controller';
             $elementDir = scandir($dir);
@@ -53,36 +50,10 @@ class CFrontController
                             else if ($num == 1) $controller::$function($param[0]);
                             else if ($num == 2) $controller::$function($param[0], $param[1]);
                         }
-
                     }
-                    /*else {
-                        if (CUtente::isLogged()){
-                                CGestioneRicerca::blogHome();
-                            }
-                            CGestioneRicerca::blogHome();
-                        }
-                    }
-                } else {
-                    if (CUtente::isLogged()){
-
-                            CGestioneRicerca::blogHome();
-                    } else {
-                        CGestioneRicerca::blogHome();
-                    }
+                    else; //pagina di errore
                 }
-            } else {
-                if (CUtente::isLogged()){
-
-                        CGestioneRicerca::blogHome();
-
-                } else {
-                    CGestioneRicerca::blogHome();
-                }
-            }
-        }*/
-                }
-            }
-        }
+            }    
+        } else header('Location: /chefskiss2.0/index.html');
     }
-
 }

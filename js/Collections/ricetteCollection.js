@@ -2,23 +2,20 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'Models/ricettaModel'
+    'js/Models/ricettaModel.js'
   ], function($, _, Backbone, ricettaModel){
-    var ricettaCollection = Backbone.Collection.extend({
+    var RicetteCollection = Backbone.Collection.extend({
       model: ricettaModel,
-      url: "/api/search/homeView",
+      url: "/chefskiss2.0/api/Search/homeView",
       
-      initialize: function(){
-  
-      }
+      initialize: function(){}
   
     });
    
-    return ricettaCollection;
+    return RicetteCollection;
   });
 
-  /*var ricette = new ricettaCollection
-  ricette.fetch({
+  /*ricette.fetch({
       data: {
           page: 2
       },

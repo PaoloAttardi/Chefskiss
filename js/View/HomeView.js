@@ -3,30 +3,36 @@ define([
     'underscore',
     'backbone',
     'text!templates/homeTemplate.html',
-    'Collections/ricetteCollection'
-  ], function($, _, Backbone, homeTemplate){
-  
+    'js/Collections/RicetteCollection.js'
+  ], function($, _, Backbone, homeTemplate, ricetteCollection){
+
     var HomeView = Backbone.View.extend({
       el: $("#page"),
       //template: _.template($('#HomeTemplate').html()),
+
+      initialize: function() {
+
+        var that = this;
   
-      render: function(){
-        var ricette = new ricetteCollection
-        /*Backbone.sync('read', ricettaCollection, {
+        var onDataHandler = function() {
+            that.render();
+        }
+
+        this.collection = new ricetteCollection();
+        this.collection.fetch({
             success: function(){
-              console.log()
-            },
-            error: function(){}} )*/
-        ricette.fetch({
-            data: {},
-            success: function(){
-              console.log(ricette)
+              onDataHandler,
+              console.log('ciao')
             },
             error: function(){
-              console.log(errore)
+              console.log('errore')
             }
         })
-        this.$el.html(homeTemplate(ricetta.attributes));
+  
+      },
+  
+      render: function(){
+        this.$el.html(homeTemplate/*(ricetta.attributes)*/);
       }
   
     });

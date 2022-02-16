@@ -4,9 +4,14 @@ define([
   ], function(_, Backbone) {
     
     var ricetta = Backbone.Model.extend({
-      urlRoot: "/api/ricetta",
-      idAttribute: "idRicetta"
-    });
+      urlRoot: "/api/search/homeView",
+      idAttribute: "idRicetta",
+
+    initialize: function (){
+      console.log('ciao')
+    }
+
+  });
   
     return ricetta;
   
