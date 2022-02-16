@@ -10,7 +10,12 @@ define([
       //template: _.template($('#HomeTemplate').html()),
   
       render: function(){
-        this.$el.html(homeTemplate);
+          var ricetta = new ricetta({ id: 1 });
+          ricetta.fetch({
+              success: function(){},
+              error: function(){}
+          });
+        this.$el.html(homeTemplate(ricetta.attributes));
       }
   
     });
