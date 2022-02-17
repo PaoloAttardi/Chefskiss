@@ -54,6 +54,6 @@ class CFrontController
                     else; //pagina di errore
                 }
             }    
-        } else header('Location: /chefskiss2.0/index.html');
+        } else header('Location: /chefskiss2/index.html');
     }
 }
