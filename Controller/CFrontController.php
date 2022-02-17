@@ -17,8 +17,16 @@ class CFrontController
             $resource = explode('/', $path);
         }
 
-        array_shift($resource);
-        array_shift($resource);
+        /*if($resource[0] == 'api'){
+            $controller = 'C' . $resource[1];
+            $function = $resource[2];
+            $controller::$function();;
+        }*/
+
+        if(count($resource) != 2){
+            array_shift($resource);
+            array_shift($resource);
+        }
 
         if($resource[0] != ''){
             $controller = 'C' . $resource[0];

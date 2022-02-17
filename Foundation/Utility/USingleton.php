@@ -1,6 +1,6 @@
 <?php
 
-
+//require_once('FPersistentManager.php');
 final class USingleton
 {
 

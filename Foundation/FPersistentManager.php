@@ -10,11 +10,6 @@ class FPersistentManager
         $FClass::insert($object);
     }
 
-    public static function load($Fclass, $parametri = array(), $ordinamento = '', $limite = '') {
-        $ris = $Fclass::loadByField($parametri, $ordinamento, $limite);
-        return $ris;
-    }
-
     public static function loadLogin($user, $pass){
         $ris = FPersona::loadLogin($user, $pass);
         return $ris;
@@ -33,14 +28,9 @@ class FPersistentManager
         return $ris;
     }
 
-    public static function search($Fclass, $parametri=array(), $ordinamento='', $limite=''){
-        $result = $Fclass::search($parametri, $ordinamento, $limite);
+    public static function search($Fclass, $parametri=array(), $ordinamento='', $offset='', $limite=''){
+        $result = $Fclass::search($parametri, $ordinamento, $offset, $limite);
         return $result;
-    }
-
-    public static function getRows($class, $parametri = array(), $ordinamento = '', $limite = ''){
-        $ris = $class::getRows($parametri, $ordinamento, $limite);
-        return $ris;
     }
 
     public static function insertMedia($object, $filename){

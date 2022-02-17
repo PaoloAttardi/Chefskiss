@@ -3,13 +3,14 @@ define([
     'underscore',
     'backbone',
     'View/HomeView',
-    'View/FooterView'
-  ], function($, _, Backbone, HomeView, FooterView) {
+    'View/FooterView',
+    'js/Collections/RicetteCollection.js'
+  ], function($, _, Backbone, HomeView, FooterView, RicetteCollection) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
         // Define some URL routes
-        'home': 'HomeView',
+        '/chefskiss2.0/index.html': 'HomeView',
         
         // Default
         '*actions': 'defaultAction'
@@ -21,15 +22,21 @@ define([
         var app_router = new AppRouter;
 
         app_router.on('route:HomeView', function(){
-
+          console.log('errore')
             var homeView = new HomeView();
             homeView.render();
         })
 
         app_router.on('route:defaultAction', function (actions) {
           
-          var homeView = new HomeView();
-          homeView.render();
+        ricette = new RicetteCollection();
+        var homeView = new HomeView({collection: ricette});
+        ricette.fetch({
+          success: console.log(ricette),
+          error: console.log('porcodio'),
+        })
+        console.log(ricette.lenght)
+        homeView.render();
         });
 
         var footerView = new FooterView();

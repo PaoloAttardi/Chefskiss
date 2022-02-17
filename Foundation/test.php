@@ -14,10 +14,13 @@ require '../Entity/ECategoria.php';
 
 // il valore 'data' dell'array prova contiene tutti i risultati compresi tra i valori di offset e limite 
 // il valore 'result' contiene invece il numero di risultati totali ottenuti dall'esecuzione della query
-$prova = FRicetta::search(array(['idRicetta', '=', '1']));
+$pm = USingleton::getInstance('FPersistentManager');
+$ricetteVotate = $pm::search('FRicetta', array(), 'valutazione');
+var_dump($ricetteVotate);
+$prova = FRicetta::search(array());
 
 
-var_dump($prova);
+//var_dump($prova);
 //var_dump($prova2['data']);
 
 //$d=new DateTime('now');

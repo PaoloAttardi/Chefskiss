@@ -4,11 +4,11 @@ define([
   ], function(_, Backbone) {
     
     var ricetta = Backbone.Model.extend({
-      urlRoot: "/api/search/homeView",
+      urlRoot: "chefskiss2.0/Controller/CSearch.php",
       idAttribute: "idRicetta",
 
     initialize: function (){
-      console.log('ciao')
+      
     }
 
   });

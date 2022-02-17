@@ -5,6 +5,7 @@ use Doctrine\ORM\Query\Parameter;
 
 require_once 'Utility/USingleton.php';
 require_once('bootstrap.php');
+//require_once'../Entity/ERicetta.php';
 class Fdb
 {
 
@@ -255,7 +256,7 @@ class Fdb
                 $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  ' :parametro')
                     ->setParameter('parametro', $parametri[$i][2]);
             }
-            if ($order != '') $qb->orderBy($order);
+            if ($order != '') $qb->orderBy($class::getAlias() . '.' . $order);
             if ($offset != '' && $limit != ''){ 
                 $qb->setFirstResult($offset);
                 $qb->setMaxResults($limit);

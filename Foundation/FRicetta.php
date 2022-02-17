@@ -1,5 +1,6 @@
 <?php
 
+//require_once('Fdb.php');
 class FRicetta extends Fdb {
 
     private static $entity = 'ERicetta';
