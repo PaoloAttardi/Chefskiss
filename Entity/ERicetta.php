@@ -7,40 +7,40 @@ class ERicetta
 {
 
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idRicetta;
+    public $idRicetta;
 
     /** @Column(type="string") **/
-    private $ingredienti;
+    public $ingredienti;
     
     /** @Column(type="string") **/
-    private $procedimento;
+    public $procedimento;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="categoria")
     **/
-    private $categoria;
+    public $categoria;
     
     /** @Column(type="date") **/
-    private $data;
+    public $data;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="person")
     **/
-    private $autore;
+    public $autore;
     
     /** @Column(type="string") **/
-    private $nomeRicetta;
+    public $nomeRicetta;
     
     /** @Column(type="integer") **/
-    private $dosiPersone;
+    public $dosiPersone;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="immagine")
     **/
-    private $idImmagine;
+    public $idImmagine;
     
     /** @Column(type="integer"), options = {"default" : 0} **/
-    private $valutazione;
+    public $valutazione;
 
 
     /**
@@ -228,5 +228,6 @@ class ERicetta
 
         return $this;
     }
+
 }
 

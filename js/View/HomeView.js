@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/homeTemplate.html',
+    'text!templates/Home.html',
     'js/Collections/RicetteCollection.js'
   ], function($, _, Backbone, homeTemplate, ricette){
 
