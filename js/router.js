@@ -6,9 +6,10 @@ define([
     'View/HomePostView',
     'View/FooterView',
     'View/RicetteView',
+    'View/ForumView',
     'js/Collections/RicetteCollection.js',
-    'js/Collections/DomandeCollection.js'
-  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, RicetteCollection, DomandeCollection) {
+    'js/Collections/domandeCollection.js'
+  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, RicetteCollection, DomandeCollection) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
@@ -16,6 +17,8 @@ define([
         'Home': 'HomeView',
 
         'Ricette': 'showRicette',
+
+        'Forum': 'showForum',
         
         // Default
         '*actions': 'defaultAction'
@@ -28,14 +31,14 @@ define([
 
         app_router.on('route:showRicette', function(){
           var ricetteView = new RicetteView();
-          var homePost = new HomePost();
           homePost.$el.hide();
           ricetteView.render();
-      })
+        })
 
         app_router.on('route:defaultAction', function (actions) {
         var ricette = new RicetteCollection();
         var homeRicette = new HomeRicette({collection: ricette});
+        homePost.$el.show();
         ricette.fetch({
           success: function(){
             console.log(JSON.stringify(ricette));
@@ -44,10 +47,8 @@ define([
           error: function(){console.log('errore')},
           })
         });
-
         var post = new DomandeCollection();
         var homePost = new HomePost({collection: post});
-        homePost.$el.show();
         post.fetch({
           success: function(){
             console.log(JSON.stringify(post));
@@ -59,6 +60,7 @@ define([
         app_router.on('route:HomeView', function(){
           var ricette = new RicetteCollection();
           var homeRicette = new HomeRicette({collection: ricette});
+          homePost.$el.show();
           ricette.fetch({
             success: function(){
               console.log(JSON.stringify(ricette));
@@ -67,10 +69,8 @@ define([
             error: function(){console.log('errore')},
             })
           });
-  
           var post = new DomandeCollection();
           var homePost = new HomePost({collection: post});
-          homePost.$el.show();
           post.fetch({
             success: function(){
               console.log(JSON.stringify(post));
@@ -78,6 +78,12 @@ define([
             },
             error: function(){console.log('errore')},
             });
+
+            app_router.on('route:showForum', function(){
+              var forumView = new ForumView();
+              homePost.$el.hide();
+              forumView.render();
+          })
 
         var footerView = new FooterView();
 
