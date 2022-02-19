@@ -7,26 +7,26 @@
 class ECommento {
     
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idCommento;
+    public $idCommento;
 
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="person")
     **/
-    private $autore;
+    public $autore;
 
     /** @Column(type="string") **/
-    private $testo;
+    public $testo;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="post")
     **/
-    private $idPost;
+    public $idPost;
     
     /** @Column(type="date") **/
-    private $data;
+    public $data;
 
     /** @Column(type="integer") **/
-    private $upVote;
+    public $upVote;
 
     /**
      * ECommento constructor.

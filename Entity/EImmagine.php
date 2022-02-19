@@ -6,19 +6,19 @@
 class EImmagine{
 
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idImmagine;
+    public $idImmagine;
 
     /** @Column(type="string") **/
-    private $nome;
+    public $nome;
     
     /** @Column(type="string") **/
-    private $dimensione;
+    public $dimensione;
     
     /** @Column(type="string") **/
-    private $tipo;
+    public $tipo;
     
     /** @Column(type="blob") **/
-    private $immagine;
+    public $immagine;
 
     /**
      * @param $nome

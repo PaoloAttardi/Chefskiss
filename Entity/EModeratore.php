@@ -7,17 +7,17 @@
 class EModeratore extends EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
-    protected $idUser;
+    public $idUser;
 
     /** @Column(type="integer")
      * @OneToOne(targetEntity="badge")
      **/
-    protected $idBadge;
+    public $idBadge;
 
     /** @Column(type="datetime") **/
-    protected $dataPromozione;
+    public $dataPromozione;
 
-    protected $discr = "moderator";
+    public $discr = "moderator";
 
     public function __construct($idBadge, $dataPromozione, $name, $surname, $idImmagine, $password, $description, $email)
     {

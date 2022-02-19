@@ -2,13 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/Home.html',
-    'js/Collections/RicetteCollection.js'
-  ], function($, _, Backbone, homeTemplate, ricette){
+    'text!templates/HomePost.html',
+    'js/Collections/DomandeCollection.js'
+  ], function($, _, Backbone, homeTemplate, post){
 
     var HomeView = Backbone.View.extend({
-      el: $("#page"),
-      //template: _.template($('#HomeTemplate').html()),
+      el: $("#page2"),
 
       initialize: function() {
 
@@ -18,6 +17,7 @@ define([
       },
   
       render: function(){
+
         this.$el.html(homeTemplate);
         //this.addAll();
       }

@@ -7,18 +7,18 @@
 class EUtente extends EPersona
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
-    protected $idUser;
+    public $idUser;
 
     /** @Column(type="boolean", options = {"default" : "false"}) **/
-    protected $ban;
+    public $ban;
 
     /** @Column(type="datetime", nullable=true)**/
-    protected $dataFineBan;
+    public $dataFineBan;
 
     /** @Column(type="integer", nullable=true) **/
-    protected $idModerator;
+    public $idModerator;
 
-    protected $discr = "user";
+    public $discr = "user";
 
     public function __construct($ban, $dataFineBan, $idModerator, $name, $surname, $idImmagine, $password, $description, $email)
     {

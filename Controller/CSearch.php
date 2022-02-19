@@ -6,13 +6,15 @@ require_once('../Entity/ERicetta.php');
 require_once('../Foundation/Utility/USingleton.php');*/
 class CSearch {
 
-    static function homeView(){
+    static function homeRicette(){
         $pm = USingleton::getInstance('FPersistentManager');
         $ricetteVotate = $pm::search('FRicetta', array(), 'valutazione');
-        /*for($i = 0; $i < count($ricetteVotate); $i++){
-            //var_dump($ricetteVotate[$i]);
-            echo json_encode($ricetteVotate[$i]);
-        }*/
-        echo json_encode($ricetteVotate);
+        VData::sendData($ricetteVotate);
+    }
+
+    static function homePost(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $domande = $pm::search('FPost', array(), 'dataPubblicazione');
+        VData::sendData($domande);
     }
 }

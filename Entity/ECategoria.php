@@ -7,15 +7,15 @@
 class ECategoria{
 
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idCategoria;
+    public $idCategoria;
 
     /** @Column(type="string") **/
-    private $categoria;
+    public $categoria;
 
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="immagine")
     **/
-    private $idImmagine;
+    public $idImmagine;
 
     /**
      * @param $categoria

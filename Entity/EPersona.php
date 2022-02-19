@@ -15,27 +15,27 @@ class EPersona
      * @OneToOne(targetEntity="moderatore")
      * @JoinColumn(name="idUser", referencedColumnName="idUser")
      **/
-    protected $idUser;
+    public $idUser;
 
     /** @Column(type="string") **/
-    protected $name;
+    public $name;
 
     /** @Column(type="string") **/
-    protected $surname;
+    public $surname;
 
     /** @Column(type="integer", nullable=true) **/
-    protected $idImmagine;
+    public $idImmagine;
 
     /** @Column(type="string") **/
-    protected $password;
+    public $password;
 
     /** @Column(type="string", nullable=true) **/
-    protected $description;
+    public $description;
 
     /** @Column(type="string") **/
-    protected $email;
+    public $email;
 
-    protected $discr = "persona";
+    public $discr = "persona";
 
     public function __construct($name, $surname, $idImmagine, $password, $description, $email)
     {

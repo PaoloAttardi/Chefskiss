@@ -7,26 +7,26 @@
 class EPost {
 
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idPost;
+    public $idPost;
 
     /** @Column(type="string") **/
-    private $titolo;
+    public $titolo;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="person")
     **/
-    private $autore;
+    public $autore;
     
     /** @Column(type="string") **/
-    private $domanda;
+    public $domanda;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="categoria")
     **/
-    private $categoria;
+    public $categoria;
     
     /** @Column(type="date") **/
-    private $dataPubblicazione;
+    public $dataPubblicazione;
 
     /**
      * @param $autore

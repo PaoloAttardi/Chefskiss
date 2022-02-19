@@ -7,10 +7,10 @@
 class EBadge
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
-    protected $idBadge;
+    public $idBadge;
 
     /** @Column(type="string") **/
-    protected $Badge;
+    public $Badge;
 
     public function __construct($Badge)
     {

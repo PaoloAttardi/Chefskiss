@@ -9,12 +9,12 @@ class ETabellaUpVote
     /** @Id @Column(type="integer")
      *  @OneToOne(targetEntity="commento")
      **/
-    private $idCommento;
+    public $idCommento;
 
     /** @Id @Column(type="integer")
      * @OneToOne(targetEntity="persona")
      **/
-    private $idUser;
+    public $idUser;
 
     public function __construct($idUser, $idCommento)
     {

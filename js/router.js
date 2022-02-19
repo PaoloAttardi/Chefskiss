@@ -2,15 +2,20 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'View/HomeView',
+    'View/HomeRicetteView',
+    'View/HomePostView',
     'View/FooterView',
-    'js/Collections/RicetteCollection.js'
-  ], function($, _, Backbone, HomeView, FooterView, RicetteCollection) {
+    'View/RicetteView',
+    'js/Collections/RicetteCollection.js',
+    'js/Collections/DomandeCollection.js'
+  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, RicetteCollection, DomandeCollection) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
         // Define some URL routes
-        '/chefskiss2/index.html': 'HomeView',
+        'Home': 'HomeView',
+
+        'Ricette': 'showRicette',
         
         // Default
         '*actions': 'defaultAction'
@@ -21,24 +26,58 @@ define([
 
         var app_router = new AppRouter;
 
-        app_router.on('route:HomeView', function(){
-            var homeView = new HomeView();
-            homeView.render();
-        })
+        app_router.on('route:showRicette', function(){
+          var ricetteView = new RicetteView();
+          var homePost = new HomePost();
+          homePost.$el.hide();
+          ricetteView.render();
+      })
 
         app_router.on('route:defaultAction', function (actions) {
         var ricette = new RicetteCollection();
-        var homeView = new HomeView({collection: ricette});
+        var homeRicette = new HomeRicette({collection: ricette});
         ricette.fetch({
           success: function(){
-            console.log('prova');
-            ricette.parse();
             console.log(JSON.stringify(ricette));
-            homeView.render();
+            homeRicette.render();
           },
-          error: function(){console.log('porcodio')},
+          error: function(){console.log('errore')},
           })
         });
+
+        var post = new DomandeCollection();
+        var homePost = new HomePost({collection: post});
+        homePost.$el.show();
+        post.fetch({
+          success: function(){
+            console.log(JSON.stringify(post));
+            homePost.render();
+          },
+          error: function(){console.log('errore')},
+          });
+
+        app_router.on('route:HomeView', function(){
+          var ricette = new RicetteCollection();
+          var homeRicette = new HomeRicette({collection: ricette});
+          ricette.fetch({
+            success: function(){
+              console.log(JSON.stringify(ricette));
+              homeRicette.render();
+            },
+            error: function(){console.log('errore')},
+            })
+          });
+  
+          var post = new DomandeCollection();
+          var homePost = new HomePost({collection: post});
+          homePost.$el.show();
+          post.fetch({
+            success: function(){
+              console.log(JSON.stringify(post));
+              homePost.render();
+            },
+            error: function(){console.log('errore')},
+            });
 
         var footerView = new FooterView();
 

@@ -7,26 +7,26 @@
 class ERecensione
 {
     /** @Id @Column(type="integer") @GeneratedValue**/
-    private $idRecensione;
+    public $idRecensione;
 
     /** @Column(type="string") **/
-    private $commento;
+    public $commento;
     
     /** @Column(type="integer") **/
-    private $valutazione;
+    public $valutazione;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="ricetta")
     **/
-    private $idRicetta;
+    public $idRicetta;
     
     /** @Column(type="date") **/
-    private $dataPubblicazione;
+    public $dataPubblicazione;
     
     /** @Column(type="integer") 
      * @OneToOne(targetEntity="person")
     **/
-    private $autore;
+    public $autore;
 
     /**
      * @param $commento
