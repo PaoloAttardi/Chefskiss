@@ -8,7 +8,7 @@ class CSearch {
 
     static function homeRicette(){
         $pm = USingleton::getInstance('FPersistentManager');
-        $ricetteVotate = $pm::search('FRicetta', array(), 'valutazione', 0, 3);
+        $ricetteVotate = $pm::search('FRicetta', array(), 'valutazione', 0, 6);
         // usando la paginazione per farmi restituire le prime 6 ricette per valutazione otterrò 
         // come risultato le ricette nell'array $ricetteVotate['data'],
         // mentre il totale delle ricette trovate nel db sarà memorizzato in $ricetteVotate['total']

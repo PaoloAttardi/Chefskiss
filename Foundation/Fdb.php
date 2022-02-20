@@ -256,7 +256,7 @@ class Fdb
                 $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  ' :parametro')
                     ->setParameter('parametro', $parametri[$i][2]);
             }
-            if ($order != '') $qb->orderBy($class::getAlias() . '.' . $order);
+            if ($order != '') $qb->orderBy($class::getAlias() . '.' . $order, 'DESC');
             if ($offset != '' && $limit != ''){ 
                 $qb->setFirstResult($offset);
                 $qb->setMaxResults($limit);

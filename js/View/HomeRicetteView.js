@@ -27,7 +27,7 @@ define([
         ricette = ricette.at(0);
         //_.toArray(ricette);
         var data = {
-          ricette: ricette,
+          ricette: ricette.toJSON(),
           _: _
         };
         console.log(JSON.stringify(data));

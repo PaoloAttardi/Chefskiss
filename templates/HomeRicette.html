@@ -11,11 +11,12 @@
     <div class="u-expanded-width u-layout-horizontal u-list u-list-1">
       <div class="u-repeater u-repeater-1">
        <% _.each(ricette, function(ricetta, index, ricette){ %>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-1" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-            <h3 class="u-text u-text-default u-text-2"><%= ricetta.nomeRicetta %></h3>
-            <p class="u-text u-text-default u-text-3"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
-            <p class="u-text u-text-default u-text-3"><%= ricetta.data %></p>
+        <% var value = index + 1 %>
+        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-<%= value %>" data-image-width="2000" data-image-height="1333">
+          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-<%= value %>">
+            <h3 class="u-text u-text-default u-text-<%= value %>"><%= ricetta.nomeRicetta %></h3>
+            <p class="u-text u-text-default u-text-<%= value %>"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
+            <p class="u-text u-text-default u-text-<%= value %>"><%= ricetta.data %></p>
           </div>
         </div>
         <% }); %>
