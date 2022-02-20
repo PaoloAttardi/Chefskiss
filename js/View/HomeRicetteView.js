@@ -4,35 +4,36 @@ define([
     'backbone',
     'text!templates/HomeRicette.html',
     'js/Collections/RicetteCollection.js'
-  ], function($, _, Backbone, homeTemplate, ricette){
+  ], function($, _, Backbone, homeTemplate, RicetteCollection){
 
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
 
       initialize: function() {
+        var that = this;
+        var onDataHandler = function() {
+          that.render();
+        }
 
-        //this.collection.bind("reset", this.render, this);
-        //this.collection.bind("add", this.addOne, this);
-  
+        ricette = new RicetteCollection();
+        ricette.fetch({success: function(){
+          that.collection = ricette;
+          onDataHandler();
+          }
+        })
       },
   
       render: function(){
-        this.$el.html(homeTemplate);
-        //this.addAll();
+        ricette = ricette.at(0);
+        //_.toArray(ricette);
+        var data = {
+          ricette: ricette,
+          _: _
+        };
+        console.log(JSON.stringify(data));
+        var compiledTemplate = _.template( homeTemplate, data );
+        this.$el.html(compiledTemplate);
       }
-
-    /*addAll: function () {
-      this.collection.each(this.addOne);
-      console.log('ciao');
-    },
-
-    addOne: function (model) {
-        view = new HomeView({
-            model: model
-        });
-        //$("ul", this.el).append(view.render()); //aggiunta di un elemento alla view
-        console.log(model);
-      }*/
   
     });
   

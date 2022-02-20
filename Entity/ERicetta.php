@@ -128,7 +128,7 @@ class ERicetta
     /**
      * @return mixed
      */
-    public function getDataPubblicazione()
+    public function getData()
     {
         return $this->data;
     }
@@ -176,7 +176,7 @@ class ERicetta
     /**
      * @param mixed $data
      */
-    public function setDataPubblicazione($data)
+    public function setData($data)
     {
         $this->data = $data;
     }
