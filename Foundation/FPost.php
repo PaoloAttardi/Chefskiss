@@ -53,12 +53,6 @@ class FPost extends Fdb{
         $object->setId($id);
     }
 
-    public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $db = parent::getInstance();
-        $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        return $result;
-    }
-
     public static function update($field, $newvalue, $pk, $val){
         $db = parent::getInstance();
         $result = $db->updateDB(self::getClass(), $field, $newvalue, $pk, $val);
@@ -80,15 +74,9 @@ class FPost extends Fdb{
         else return false;
     }
 
-    public static function search($parametri=array(), $ordinamento='', $offset='', $limite=''){
+    public static function search($parametri=array(), $ordinamento='', $offset='', $limite='', $like=''){
         $db = parent::getInstance();
-        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite);
-        return $result;
-    }
-
-    public function filterByCategorie(String $categoria){
-        $db = parent::getInstance();
-        $result = $db->searchDB(self::class, array('idCategoria', '=', $categoria));
+        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite, $like);
         return $result;
     }
 

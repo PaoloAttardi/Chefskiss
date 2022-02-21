@@ -28,8 +28,8 @@ class FPersistentManager
         return $ris;
     }
 
-    public static function search($Fclass, $parametri=array(), $ordinamento='', $offset='', $limite=''){
-        $result = $Fclass::search($parametri, $ordinamento, $offset, $limite);
+    public static function search($Fclass, $parametri=array(), $ordinamento='', $offset='', $limite='', $like=''){
+        $result = $Fclass::search($parametri, $ordinamento, $offset, $limite, $like);
         return $result;
     }
 

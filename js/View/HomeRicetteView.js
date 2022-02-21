@@ -16,7 +16,14 @@ define([
         }
 
         ricette = new RicetteCollection();
-        ricette.fetch({success: function(){
+        ricette.fetch({
+          data: $.param({
+            order: 'valutazione',
+            offset: 0,
+            limit: 6,
+            like: ''
+          }),
+          success: function(){
           that.collection = ricette;
           onDataHandler();
           }
@@ -25,12 +32,10 @@ define([
   
       render: function(){
         ricette = ricette.at(0);
-        //_.toArray(ricette);
         var data = {
           ricette: ricette.toJSON(),
           _: _
         };
-        console.log(JSON.stringify(data));
         var compiledTemplate = _.template( homeTemplate, data );
         this.$el.html(compiledTemplate);
       }

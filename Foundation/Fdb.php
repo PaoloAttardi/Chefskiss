@@ -247,14 +247,18 @@ class Fdb
      * @param string $limit ultimo elemento da restituire rispetto ad una ricerca (0 per restituire dal primo elemento)
      * @return array|false
      */
-    public function searchDb($class, $parametri = array(), $order = '', $offset = '',$limit = ''){
+    public function searchDb($class, $parametri = array(), $order = '', $offset = '',$limit = '', $like=''){
         try {
             $qb = $this->_em->createQueryBuilder();
             $qb->select($class::getAlias())
                 ->from($class::getEntity(), $class::getAlias());
             for ($i = 0; $i < sizeof($parametri); $i++) {
-                $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  ' :parametro')
+                $qb->where($class::getAlias() . '.' . $class::getAlias(). ' ' . $parametri[$i][1] .  ' :parametro')
                     ->setParameter('parametro', $parametri[$i][2]);
+            }
+            if ($like != '') {
+                $qb->andWhere($class::getAlias() . '.' . $like[0] . ' LIKE :parametro')
+                    ->setParameter('parametro', $like[1]);
             }
             if ($order != '') $qb->orderBy($class::getAlias() . '.' . $order, 'DESC');
             if ($offset != '' && $limit != ''){ 

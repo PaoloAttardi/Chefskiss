@@ -12,12 +12,18 @@ define([
       initialize: function() {
         var that = this;
         var onDataHandler = function() {
-          console.log(JSON.stringify(this.collection));
           that.render();
         }
 
         post = new DomandeCollection();
-        post.fetch({success: function(){
+        post.fetch({
+          data: $.param({
+            order: 'dataPubblicazione',
+            offset: 0,
+            limit: 3,
+            like: ''
+          }),
+          success: function(){
           this.collection = post;
             onDataHandler();
           }
@@ -25,11 +31,12 @@ define([
       },
   
       render: function(){
+        post = post.at(0);
         var data = {
           post: post.toJSON(),
           _: _
         };
-
+        console.log(JSON.stringify(data));
         var compiledTemplate = _.template( homeTemplate, data );
         this.$el.html(compiledTemplate);
       }

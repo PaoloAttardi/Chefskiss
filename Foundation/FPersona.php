@@ -47,12 +47,6 @@ class FPersona extends Fdb
     public function __construct(){
     }
 
-    public static function loadByField($parametri = array(), $ordinamento = '', $limite = ''){
-        $db = parent::getInstance();
-        $result = $db->searchDb(static::getClass(), $parametri, $ordinamento, $limite);
-        return $result;
-    }
-
     public static function insert($object){
         $db = parent::getInstance();
         $id = $db->insertDb($object);
@@ -80,9 +74,9 @@ class FPersona extends Fdb
         else return false;
     }
 
-    public static function search($parametri=array(), $ordinamento='', $offset='', $limite=''){
+    public static function search($parametri=array(), $ordinamento='', $offset='', $limite='', $like=''){
         $db = parent::getInstance();
-        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite);
+        $result = $db->searchDb(self::$class, $parametri, $ordinamento, $offset, $limite, $like);
         return $result;
     }
 
@@ -91,7 +85,7 @@ class FPersona extends Fdb
         $db = Fdb::getInstance();
         $result = $db->checkIfLogged($user, $pass);
         if (isset($result)){
-            $utente = self::loadByField(array(['email', '=', $result['email']]));
+            $utente = self::search(array(['email', '=', $result['email']]));
         }
         return $utente;
     }
