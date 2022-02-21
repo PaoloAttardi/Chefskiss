@@ -58,65 +58,37 @@
     <div class="u-border-1 u-border-palette-5-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-expanded-width u-list u-list-1">
       <div class="u-repeater u-repeater-1">
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-1" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-            <h3 class="u-text u-text-default u-text-1">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-2">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-2" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
-            <h3 class="u-text u-text-default u-text-3">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-4">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-3" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
-            <h3 class="u-text u-text-default u-text-5">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-6">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-4" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
-            <h3 class="u-text u-text-default u-text-7">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-8">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-5" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
-            <h3 class="u-text u-text-default u-text-9">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-10">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-6" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
-            <h3 class="u-text u-text-default u-text-11">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-12">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-7" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-7">
-            <h3 class="u-text u-text-default u-text-13">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-14">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-8" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-8">
-            <h3 class="u-text u-text-default u-text-15">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-16">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-          </div>
-        </div>
+        <% _.each(ricette, function(ricetta, index, ricette){ %>
         <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
           <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
-            <h3 class="u-text u-text-default u-text-17">Sample Headline</h3>
-            <p class="u-text u-text-default u-text-18">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
+            <h3 class="u-text u-text-default u-text-1"><%= ricetta.nomeRicetta %></h3>
+            <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
+            <p class="u-text u-text-default u-text-2"><%= ricetta.data %></p>
           </div>
         </div>
+        <% }); %>
+        <% for(let index = _.size(ricette); index < 9; index++){ %>
+          <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
+              <h3 class="u-text u-text-default u-text-1"></h3>
+              <p class="u-text u-text-default u-text-2"></p>
+              <p class="u-text u-text-default u-text-2"></p>
+            </div>
+          </div>
+        <% }; %>
       </div>
     </div>
-    <a href="https://nicepage.com/website-design" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
-    </a>
-    <a href="https://nicepage.com/website-design" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-2">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
-    </a>
+    <% if(page == 0 && nextPage != false){ %> 
+      <a href="#/Ricette/<%=nextPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
+      </a>
+    <% } else if(page > 0 && nextPage == false){ %>
+      <a href="#/Ricette/<%=previousPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
+      </a>
+    <% } else if(page > 0 && nextPage != false){ %>
+      <a href="#/Ricette/<%=previousPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
+      </a>
+      <a href="#/Ricette/<%=nextPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-2">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
+      </a>
+    <% }; %>
   </div>
 </section>

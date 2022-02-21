@@ -253,7 +253,7 @@ class Fdb
             $qb->select($class::getAlias())
                 ->from($class::getEntity(), $class::getAlias());
             for ($i = 0; $i < sizeof($parametri); $i++) {
-                $qb->where($class::getAlias() . '.' . $class::getAlias(). ' ' . $parametri[$i][1] .  ' :parametro')
+                $qb->where($class::getAlias() . '.' . $parametri[$i][0] . ' ' . $parametri[$i][1] .  ' :parametro')
                     ->setParameter('parametro', $parametri[$i][2]);
             }
             if ($like != '') {

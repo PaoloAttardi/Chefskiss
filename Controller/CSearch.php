@@ -35,20 +35,19 @@ class CSearch {
             $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $ricetteVotate['data'][$i]->getCategoria()]));
             $ricetteVotate['data'][$i]->setCategoria($categoria[0]->getCategoria());
         }
-        VData::sendData($ricetteVotate['data']);
+        VData::sendData($ricetteVotate);
     }
 
     static function getPost(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
         $domande = $pm::search('FPost', array(), $params[0], $params[1], $params[2], $params[3]);
-        var_dump($domande);
         for($i = 0; $i < count($domande['data']); $i++){
             $data = $domande['data'][$i]->getDataPubblicazione();
             $domande['data'][$i]->setDataPubblicazione($data->format('Y-m-d'));
             $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $domande['data'][$i]->getCategoria()]));
             $domande['data'][$i]->setCategoria($categoria[0]->getCategoria());
         }
-        VData::sendData($domande['data']);
+        VData::sendData($domande);
     }
 }

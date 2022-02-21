@@ -24,19 +24,18 @@ define([
             like: ''
           }),
           success: function(){
-          this.collection = post;
+            that.collection = post;
             onDataHandler();
           }
         })
       },
   
       render: function(){
-        post = post.at(0);
+        post = this.collection.at(0);
         var data = {
-          post: post.toJSON(),
+          post: post.toJSON().data,
           _: _
         };
-        console.log(JSON.stringify(data));
         var compiledTemplate = _.template( homeTemplate, data );
         this.$el.html(compiledTemplate);
       }

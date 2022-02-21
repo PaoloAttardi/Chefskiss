@@ -13,7 +13,7 @@ define([
       routes: {
         // Define some URL routes
 
-        'Ricette': 'showRicette',
+        'Ricette/:page': 'showRicette',
 
         'Forum': 'showForum',
         
@@ -28,10 +28,9 @@ define([
 
         var homePost = new HomePost();
 
-        app_router.on('route:showRicette', function(){
-          var ricetteView = new RicetteView();
+        app_router.on('route:showRicette', function(page){
+          var ricetteView = new RicetteView(page);
           homePost.$el.hide();
-          ricetteView.render();
         })
 
         app_router.on('route:defaultAction', function () {

@@ -31,9 +31,9 @@ define([
       },
   
       render: function(){
-        ricette = ricette.at(0);
+        ricette = this.collection.at(0);
         var data = {
-          ricette: ricette.toJSON(),
+          ricette: ricette.toJSON().data,
           _: _
         };
         var compiledTemplate = _.template( homeTemplate, data );
