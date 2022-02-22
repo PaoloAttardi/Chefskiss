@@ -65,14 +65,13 @@ class Fdb
             $qb->select($class::getAlias())
                 ->from($class::getEntity(), $class::getAlias())
                 ->where($class::getAlias() . ".email = :email")
-                ->where($class::getAlias() . ".email = :password")
+                ->andWhere($class::getAlias() . ".password = :password")
                 ->setParameters(new ArrayCollection([
                     new Parameter('email', $email),
                     new Parameter('password', $pass)
                 ]));
             $query = $qb->getQuery();
             $result = $query->getResult();
-            // $result = $query->getArrayResult(); risultati memorizzati in un array(?)
             if (count($result) == 0) {
                 $result = null;
             }

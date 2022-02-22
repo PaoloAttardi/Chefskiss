@@ -7,7 +7,6 @@ define([
   
     var FooterView = Backbone.View.extend({
       el: $("#footer"),
-      /*template: _.template($('#footerTemplate').html()),*/
   
       render: function(){
         this.$el.html(footerTemplate);

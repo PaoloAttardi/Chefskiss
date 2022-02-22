@@ -36,6 +36,7 @@ define([
           post: post.toJSON().data,
           _: _
         };
+        this.$el.show();
         var compiledTemplate = _.template( homeTemplate, data );
         this.$el.html(compiledTemplate);
       }

@@ -85,7 +85,7 @@ class FPersona extends Fdb
         $db = Fdb::getInstance();
         $result = $db->checkIfLogged($user, $pass);
         if (isset($result)){
-            $utente = self::search(array(['email', '=', $result['email']]));
+            $utente = self::search(array(['email', '=', $user]));
         }
         return $utente;
     }

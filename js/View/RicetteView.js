@@ -15,13 +15,15 @@ define([
         var onDataHandler = function() {
           that.render(Number(number));
         }
-
+        if(page > 0) var limite = page + 8;
+        else var limite = page + 9;
+        console.log(limite);
         ricette = new RicetteCollection();
         ricette.fetch({
           data: $.param({
             order: '',
             offset: page,
-            limit: page + 9,
+            limit: limite,
             like: ''
           }),
           success: function(){

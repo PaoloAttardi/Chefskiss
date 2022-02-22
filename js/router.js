@@ -6,8 +6,9 @@ define([
     'View/HomePostView',
     'View/FooterView',
     'View/RicetteView',
-    'View/ForumView'
-  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView) {
+    'View/ForumView',
+    'View/ProfiloView'
+  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, ProfiloView) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
@@ -16,6 +17,8 @@ define([
         'Ricette/:page': 'showRicette',
 
         'Forum': 'showForum',
+
+        'Profilo': 'showProfilo',
         
         // Default
         '*actions': 'defaultAction'
@@ -24,24 +27,26 @@ define([
       
     var initialize = function(){
 
-        var app_router = new AppRouter;
+        $('#page2').setAttribute('style', 'display: none');
 
-        var homePost = new HomePost();
+        var app_router = new AppRouter;
 
         app_router.on('route:showRicette', function(page){
           var ricetteView = new RicetteView(page);
-          homePost.$el.hide();
         })
 
         app_router.on('route:defaultAction', function () {
           var homeRicette = new HomeRicette();
-          homePost.$el.show();
+          var homePost = new HomePost();
         })
 
         app_router.on('route:showForum', function(){
           var forumView = new ForumView();
-          homePost.$el.hide();
           forumView.render();
+        })
+
+        app_router.on('route:showProfilo', function(){
+          var profiloView = new ProfiloView();
         })
 
         var footerView = new FooterView();

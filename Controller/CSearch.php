@@ -7,6 +7,9 @@ require_once('../Foundation/Utility/USingleton.php');*/
 class CSearch {
 
     static function getParams(){
+        if(isset($_GET['parametri'])){
+            $parametri = $_GET['parametri'];
+        } else $parametri = '';
         if(isset($_GET['order'])){
             $order = $_GET['order'];
         } else $order = '';
@@ -19,29 +22,31 @@ class CSearch {
         if(isset($_GET['like'])){
             $like = $_GET['like'];
         } else $like = '';
-        return(array($order, $offset, $limit, $like));
+        return(array($parametri, $order, $offset, $limit, $like));
     }
 
     static function getRicette(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
-        $ricetteVotate = $pm::search('FRicetta', array(), $params[0], $params[1], $params[2], $params[3]);
+        if($params[0] != '') $ricette = $pm::search('FRicetta', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $ricette = $pm::search('FRicetta', array(), $params[1], $params[2], $params[3], $params[4]);
         // usando la paginazione per farmi restituire le prime 6 ricette per valutazione otterrò 
-        // come risultato le ricette nell'array $ricetteVotate['data'],
-        // mentre il totale delle ricette trovate nel db sarà memorizzato in $ricetteVotate['total']
-        for($i = 0; $i < count($ricetteVotate['data']); $i++){
-            $data = $ricetteVotate['data'][$i]->getData();
-            $ricetteVotate['data'][$i]->setData($data->format('Y-m-d'));
-            $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $ricetteVotate['data'][$i]->getCategoria()]));
-            $ricetteVotate['data'][$i]->setCategoria($categoria[0]->getCategoria());
+        // come risultato le ricette nell'array $ricette['data'],
+        // mentre il totale delle ricette trovate nel db sarà memorizzato in $ricette['total']
+        for($i = 0; $i < count($ricette['data']); $i++){
+            $data = $ricette['data'][$i]->getData();
+            $ricette['data'][$i]->setData($data->format('Y-m-d'));
+            $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $ricette['data'][$i]->getCategoria()]));
+            $ricette['data'][$i]->setCategoria($categoria[0]->getCategoria());
         }
-        VData::sendData($ricetteVotate);
+        VData::sendData($ricette);
     }
 
     static function getPost(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
-        $domande = $pm::search('FPost', array(), $params[0], $params[1], $params[2], $params[3]);
+        if($params[0] != '') $domande = $pm::search('FPost', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $domande = $pm::search('FPost', array(), $params[1], $params[2], $params[3], $params[4]);
         for($i = 0; $i < count($domande['data']); $i++){
             $data = $domande['data'][$i]->getDataPubblicazione();
             $domande['data'][$i]->setDataPubblicazione($data->format('Y-m-d'));
