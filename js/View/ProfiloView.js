@@ -11,12 +11,12 @@ define([
     var ProfiloView = Backbone.View.extend({
       el: $("#page1"),
   
-      initialize: function() {
+      initialize: function(page) {
         var that = this;
         var onDataHandler = function() {
             var check = true;
             if(!that.model.has('idUser')) check = false;
-            that.render(check);
+            that.render(check, page);
         }
 
         utente = new utenteModel();
@@ -29,9 +29,9 @@ define([
 
       },
 
-      render: function(check){
+      render: function(check, page){
         var that = this;
-        var ricette = new ProfiloRicetteView(this.model);
+        var ricette = new ProfiloRicetteView(this.model, page);
         if(check){
             var data = {
                 utente: that.model.toJSON(),

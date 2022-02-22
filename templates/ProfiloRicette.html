@@ -1,10 +1,7 @@
-<section class="u-clearfix u-white u-section-2" id="sec-3e7b">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <h6 class="u-align-center u-text u-text-3"><%= nRicette %> </h6>
-        <h5 class="u-align-center u-text u-text-4">Ricette pubblicate:&nbsp;</h5>
-    </div>
-</section>
-
+<div class="u-clearfix u-sheet u-sheet-1">
+  <h5 class="u-align-center u-text u-text-4">Ricette pubblicate:&nbsp;</h5>
+  <h6 class="u-align-center u-text u-text-3"><%= nRicette %> </h6>
+</div>
 <section class="u-clearfix u-white u-section-3" id="sec-4402">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="u-expanded-width u-list u-list-1">
@@ -18,6 +15,29 @@
             </div>
           </div>
           <% }); %>
+          <% for(let index = _.size(ricette); index < 9; index++){ %>
+            <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
+                <h3 class="u-text u-text-default u-text-1"></h3>
+                <p class="u-text u-text-default u-text-2"></p>
+                <p class="u-text u-text-default u-text-2"></p>
+              </div>
+            </div>
+          <% }; %>
+        </div>
+      </div>
+      <% if(page == 0 && nextPage != false){ %>
+        <a href="#/Ricette/<%=nextPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
+        </a>
+      <% } else if(page > 0 && nextPage == false){ %>
+        <a href="#/Ricette/<%=previousPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
+        </a>
+      <% } else if(page > 0 && nextPage != false){ %>
+        <a href="#/Ricette/<%=previousPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
+        </a>
+        <a href="#/Ricette/<%=nextPage%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-2">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
+        </a>
+      <% }; %>
         </div>
     </div>
   </div>

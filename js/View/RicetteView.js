@@ -15,9 +15,7 @@ define([
         var onDataHandler = function() {
           that.render(Number(number));
         }
-        if(page > 0) var limite = page + 8;
-        else var limite = page + 9;
-        console.log(limite);
+        var limite = 9;
         ricette = new RicetteCollection();
         ricette.fetch({
           data: $.param({

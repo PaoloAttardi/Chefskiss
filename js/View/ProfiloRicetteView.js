@@ -9,32 +9,46 @@ define([
     var ProfiloRicetteView = Backbone.View.extend({
       el: $("#page2"),
 
-    initialize: function(model) {
+    initialize: function(model, number) {
         var that = this;
         ricette = new RicetteCollection();
+        var page = number * 9;
+        var onDataHandler = function() {
+          that.render(Number(number));
+        }
+        var limite = 9;
         ricette.fetch({
             data: $.param({
                 parametri: ['autore', '=', model.get('idUser')],
                 order: '',
-                offset: 0,
-                limit: 9,
+                offset: page,
+                limit: limite,
                 like: ''
             }),
                 success: function(){
-                    that.collection = ricette.at(0);
-                    that.render();
+                    that.collection = ricette;
+                    onDataHandler();
                 }
             })
         },
 
-    render: function(){
+    render: function(number){
         var that = this;
+        ricette = this.collection.at(0);
+        var total = Number(ricette.toJSON().total);
+        var n = number * 9 + 9;
+        if(total > n){
+          var nPage = number + 1;
+        } else var nPage = false;
+        var pPage = number - 1;
         var data = {
-            ricette: that.collection.toJSON().data,
-            nRicette: that.collection.toJSON().total,
+            ricette: ricette.toJSON().data,
+            nRicette: ricette.toJSON().total,
+            page: number,
+            nextPage: nPage,
+            previousPage: pPage,
             _: _
         }
-        that.$el.show();
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);
     }

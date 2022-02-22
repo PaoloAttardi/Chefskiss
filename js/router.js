@@ -18,7 +18,7 @@ define([
 
         'Forum': 'showForum',
 
-        'Profilo': 'showProfilo',
+        'Profilo/:page': 'showProfilo',
         
         // Default
         '*actions': 'defaultAction'
@@ -27,11 +27,10 @@ define([
       
     var initialize = function(){
 
-        $('#page2').setAttribute('style', 'display: none');
-
         var app_router = new AppRouter;
 
         app_router.on('route:showRicette', function(page){
+          $('#page2').attr('style', 'display: none');
           var ricetteView = new RicetteView(page);
         })
 
@@ -41,12 +40,13 @@ define([
         })
 
         app_router.on('route:showForum', function(){
+          $('#page2').attr('style', 'display: none');
           var forumView = new ForumView();
           forumView.render();
         })
 
-        app_router.on('route:showProfilo', function(){
-          var profiloView = new ProfiloView();
+        app_router.on('route:showProfilo', function(page){
+          var profiloView = new ProfiloView(page);
         })
 
         var footerView = new FooterView();

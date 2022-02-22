@@ -39,7 +39,7 @@ class CUtente{
                     $privilegi = $utente[0]->getDiscr();
                     $session->setValue('privilegi', $privilegi);
                     $session->setValue('utente', $savableData);
-                    header('Location: /chefskiss2/index.html#/Profilo');
+                    header('Location: /chefskiss2/index.html#/Profilo/0');
                 }
             } else VData::sendData($utente->getDataFineBan());    
         } else VData::sendData('Nome Utente o Password errati');
