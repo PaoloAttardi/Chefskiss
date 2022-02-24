@@ -257,7 +257,7 @@ class Fdb
             }
             if ($like != '') {
                 $qb->andWhere($class::getAlias() . '.' . $like[0] . ' LIKE :parametro')
-                    ->setParameter('parametro', $like[1]);
+                    ->setParameter('parametro', '%' . $like[1] . '%');
             }
             if ($order != '') $qb->orderBy($class::getAlias() . '.' . $order, 'DESC');
             if ($offset != '' && $limit != ''){ 

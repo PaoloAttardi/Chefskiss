@@ -11,7 +11,8 @@ define([
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
       events: {
-        'scroll': 'checkScroll'
+        'scroll': 'checkScroll',
+        'click #searchText': 'searchFor'
       },
 
       initialize: function(search) {
@@ -22,9 +23,9 @@ define([
         this.like = '';
         if(this.search.length == 2){
            if(that.search[0] == 'Categoria') that.parametro = ['categoria', '=', that.search[1]];
-           else that.like = that.search[1];
         }
         _.bindAll(this, 'checkScroll');
+        _.bindAll(this, 'searchFor');
         // bind to window
         $(window).scroll(this.checkScroll);
         // isLoading is a useful flag to make sure we don't send off more than
@@ -90,6 +91,16 @@ define([
             this.page += 1; // Load next page
             this.loadResults(this.page);
           }
+      },
+
+      searchFor: function() {
+        this.like = ['titolo', document.getElementById('Text').value];
+        var element = document.getElementById("post-widget");
+        while (element.firstChild) {
+          element.removeChild(element.firstChild);
+        }
+        this.page = 0;
+        this.loadResults(this.page);
       },
 
       remove: function() {
