@@ -7,12 +7,14 @@ define([
     'View/FooterView',
     'View/RicetteView',
     'View/ForumView',
-    'View/ProfiloView'
-  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, ProfiloView) {
+    'View/ProfiloView',
+    'View/RicettaView'
+  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, ProfiloView, RicettaView) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
         // Define some URL routes
+        'Ricetta/:id':'showRicetta',
 
         'Ricette/:page/:search': 'showRicette',
 
@@ -33,6 +35,10 @@ define([
           $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
           var ricetteView = new RicetteView(page, search);
+        })
+
+        app_router.on('route:showRicetta', function(id){
+            var ricettaView = new RicettaView(id);
         })
 
         app_router.on('route:defaultAction', function () {

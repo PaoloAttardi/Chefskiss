@@ -4,14 +4,11 @@
             <div class="u-layout" style="">
                 <div class="u-layout-row" style="">
                     <div class="u-align-center u-container-style u-layout-cell u-left-cell u-size-60 u-size-xs-60 u-white u-layout-cell-1" src="">
-                        <div class="u-container-layout u-container-layout-1"><span class="u-icon u-icon-circle u-palette-1-base u-spacing-10 u-icon-1">
-                <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 32 32" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1755"></use></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 32 32" id="svg-1755"><g><path d="M20.388,10.918L32,12.118l-8.735,7.749L25.914,31.4l-9.893-6.088L6.127,31.4l2.695-11.533L0,12.118 l11.547-1.2L16.026,0.6L20.388,10.918z"></path>
-</g></svg>
-              </span>
-                            <h2 class="u-text u-text-1">Titolo della ricetta</h2>
-                            <h4 class="u-text u-text-2">Autore della ricetta</h4>
-                            <p class="u-text u-text-3">Sample text. Click to select the text box. Click again or double click to start editing the text.</p><span class="u-file-icon u-icon u-icon-2"><img src="images/1828970.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/1828970.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1828970.png" alt=""></span><span class="u-file-icon u-icon u-icon-5"><img src="images/1828970.png" alt=""></span><span class="u-file-icon u-icon u-icon-6"><img src="images/1828970.png" alt=""></span>
+                        <div class="u-container-layout u-container-layout-1">
+                            <h2 class="u-text u-text-1"><%= ricetta[0].nomeRicetta %></h2>
+                            <% _.each(utente, function(u, index, utente){ %>
+                            <a href=""> <h4 class="u-text u-text-2"><%= u.name %> <%= u.surname %></h4></a>
+                            <% }); %>
                         </div>
                     </div>
                 </div>
@@ -39,73 +36,10 @@
         <h1 class="u-text u-text-1"><u>Procedimento</u>
         </h1>
         <div class="fr-view u-clearfix u-rich-text u-text u-text-2">
-            <h2 style="text-align: left;">
-                <span style="line-height: 2.0;">Sample Headline</span>
-            </h2>
             <p style="text-align: left;">
-                <span style="line-height: 2.0;">Sample text. Click to select the text box. Click again or double click to start editing the text. Dictum non consectetur a erat nam at. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Tellus mauris a diam maecenas sed enim ut sem. Ipsum faucibus vitae aliquet nec ullamcorper sit amet. &nbsp;</span>
-            </p>
-            <h2 style="text-align: left;">
-                <span style="line-height: 2.0;">Sample Headline</span>
-            </h2>
-            <p style="text-align: left;">
-                <span style="line-height: 2.0;">Euismod in pellentesque massa placerat. Risus quis varius quam quisque. Fermentum leo vel orci porta non pulvinar neque. Pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae. Viverra aliquet eget sit amet. Platea dictumst vestibulum rhoncus est.</span>
+                <span style="line-height: 2.0;"><%= ricetta[0].procedimento%></span>
             </p>
         </div>
         <div class="u-border-1 u-border-grey-50 u-line u-line-horizontal u-line-2"></div>
-    </div>
-</section>
-<section class="u-clearfix u-white u-section-4" id="sec-d761">
-    <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
-        <h1 class="u-text u-text-1"><u>Commenti</u>
-        </h1>
-    </div>
-</section>
-<section class="u-clearfix u-grey-15 u-section-5" id="carousel_73b3">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-form u-form-1">
-            <form action="#" method="POST" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
-                <div class="u-form-group u-form-message">
-                    <label for="message-4c18" class="u-form-control-hidden u-label u-text-body-alt-color"></label>
-                    <textarea placeholder="Lascia un commento" rows="4" cols="50" id="message-4c18" name="message" class="u-border-2 u-border-grey-30 u-grey-5 u-input u-input-rectangle u-radius-13" required=""></textarea>
-                </div>
-                <div class="u-align-right u-form-group u-form-submit">
-                    <a href="#" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">Submit</a>
-                    <input type="submit" value="submit" class="u-form-control-hidden">
-                </div>
-                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                <input type="hidden" value="" name="recaptchaResponse">
-            </form>
-        </div>
-    </div>
-</section>
-<section class="u-clearfix u-white u-section-6" id="sec-6ec4">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="u-expanded-width u-list u-list-1">
-            <div class="u-repeater u-repeater-1">
-                <div class="u-container-style u-list-item u-repeater-item">
-                    <div class="u-container-layout u-similar-container u-container-layout-1">
-                        <h4 class="u-text u-text-default u-text-1">Nome utente</h4>
-                        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="images/38c0975574c9b36b86269c1cf7b8a25b24be7919d180c9016ca6d1a7dbae59bd55f1952a52fde6c32922044039ba6e48bbc03b2e18ce532e2350ae_1280.png" alt="" data-image-width="1280" data-image-height="1280">
-                        <p class="u-text u-text-default u-text-2">Testo  di Prova. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
-                    </div>
-                </div>
-                <div class="u-container-style u-list-item u-repeater-item">
-                    <div class="u-container-layout u-similar-container u-container-layout-2">
-                        <h4 class="u-text u-text-default u-text-3">Intestazione di Prova</h4>
-                        <img class="u-image u-image-circle u-preserve-proportions u-image-2" src="https://pixabay.com/get/g5271369c5938c0975574c9b36b86269c1cf7b8a25b24be7919d180c9016ca6d1a7dbae59bd55f1952a52fde6c32922044039ba6e48bbc03b2e18ce532e2350ae_1280.png" alt="" data-image-width="1280" data-image-height="1280">
-                        <p class="u-text u-text-default u-text-4">Testo  di Prova. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
-                    </div>
-                </div>
-                <div class="u-container-style u-list-item u-repeater-item">
-                    <div class="u-container-layout u-similar-container u-container-layout-3">
-                        <h4 class="u-text u-text-default u-text-5">Intestazione di Prova</h4>
-                        <img class="u-image u-image-circle u-preserve-proportions u-image-3" src="https://pixabay.com/get/g5271369c5938c0975574c9b36b86269c1cf7b8a25b24be7919d180c9016ca6d1a7dbae59bd55f1952a52fde6c32922044039ba6e48bbc03b2e18ce532e2350ae_1280.png" alt="" data-image-width="1280" data-image-height="1280">
-                        <p class="u-text u-text-default u-text-6">Testo  di Prova. Lorem ipsum dolor sit amet, consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>

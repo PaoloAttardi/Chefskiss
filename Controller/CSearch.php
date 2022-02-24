@@ -36,6 +36,7 @@ class CSearch {
         for($i = 0; $i < count($ricette['data']); $i++){
             $data = $ricette['data'][$i]->getData();
             $ricette['data'][$i]->setData($data->format('Y-m-d'));
+            //$ricette['data'][$i]->setIngredienti(unserialize($ricette['data'][$i]->getIngredienti()));
             $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $ricette['data'][$i]->getCategoria()]));
             $ricette['data'][$i]->setCategoria($categoria[0]->getCategoria());
         }
@@ -56,11 +57,28 @@ class CSearch {
         VData::sendData($domande);
     }
 
+
     static function getCategorie(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
         if($params[0] != '') $categorie = $pm::search('FCategoria', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
         else $categorie = $pm::search('FCategoria', array(), $params[1], $params[2], $params[3], $params[4]);
         VData::sendData($categorie);
+    }
+
+    static function getAutore(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != '') $utente = $pm::search('FPersona', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $utente = $pm::search('FUtente', array(), $params[1], $params[2], $params[3], $params[4]);
+        VData::sendData($utente);
+    }
+
+    static function getRecensione(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != '') $recensione = $pm::search('FRecensione', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $recensione = $pm::search('FRecensione', array(), $params[1], $params[2], $params[3], $params[4]);
+        VData::sendData($recensione);
     }
 }

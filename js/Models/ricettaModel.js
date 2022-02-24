@@ -5,6 +5,7 @@ define([
     
     var ricetta = Backbone.Model.extend({
       idAttribute: "idRicetta",
+      url: "/chefskiss2/api.php?url=Search/getRicette",
 
     initialize: function (){
       
