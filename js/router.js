@@ -30,11 +30,13 @@ define([
         var app_router = new AppRouter;
 
         app_router.on('route:showRicette', function(page){
+          $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
           var ricetteView = new RicetteView(page);
         })
 
         app_router.on('route:defaultAction', function () {
+          $(window).off('scroll');
           var homeRicette = new HomeRicette();
           var homePost = new HomePost();
         })
@@ -42,10 +44,10 @@ define([
         app_router.on('route:showForum', function(){
           $('#page2').attr('style', 'display: none');
           var forumView = new ForumView();
-          forumView.render();
         })
 
         app_router.on('route:showProfilo', function(page){
+          $(window).off('scroll');
           var profiloView = new ProfiloView(page);
         })
 

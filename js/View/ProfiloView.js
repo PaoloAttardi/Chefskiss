@@ -31,16 +31,19 @@ define([
 
       render: function(check, page){
         var that = this;
-        var ricette = new ProfiloRicetteView(this.model, page);
         if(check){
             var data = {
                 utente: that.model.toJSON(),
                 _: _
             }
+            var ricette = new ProfiloRicetteView(this.model, page);
             var compiledTemplate = _.template( profiloTemplate, data );
             that.$el.html(compiledTemplate);
         }
-        else this.$el.html(loginTemplate);
+        else {
+          //$('#page2').attr('style', 'display: none');
+          this.$el.html(loginTemplate);
+        }
       }
   
     });

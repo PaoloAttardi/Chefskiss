@@ -1,0 +1,18 @@
+<% _.each(post, function(post1, index, post){ %>
+    <div class="u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
+      <div class="u-layout">
+        <div class="u-layout-row">
+          <div class="u-align-left u-container-style u-image u-layout-cell u-left-cell u-size-15 u-image-1" data-image-width="1280" data-image-height="849">
+            <div class="u-container-layout u-container-layout-1"></div>
+          </div>
+          <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-45 u-layout-cell-2">
+            <div class="u-container-layout u-valign-middle u-container-layout-2">
+              <h2 class="u-text u-text-default u-text-1"><%= post1.titolo %></h2>
+              <p class="u-text u-text-2"><%= post1.domanda %></p>
+              <a href="" class="u-btn u-button-style u-btn-1">Button</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %>

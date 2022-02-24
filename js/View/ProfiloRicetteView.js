@@ -49,6 +49,8 @@ define([
             previousPage: pPage,
             _: _
         }
+        
+        that.$el.show();
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);
     }
