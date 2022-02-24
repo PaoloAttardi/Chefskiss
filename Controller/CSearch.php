@@ -55,4 +55,12 @@ class CSearch {
         }
         VData::sendData($domande);
     }
+
+    static function getCategorie(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != '') $categorie = $pm::search('FCategoria', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $categorie = $pm::search('FCategoria', array(), $params[1], $params[2], $params[3], $params[4]);
+        VData::sendData($categorie);
+    }
 }

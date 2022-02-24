@@ -41,7 +41,6 @@ define([
             that.$el.html(compiledTemplate);
         }
         else {
-          //$('#page2').attr('style', 'display: none');
           this.$el.html(loginTemplate);
         }
       }

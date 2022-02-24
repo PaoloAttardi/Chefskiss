@@ -14,9 +14,9 @@ define([
       routes: {
         // Define some URL routes
 
-        'Ricette/:page': 'showRicette',
+        'Ricette/:page/:search': 'showRicette',
 
-        'Forum': 'showForum',
+        'Forum/:search': 'showForum',
 
         'Profilo/:page': 'showProfilo',
         
@@ -29,10 +29,10 @@ define([
 
         var app_router = new AppRouter;
 
-        app_router.on('route:showRicette', function(page){
+        app_router.on('route:showRicette', function(page, search){
           $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
-          var ricetteView = new RicetteView(page);
+          var ricetteView = new RicetteView(page, search);
         })
 
         app_router.on('route:defaultAction', function () {
@@ -41,9 +41,9 @@ define([
           var homePost = new HomePost();
         })
 
-        app_router.on('route:showForum', function(){
+        app_router.on('route:showForum', function(search){
           $('#page2').attr('style', 'display: none');
-          var forumView = new ForumView();
+          var forumView = new ForumView(search);
         })
 
         app_router.on('route:showProfilo', function(page){

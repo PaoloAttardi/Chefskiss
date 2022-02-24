@@ -4,8 +4,9 @@ define([
     'backbone',
     'text!templates/Forum.html',
     'js/Collections/domandeCollection.js',
+    'js/Collections/categorieCollection.js',
     'text!templates/Post-template.html'
-  ], function($, _, Backbone, forumTemplate, domandeCollection, postTemplate){
+  ], function($, _, Backbone, forumTemplate, domandeCollection, categorieCollection, postTemplate){
 
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
@@ -13,18 +14,40 @@ define([
         'scroll': 'checkScroll'
       },
 
-      initialize: function() {
+      initialize: function(search) {
         this.remove();
+        var that = this;
+        this.search = search.split('=');
+        this.parametro = '';
+        this.like = '';
+        if(this.search.length == 2){
+           if(that.search[0] == 'Categoria') that.parametro = ['categoria', '=', that.search[1]];
+           else that.like = that.search[1];
+        }
         _.bindAll(this, 'checkScroll');
         // bind to window
         $(window).scroll(this.checkScroll);
         // isLoading is a useful flag to make sure we don't send off more than
         // one request at a time
         this.isLoading = false;
+        categorie = new categorieCollection();
+        categorie.fetch({
+          success: function(){
+            that.categorie = categorie;
+            onDataHandler();
+          }
+        });
+        var onDataHandler = function() {
+          var data = {
+            categorie: that.categorie.toJSON(),
+            _: _
+          };
+          var compiledTemplate = _.template( forumTemplate, data );
+          that.$el.html(compiledTemplate);
+        }
         this.domande = new domandeCollection();
         this.page = 0;
         this.loadResults(this.page);
-        this.$el.html(forumTemplate);
       },
   
       render: function () {
@@ -48,10 +71,11 @@ define([
         var limite = 5;
         this.domande.fetch({ 
           data: $.param({
+            parametri: that.parametro,
             order: '',
             offset: page,
             limit: limite,
-            like: ''
+            like: that.like
           }),
           success: function () {
             that.collection = that.domande;
