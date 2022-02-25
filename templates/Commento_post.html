@@ -11,7 +11,9 @@
           </div>
           <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-47 u-layout-cell-2">
             <div class="u-container-layout u-container-layout-2">
-              <h2 class="u-text u-text-default u-text-1"><%= autore[index].name%> <%= autore[index].surname%></h2>
+              <% _.each(autore, function(a, index, autore){ %>
+              <h2 class="u-text u-text-default u-text-1"><%= a.name%> <%= a.surname%></h2>
+              <% }); %>
               <p class="u-text u-text-2"> <%=c.testo %></p>
             </div>
           </div>

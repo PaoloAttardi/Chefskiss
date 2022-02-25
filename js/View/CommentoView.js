@@ -20,9 +20,9 @@ define([
 
             commento.fetch({
                 data: $.param({
-                    parametri:['idCommento','=',id],
+                    parametri:['idPost','=',id],
                     offset: 0,
-                    limit: 1,
+                    limit: 10,
                 }),
                 success: function() {
                     that.collection1 = commento.at(0);
@@ -32,7 +32,7 @@ define([
                             data: $.param({
                                 parametri: ['idUser', '=', commento.at(0).attributes.data[0].autore],
                                 offset: 0,
-                                limit: 1,
+                                limit: 10,
                             }),
                             success: function () {
                                 that.collection2 = autore.at(0);
@@ -48,7 +48,6 @@ define([
         render: function(){
 
             var commento =this.collection1;
-            console.log(commento);
             if(this.collection2!==undefined) {
                 var autore = this.collection2.toJSON().data;
             }
