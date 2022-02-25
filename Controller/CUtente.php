@@ -44,4 +44,29 @@ class CUtente{
             } else VData::sendData($utente->getDataFineBan());    
         } else VData::sendData('Nome Utente o Password errati');
     }
+
+    static function registrazione()
+    {
+        $pm = USingleton::getInstance('FPersistentManager');
+        $verify_email = $pm::exist('email', VData::getEmail(), 'FUtente');
+        if ($verify_email) {
+            //aggiungere errore email già presente
+        } else {
+            $nome_utente = VData::getNome();
+            $cognome_utente = VData::getCognome();
+            $utente = new EUtente(false,null,null,$nome_utente, $cognome_utente,0, VData::getPassword(), 'descrizione',VData::getEmail());
+            $pm::insert($utente);
+            header('Location: /chefskiss2/index.html#/Profilo/0');
+        }
+    }
+
+
+    static function logout()
+    {
+        $session = USingleton::getInstance('USession');
+        $session->unsetSession();
+        $session->destroySession();
+        setcookie('PHPSESSID', '');
+        header('Location: /chefskiss2/index.html#/Profilo/0');
+    }
 }

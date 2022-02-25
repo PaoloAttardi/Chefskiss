@@ -9,12 +9,15 @@ define([
     'View/ForumView',
     'View/ProfiloView',
     'View/RicettaView',
-    'View/PostView'
-  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, ProfiloView, RicettaView,PostView) {
+    'View/PostView',
+    'View/RegistrazioneView'
+  ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView, ForumView, ProfiloView, RicettaView, PostView, RegistrazioneView) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
         // Define some URL routes
+        'Registrazione': 'showFormRegistrazione',
+
         'Ricetta/:id':'showRicetta',
 
         'Post/:id':'showPost',
@@ -26,7 +29,8 @@ define([
         'Profilo/:page': 'showProfilo',
         
         // Default
-        '*actions': 'defaultAction'
+        '*actions': 'defaultAction',
+
       }
     });
       
@@ -43,6 +47,11 @@ define([
         app_router.on('route:showRicetta', function(id){
           $('#page2').attr('style', 'display: none');
             var ricettaView = new RicettaView(id);
+        })
+
+        app_router.on('route:showFormRegistrazione', function(){
+            $('#page2').attr('style', 'display: none');
+            var registrazioneView = new RegistrazioneView();
         })
 
         app_router.on('route:showPost', function(id){
@@ -63,6 +72,7 @@ define([
 
         app_router.on('route:showProfilo', function(page){
           $(window).off('scroll');
+          $('#page2').attr('style', 'display: none');
           var profiloView = new ProfiloView(page);
         })
 

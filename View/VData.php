@@ -12,4 +12,11 @@ class VData{
     static function getPassword(){
         return $_POST['password'];
     }
+
+    static function getNome(){
+        return $_POST['nome'];
+    }
+    static function getCognome(){
+        return $_POST['cognome'];
+    }
 }
