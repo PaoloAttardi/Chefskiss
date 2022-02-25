@@ -1,0 +1,44 @@
+<script>document.getElementById('file_css').setAttribute('href', 'asset/css/new_recipe.css')</script>
+<div class="recipes-home-body inner-page">
+  <div class="container">
+  <div class="row">
+  <div class="col-md-8 col-lg-9">
+      <div class="recipe-set submit-recipe-set">
+          <h2>Pubblica una nuova domanda</h2>
+          <div class="submit-recipe-form">
+              <form action="/chefskiss2/Insert/pubblicaDomanda" method="post" enctype="multipart/form-data">
+                  <label for="title">Scegli un titolo significativo!</label>
+                  <input type="text" name="title" id="title" required/>
+                  <br/>
+                  <label for="recipe-content">Cosa vuoi chiedere alla Community?</label>
+                  <textarea name="content" id="recipe-content" cols="30" rows="10" required></textarea>
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <label for="recipe-type">Categoria</label>
+                          <div><select name="recipe-type" id="recipe-type" class="advance-selectable">
+                              <option value="1" selected>Antipasti</option>
+                              <option value="2">Primi</option>
+                              <option value="3">Secondi</option>
+                              <option value="4">Contorni</option>
+                              <option value="5">Salse</option>
+                              <option value="6">Dessert</option>
+                          </select></div>
+                      </div>
+                  </div>
+                  <div class="text-center">
+                      <button type="submit" class="recipe-submit-btn">Pubblica la tua domanda</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-4 col-lg-3">
+      <aside>
+          <div class="side-bar">
+              <img src="/chefskiss/smarty/libs/assets/bg-heading-02.jpg" alt="...">
+          </div>
+      </aside>
+  </div>
+  </div>
+  </div>
+</div>

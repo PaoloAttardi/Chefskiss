@@ -28,6 +28,25 @@ class CInsert {
         }
     }
 
+    static function pubblicaDomanda(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $session = USingleton::getInstance('USession');
+        if(CUtente::isLogged()){
+            $utente = unserialize($session->readValue('utente'));
+            $autore = $utente->getId();
+            $titolo = VData::getTitoloRicetta();
+            $domanda = VData::getProcedimentoRicetta();
+            $categoria = VData::getCategoriaRicetta();
+            $data = new DateTime(date('Y-m-d'));
+            $post = new EPost($autore, $titolo, $domanda, $categoria, $data);
+            $pm::insert($post);
+            header("Location: ../index.html#/Post/" . $post->getId());
+        }
+        else{
+            header('Location: index.html#/Profilo/0');
+        }
+    }
+
     static function upload(){
         $pm = USingleton::getInstance('FPersistentManager');
         $result = false;

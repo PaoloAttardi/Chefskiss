@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/Nuova_ricetta.html'
-  ], function($, _, Backbone, homeTemplate){
+    'text!templates/Nuova_domanda.html'
+  ], function($, _, Backbone, domandaTemplate){
 
     var nuovaDomandaView = Backbone.View.extend({
       el: $("#page1"),
@@ -13,7 +13,7 @@ define([
       },
 
       render: function(){
-        this.$el.html(homeTemplate);
+        this.$el.html(domandaTemplate);
       }
 
     });

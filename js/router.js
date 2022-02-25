@@ -45,35 +45,40 @@ define([
 
         var app_router = new AppRouter;
 
-        app_router.on('route:showRicette', function(page, search){
-          $(window).off('scroll');
+        app_router.on('route:showRicette', function(page, search){  
+          $(window).off('scroll'); 
           $('#page2').attr('style', 'display: none');
           var ricetteView = new RicetteView(page, search);
         })
 
         app_router.on('route:showRicetta', function(id){
+          $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
-            var ricettaView = new RicettaView(id);
+          var ricettaView = new RicettaView(id);
         })
 
         app_router.on('route:showNewRicetta', function(){
+          $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
-            var nuovaRicetta = new NuovaRicettaView();
+          var nuovaRicetta = new NuovaRicettaView();
         })
 
         app_router.on('route:showNewDomanda', function(){
+          $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
-            var nuovaDomanda = new NuovaDomandaView();
+          var nuovaDomanda = new NuovaDomandaView();
         })
 
         app_router.on('route:showFormRegistrazione', function(){
-            $('#page2').attr('style', 'display: none');
-            var registrazioneView = new RegistrazioneView();
+          $(window).off('scroll');
+          $('#page2').attr('style', 'display: none');
+          var registrazioneView = new RegistrazioneView();
         })
 
         app_router.on('route:showPost', function(id){
+          $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
-            var postView= new PostView(id);
+          var postView= new PostView(id);
         })
 
         app_router.on('route:defaultAction', function () {
