@@ -41,10 +41,12 @@ define([
         })
 
         app_router.on('route:showRicetta', function(id){
+          $('#page2').attr('style', 'display: none');
             var ricettaView = new RicettaView(id);
         })
 
         app_router.on('route:showPost', function(id){
+          $('#page2').attr('style', 'display: none');
             var postView= new PostView(id);
         })
 
