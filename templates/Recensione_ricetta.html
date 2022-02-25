@@ -1,22 +1,75 @@
+<style>
+  .rating {
+    float:left;
+  }
+  .rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+  }
+  .rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+  }
+  .rating:not(:checked) > label:before {
+    content: '★ ';
+  }
+  .rating > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+  }
+  .rating:not(:checked) > label:hover,
+  .rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+  }
+  .rating > input:checked + label:hover,
+  .rating > input:checked + label:hover ~ label,
+  .rating > input:checked ~ label:hover,
+  .rating > input:checked ~ label:hover ~ label,
+  .rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+  }
+  .rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+  }
+</style>
 <section class="u-clearfix u-white u-section-4" id="sec-d761">
   <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
-    <h1 class="u-text u-text-1"><u>Commenti</u></h1>
+    <h1 class="u-text u-text-1"><u>Recensioni</u></h1>
   </div>
 </section>
 <section class="u-clearfix u-grey-15 u-section-5" id="carousel_73b3">
   <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
     <div class="u-form u-form-1">
-      <form action="#" method="POST" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+      <form action="../chefskiss2/Insert/pubblicaRecensione/<%= idRicetta %>" method="POST" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-message">
+          <fieldset class="rating">
+            <input type="radio" id="star5" name="valutazione" value="5" /><label for="star5" title="Ottimo">5 stars</label>
+            <input type="radio" id="star4" name="valutazione" value="4" /><label for="star4" title="Notevole">4 stars</label>
+            <input type="radio" id="star3" name="valutazione" value="3" checked="checked" /><label for="star3" title="Buono">3 stars</label>
+            <input type="radio" id="star2" name="valutazione" value="2" /><label for="star2" title="Non è il massimo">2 stars</label>
+            <input type="radio" id="star1" name="valutazione" value="1" /><label for="star1" title="Sconsigliato">1 star</label>
+          </fieldset>
           <label for="message-4c18" class="u-form-control-hidden u-label u-text-body-alt-color"></label>
-          <textarea placeholder="Lascia un commento" rows="4" cols="50" id="message-4c18" name="message" class="u-border-2 u-border-grey-30 u-grey-5 u-input u-input-rectangle u-radius-13" required=""></textarea>
+          <textarea placeholder="Lascia una recensione" rows="4" cols="50" id="message-4c18" name="recensione" class="u-border-2 u-border-grey-30 u-grey-5 u-input u-input-rectangle u-radius-13" required=""></textarea>
         </div>
         <div class="u-align-right u-form-group u-form-submit">
-          <a href="#" class="u-btn u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">Invia</a>
-          <input type="submit" value="submit" class="u-form-control-hidden">
+          <button type="submit" id="submit" class="u-btn u-btn-round u-btn-submit u-button-style u-radius-30">Invia</button>
         </div>
-        <div class="u-form-send-message u-form-send-success"> Your comment has been sent. </div>
-        <div class="u-form-send-error u-form-send-message"> Unable to send your comment. Please try again. </div>
+        <div class="u-form-send-message u-form-send-success"> Il tuo commento è stato inviato </div>
+        <div class="u-form-send-error u-form-send-message"> Non è stato possibile inviare il tuo commento. Riprova </div>
         <input type="hidden" value="" name="recaptchaResponse">
       </form>
     </div>
@@ -26,13 +79,19 @@
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width u-list u-list-1">
       <% _.each(recensione, function(r, index, recensione){ %>
-        <div class="u-container-style u-list-item u-repeater-item">
+        <div class="u-container-style u-grey-10 u-list-item u-repeater-item">
           <div class="u-container-layout u-similar-container u-container-layout-1">
-            <h4 class="u-text u-text-default u-text-1"><%= autore[index].name%> <%= autore[index].surname%></h4>
+            <% _.each(autore, function(a, index, autore){ %>
+            <h4 class="u-text u-text-default u-text-1"><%= a.name%> <%= a.surname%>
+              <%for (i = 1; i <=r.valutazione; i++) {%>
+              <img src="../asset/images/1828970.png" width="30" height="30">
+              <%} %></h4>
+            <% }); %>
             <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="images/38c0975574c9b36b86269c1cf7b8a25b24be7919d180c9016ca6d1a7dbae59bd55f1952a52fde6c32922044039ba6e48bbc03b2e18ce532e2350ae_1280.png" alt="" data-image-width="1280" data-image-height="1280">
             <p class="u-text u-text-default u-text-2"><%= r.commento %></p>
           </div>
         </div>
+      <br>
       <% }); %>
     </div>
   </div>

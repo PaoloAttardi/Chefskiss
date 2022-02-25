@@ -51,4 +51,42 @@ class CInsert {
         return $image->getId();
         }
     }
+
+    static function pubblicaRecensione($id){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $session = USingleton::getInstance('USession');
+        if(CUtente::isLogged()){
+            $utente = unserialize($session->readValue('utente'));
+            $autore = $utente->getId();
+            $testo=VData::getRecensione();
+            $valutazione=VData::getValutazione();
+            $idRicetta=$id;
+            $dataPubblicazione=new DateTime('now');
+            $recensione= new ERecensione($testo,$valutazione,$idRicetta,$dataPubblicazione,$autore);
+            $pm::insert($recensione);
+            header("Location: ../../index.html#/Ricetta/" . $id);
+        }
+        else{
+            header('Location: index.html#/Profilo/0');
+        }
+    }
+
+    static function pubblicaCommento($id){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $session = USingleton::getInstance('USession');
+        if(CUtente::isLogged()){
+            $utente = unserialize($session->readValue('utente'));
+            $autore = $utente->getId();
+            $idPost=$id;
+            $testo=VData::getCommento();
+            $dataPubblicazione=new DateTime('now');
+            $commento=new ECommento($idPost,$autore,$testo,$dataPubblicazione,0);
+            $pm::insert($commento);
+            header("Location: ../../index.html#/Post/" . $idPost);
+        }
+        else{
+            header('Location: index.html#/Profilo/0');
+        }
+
+    }
 }

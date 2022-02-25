@@ -12,6 +12,7 @@ define([
 
         initialize: function(id){
             var that = this;
+            that.id=id;
             var commento = new CommentoCollection();
             var autore=new AutoreCollection();
             var onDataHandler=function (){
@@ -55,6 +56,7 @@ define([
                 var autore=null;
             }
             var data={
+                idPost:this.id,
                 commento: commento.toJSON().data,
                 autore: autore,
                 _: _

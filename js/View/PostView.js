@@ -43,7 +43,7 @@ define([
         },
 
         render: function(){
-            var commento= new CommentoView(this.model.toJSON().data[0].idPost);
+            new CommentoView(this.model.toJSON().data[0].idPost);
             var post=this.model;
             var utente=this.collection.at(0);
             var data={

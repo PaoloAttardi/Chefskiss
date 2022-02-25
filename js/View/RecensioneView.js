@@ -12,6 +12,7 @@ define([
 
         initialize: function(id){
             var that = this;
+            that.id=id;
             recensione = new RecensioneCollection();
             autore=new AutoreCollection();
             var onDataHandler=function (){
@@ -22,7 +23,7 @@ define([
                 data: $.param({
                     parametri:['idRicetta','=',id],
                     offset: 0,
-                    limit: 1,
+                    limit: 10,
                 }),
                 success: function() {
                     that.collection1 = recensione.at(0);
@@ -32,7 +33,7 @@ define([
                         data: $.param({
                             parametri: ['idUser', '=', recensione.at(0).attributes.data[0].autore],
                             offset: 0,
-                            limit: 1,
+                            limit: 10,
                         }),
                         success: function () {
                             that.collection2 = autore.at(0);
@@ -55,6 +56,7 @@ define([
                 var autore=null;
             }
             var data={
+                idRicetta:this.id,
                 recensione: recensione.toJSON().data,
                 autore: autore,
                 _: _

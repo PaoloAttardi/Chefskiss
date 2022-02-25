@@ -19,7 +19,7 @@
         <div class="u-align-left u-container-style u-list-item u-repeater-item">
           <div class="u-container-layout u-similar-container u-container-layout-1"><span class="u-border-2 u-border-palette-1-base u-custom-item u-file-icon u-icon u-icon-circle u-spacing-10 u-text-palette-1-base u-icon-1"><img src="../chefskiss2/asset/images/<%= categoria.idImmagine %>.png" alt=""></span>
             <a href="index.html#/Ricette/0/Categoria=<%= categoria.idCategoria %>"><p class="u-large-text u-text u-text-default u-text-palette-1-base u-text-variant u-text-2"><%= categoria.categoria %></p>
-          </div></a>
+          </a></div>
         </div>
         <% }); %>
       </div>
@@ -33,11 +33,13 @@
       <div class="u-repeater u-repeater-1">
         <% _.each(ricette, function(ricetta, index, ricette){ %>
         <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
-          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
-            <h3 class="u-text u-text-default u-text-1"><%= ricetta.nomeRicetta %></h3>
-            <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
-            <p class="u-text u-text-default u-text-2"><%= ricetta.data %></p>
-          </div>
+          <a href="#/Ricetta/<%= ricetta.idRicetta%>" class="block">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
+              <h3 class="u-text u-text-default u-text-1"><%= ricetta.nomeRicetta %></h3>
+              <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
+              <p class="u-text u-text-default u-text-2"><%= ricetta.data %></p>
+            </div>
+          </a>
         </div>
         <% }); %>
         <% for(let index = _.size(ricette); index < 9; index++){ %>

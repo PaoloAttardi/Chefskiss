@@ -39,4 +39,16 @@ class VData{
     static function getDosiRicetta(){
         return $_POST['servings'];
     }
+
+    static function getRecensione(){
+        return $_POST['recensione'];
+    }
+
+    static function getValutazione(){
+        return $_POST['valutazione'];
+    }
+
+    static function getCommento(){
+        return $_POST['commento'];
+    }
 }
