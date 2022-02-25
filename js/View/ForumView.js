@@ -12,7 +12,7 @@ define([
       el: $("#page1"),
       events: {
         'scroll': 'checkScroll',
-        'click #searchText': 'searchFor'
+        'click #searchPost': 'searchFor'
       },
 
       initialize: function(search) {

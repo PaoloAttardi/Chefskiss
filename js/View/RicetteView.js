@@ -9,29 +9,37 @@ define([
 
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
+      events: {
+        'click #searchRicetta': 'searchFor'
+      },
 
       initialize: function(number, search) {
         var that = this;
+        _.bindAll(this, 'searchFor');
         this.search = search.split('=');
         this.parametro = '';
         this.like = '';
         if(this.search.length == 2){
            if(that.search[0] == 'Categoria') that.parametro = ['categoria', '=', that.search[1]];
-           else that.like = that.search[1];
         }
-        var page = number * 9;
+        this.page = number * 9;
+        this.limite = 9;
+        this.loadData(number)
+      },
+
+      loadData: function(number){
+        var that = this;
+        ricette = new RicetteCollection();
+        categorie = new categorieCollection();
         var onDataHandler = function() {
           that.render(Number(number));
         }
-        var limite = 9;
-        ricette = new RicetteCollection();
-        categorie = new categorieCollection();
         ricette.fetch({
           data: $.param({
             parametri: that.parametro,
             order: '',
-            offset: page,
-            limit: limite,
+            offset: that.page,
+            limit: that.limite,
             like: that.like
           }),
           success: function(){
@@ -44,6 +52,13 @@ define([
             })
           }
         })
+      },
+
+      searchFor: function() {
+        this.like = ['nomeRicetta', document.getElementById('Text').value];
+        this.page = 0;
+        var search = 'search';
+        this.loadData(this.page, search);
       },
   
       render: function(number){
