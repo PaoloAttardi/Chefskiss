@@ -81,4 +81,12 @@ class CSearch {
         else $recensione = $pm::search('FRecensione', array(), $params[1], $params[2], $params[3], $params[4]);
         VData::sendData($recensione);
     }
+
+    static function getCommento(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != '') $commento = $pm::search('FCommento', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $commento = $pm::search('FCommento', array(), $params[1], $params[2], $params[3], $params[4]);
+        VData::sendData($commento);
+    }
 }

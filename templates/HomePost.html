@@ -12,25 +12,27 @@
   <div class="u-blog u-blog-1">
     <div class="u-repeater u-repeater-1"><!--blog_post-->
       <% _.each(post, function(post1, index, post){ %>
-      <div class="u-align-center u-blog-post u-container-style u-repeater-item u-white u-repeater-item-<%= index %>">
-        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
-          <a class="u-post-header-link" href="blog/post-5.html"><!--blog_post_image-->
-            <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="images/2.jpeg"><!--/blog_post_image-->
-          </a>
-          <div class="u-align-center u-container-style u-group u-palette-4-base u-group-<%= index %>">
-            <div class="u-container-layout u-valign-middle u-container-layout-3"><!--blog_post_metadata-->
-              <div class="u-blog-control u-metadata u-metadata-1"><!--blog_post_metadata_category-->
-                <span class="u-meta-category u-meta-icon"><!--blog_post_metadata_category_content--><%= post1.categoria %><!--/blog_post_metadata_category_content--></span><!--/blog_post_metadata_category-->
-              </div><!--/blog_post_metadata-->
-            </div>
-          </div><!--blog_post_header-->
-          <h3 class="u-blog-control u-custom-font u-font-playfair-display u-text u-text-1">
-            <a class="u-post-header-link" href="blog/post-5.html"><!--blog_post_header_content--><%= post1.titolo %><!--/blog_post_header_content--></a>
-          </h3><!--/blog_post_header--><!--blog_post_content-->
-          <div class="u-blog-control u-post-content u-text u-text-2"><!--blog_post_content_content--><%= post1.domanda.substring(0, 25) %><!--/blog_post_content_content--></div><!--/blog_post_content--><!--blog_post_readmore-->
-          <a href="blog/post-5.html" class="u-blog-control u-border-active-none u-border-hover-none u-btn u-btn-rectangle u-button-style u-none u-text-body-color u-btn-1"><!--blog_post_readmore_content--><!--options_json--><!--{"content":"Read More","defaultValue":"Leggi di più"}--><!--/options_json-->Read More<!--/blog_post_readmore_content--></a><!--/blog_post_readmore-->
-        </div>
-      </div><!--/blog_post--><!--blog_post-->
+      <a href="#/Post/<%= post1.idPost%>" class="block">
+        <div class="u-align-center u-blog-post u-container-style u-repeater-item u-white u-repeater-item-<%= index %>">
+          <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+            <a class="u-post-header-link" href="#/Post/<%= post1.idPost%>"><!--blog_post_image-->
+              <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="images/2.jpeg"><!--/blog_post_image-->
+            </a>
+            <div class="u-align-center u-container-style u-group u-palette-4-base u-group-<%= index %>">
+              <div class="u-container-layout u-valign-middle u-container-layout-3"><!--blog_post_metadata-->
+                <div class="u-blog-control u-metadata u-metadata-1"><!--blog_post_metadata_category-->
+                  <span class="u-meta-category u-meta-icon"><!--blog_post_metadata_category_content--><%= post1.categoria %><!--/blog_post_metadata_category_content--></span><!--/blog_post_metadata_category-->
+                </div><!--/blog_post_metadata-->
+              </div>
+            </div><!--blog_post_header-->
+            <h3 class="u-blog-control u-custom-font u-font-playfair-display u-text u-text-1">
+              <a href="#/Post/<%= post1.idPost%>" class="block"><!--blog_post_header_content--><%= post1.titolo %><!--/blog_post_header_content--></a>
+            </h3><!--/blog_post_header--><!--blog_post_content-->
+            <div class="u-blog-control u-post-content u-text u-text-2"><!--blog_post_content_content--><%= post1.domanda.substring(0, 25) %><!--/blog_post_content_content--></div><!--/blog_post_content--><!--blog_post_readmore-->
+            <a href="#/Post/<%= post1.idPost%>" class="u-blog-control u-border-active-none u-border-hover-none u-btn u-btn-rectangle u-button-style u-none u-text-body-color u-btn-1"><!--blog_post_readmore_content--><!--options_json--><!--{"content":"Read More","defaultValue":"Leggi di più"}--><!--/options_json-->Read More<!--/blog_post_readmore_content--></a><!--/blog_post_readmore-->
+          </div>
+        </div><!--/blog_post--><!--blog_post-->
+      </a>
       <% }); %>
       
     </div>
