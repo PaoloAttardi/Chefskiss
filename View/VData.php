@@ -19,4 +19,24 @@ class VData{
     static function getCognome(){
         return $_POST['cognome'];
     }
+
+    static function getTitoloRicetta(){
+        return $_POST['title'];
+    }
+
+    static function getProcedimentoRicetta(){
+        return $_POST['content'];
+    }
+
+    static function getIngredientiRicetta(){
+        return $_POST['ingredients'];
+    }
+
+    static function getCategoriaRicetta(){
+        return $_POST['recipe-type'];
+    }
+
+    static function getDosiRicetta(){
+        return $_POST['servings'];
+    }
 }

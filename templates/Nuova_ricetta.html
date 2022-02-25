@@ -1,7 +1,8 @@
-<section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-grey-5 u-section-1" id="carousel_a1fd">
+<script>document.getElementById('file_css').setAttribute('href', 'asset/css/new_recipe.css')</script>
+<!--<section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-grey-5 u-section-1" id="carousel_a1fd">
   <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-white u-group-1">
     <div class="u-container-layout u-valign-top u-container-layout-1">
-      <img class="u-image u-image-1" src="images/8a26397d9318ca0d558504f210febf2c9f75aec3e7abf563ec30b502616b9f4d3ae188cfa697e0dbcbecdacd900235191549155bceba52d8b8fa77_1280.jpg" data-image-width="150" data-image-height="99">
+      <img class="u-image u-image-1" src="asset/images/8a26397d9318ca0d558504f210febf2c9f75aec3e7abf563ec30b502616b9f4d3ae188cfa697e0dbcbecdacd900235191549155bceba52d8b8fa77_1280.jpg" data-image-width="150" data-image-height="99">
       <div class="u-form u-form-1">
         <form action="#" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;">
           <div class="u-form-group u-form-name">
@@ -12,20 +13,125 @@
             <label for="message-d268" class="u-custom-font u-font-lobster u-label u-label-2">Come hai realizzato il tuo piatto?</label>
             <textarea placeholder="Inserisci il procedimento" rows="4" cols="50" id="message-d268" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" required=""></textarea>
           </div>
-          <div class="u-align-center u-form-group u-form-submit">
+          <div class="u-form-group u-form-name">
+            <div><label for="upload-image">Fai una foto al tuo piatto  </label></div>
+            <input type="file" name="file" id="upload-image" required/>
+          </div>  
+          <h1 class="u-text u-text-default u-title u-text-1">Inserisci gli ingredienti</h1>
+          <div class="u-border-1 u-border-grey-50 u-shape u-shape-rectangle u-shape-1"></div>
+          <p class="u-text u-text-default u-text-2">Ingrediente 1</p><span class="u-file-icon u-icon u-icon-1"><img src="asset/images/3096673.png" alt=""></span><span class="u-file-icon u-icon u-icon-circle u-palette-1-base u-spacing-7 u-text-white u-icon-2"><img src="asset/images/add.png" alt=""></span>
+          <a href="https://nicepage.com/c/counter-html-templates" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-2">Submit<br>
+          </a>
+          <<div class="u-align-center u-form-group u-form-submit">
             <a href="#" class="u-btn u-btn-round u-btn-submit u-button-style u-radius-30">Submit</a>
             <input type="submit" value="submit" class="u-form-control-hidden">
-          </div>
-          <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-          <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-          <input type="hidden" value="" name="recaptchaResponse">
+          </div>>
         </form>
       </div>
-      <h1 class="u-text u-text-default u-title u-text-1">Inserisci gli ingredienti</h1>
-      <div class="u-border-1 u-border-grey-50 u-shape u-shape-rectangle u-shape-1"></div>
-      <p class="u-text u-text-default u-text-2">Ingrediente 1</p><span class="u-file-icon u-icon u-icon-1"><img src="images/3096673.png" alt=""></span><span class="u-file-icon u-icon u-icon-circle u-palette-1-base u-spacing-7 u-text-white u-icon-2"><img src="images/1.png" alt=""></span>
-      <a href="https://nicepage.com/c/counter-html-templates" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-2">Submit<br>
-      </a>
     </div>
   </div>
-</section>
+</section>-->
+
+
+<div class="recipes-home-body inner-page">
+  <div class="container">
+  <div class="row">
+  <div class="col-md-8 col-lg-9">
+      <div class="recipe-set submit-recipe-set">
+          <h2>Pubblica una nuova ricetta</h2>
+          <div class="submit-recipe-form">
+              <form action="/chefskiss2/Insert/pubblicaRicetta" method="post" enctype="multipart/form-data">
+                  <label for="title">Dai un nome alla tua ricetta</label>
+                  <input type="text" name="title" id="title" required/>
+                  <br/>
+                  <label for="recipe-content">Come hai realizzato la tua ricetta?</label>
+                  <textarea name="content" id="recipe-content" cols="30" rows="10" required></textarea>
+                  <label for="upload-image">Fai una foto al tuo piatto</label>
+                  <input type="file" name="file" id="upload-image" required/>
+                  <fieldset class="ingredient-set">
+                      <label for="ingredients">Inserisci gli ingredienti usati</label>
+                      <ul class="list-sortable ingredients-list">
+                          <li>
+                              <div class="add-fields">
+                                  <span class="handler-list"><i class="fa fa-arrows"></i></span>
+                                  <input type="text" placeholder="farina: 200g" name="ingredients[]" id="ingredients"/>
+                                  <span class="del-list"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg></i></span>
+                              </div>
+                          </li>
+                      </ul>
+                      <span class="add-button add-ing pull-right">
+                      <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg></i>
+                  </span>
+                  </fieldset>
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <label for="recipe-type">Categoria</label>
+                          <div><select name="recipe-type" id="recipe-type" class="advance-selectable">
+                              <option value="1" selected>Antipasti</option>
+                              <option value="2">Primi</option>
+                              <option value="3">Secondi</option>
+                              <option value="4">Contorni</option>
+                              <option value="5">Salse</option>
+                              <option value="6">Dessert</option>
+                          </select></div>
+                      </div>
+                      <div class="col-sm-6">
+                          <label for="servings">Numero Dosi </label>
+                          <br>
+                          <input type="number" min="1" placeholder="1" name="servings" id="servings" required/>
+                      </div>
+                  </div>
+                  <div class="text-center">
+                      <button type="submit" class="recipe-submit-btn">Pubblica la tua ricetta</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-4 col-lg-3">
+      <aside>
+          <div class="side-bar">
+              <img src="/chefskiss/smarty/libs/assets/bg-heading-02.jpg" alt="...">
+          </div>
+      </aside>
+  </div>
+</div>
+  </div>
+</div>
+
+<script>
+      $('.add-button.add-ing').on("click",function(event){
+
+      var newMajesticItem= '<li style="display: none">' +
+          '<div class="add-fields">' +
+          ' <span class="handler-list"><i class="fa fa-arrows"></i></span>' +
+          ' <input type="text" name="ingredients[]" id="ingredients"/>' +
+          ' <span class="del-list"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+          '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>' +
+          '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>' +
+          '</svg></i></span>' +
+          '</div>'+
+          '</li>';
+      $( '.list-sortable.ingredients-list').append( newMajesticItem );
+      $( '.list-sortable.ingredients-list').children("li").slideDown();
+      bindMajesticItem();
+
+      event.preventDefault();
+      });
+
+      function bindMajesticItem(){
+
+      /* Bind click event to remove detail icon button */
+
+      $('.del-list').on("click",function(event){
+          event.preventDefault();
+          var $this = $( this );
+          $this.closest( 'li' ).slideUp(function() { $(this).remove(); });
+      });
+      }
+</script>

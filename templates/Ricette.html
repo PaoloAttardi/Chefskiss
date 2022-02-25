@@ -52,7 +52,9 @@
       </div>
     </div>
     <% if(page == 0 && nextPage != false){ %> 
-      <a href="#/Ricette/<%=nextPage%>/<%=search%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
+      <a href="#/Ricette/0/<%=search%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
+      </a>
+      <a href="#/Ricette/<%=nextPage%>/<%=search%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-2">next&nbsp;&nbsp;<span class="u-file-icon u-icon u-text-grey-70"><img src="../chefskiss2/asset/images/7.png" alt=""></span>
       </a>
     <% } else if(page > 0 && nextPage == false){ %>
       <a href="#/Ricette/<%=previousPage%>/<%=search%>" class="u-active-palette-1-base u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-text-grey-60 u-btn-1"><span class="u-file-icon u-icon"><img src="../chefskiss2/asset/images/8.png" alt=""></span>&nbsp;back
