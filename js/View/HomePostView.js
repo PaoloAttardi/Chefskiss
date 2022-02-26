@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'text!templates/HomePost.html',
-    'js/Collections/DomandeCollection.js'
+    'js/Collections/domandeCollection.js'
   ], function($, _, Backbone, homeTemplate, DomandeCollection){
 
     var HomeView = Backbone.View.extend({
@@ -31,7 +31,7 @@ define([
       },
   
       render: function(){
-        post = this.collection.at(0);
+        var post = this.collection.at(0);
         var data = {
           post: post.toJSON().data,
           _: _

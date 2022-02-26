@@ -12,8 +12,8 @@
       <div class="u-repeater u-repeater-1">
        <% _.each(ricette, function(ricetta, index, ricette){ %>
         <% var value = index + 1 %>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-<%= value %>" data-image-width="2000" data-image-height="1333">
-          <a href="#/Ricetta/<%= ricetta.idRicetta%>" class="block">
+        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-<%= value %>" background-image: src="data:<%= immagine.tipo %>;base64,<%= immagine.immagine %>" data-image-width="2000" data-image-height="1333">
+          <a href="#/Ricetta/<%= ricetta.idRicetta %>" class="block">
           <div class="u-container-layout u-similar-container u-valign-top u-container-layout-<%= value %>">
               <h3 class="u-text u-text-default u-text-<%= value %>"><%= ricetta.nomeRicetta %></h3>
               <p class="u-text u-text-default u-text-<%= value + 1 %>"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>

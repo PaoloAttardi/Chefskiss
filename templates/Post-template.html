@@ -8,8 +8,8 @@
           <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-45 u-layout-cell-2">
             <div class="u-container-layout u-valign-middle u-container-layout-2">
               <h2 class="u-text u-text-default u-text-1"><%= post1.titolo %></h2>
-              <p class="u-text u-text-2"><%= post1.domanda %></p>
-              <a href="#/Post/<%= post1.idPost%>" class="u-btn u-button-style u-btn-1">Button</a>
+              <p class="u-text u-text-2"><%= post1.domanda.substring(0, 50) %></p>
+              <a href="#/Post/<%= post1.idPost%>" class="u-btn u-button-style u-btn-1">Leggi di più</a>
             </div>
           </div>
         </div>

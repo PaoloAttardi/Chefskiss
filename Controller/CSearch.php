@@ -30,15 +30,18 @@ class CSearch {
         $params = self::getParams();
         if($params[0] != '') $ricette = $pm::search('FRicetta', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
         else $ricette = $pm::search('FRicetta', array(), $params[1], $params[2], $params[3], $params[4]);
+        $immagine = '';
         // usando la paginazione per farmi restituire le prime 6 ricette per valutazione otterrò 
         // come risultato le ricette nell'array $ricette['data'],
         // mentre il totale delle ricette trovate nel db sarà memorizzato in $ricette['total']
         for($i = 0; $i < count($ricette['data']); $i++){
             $data = $ricette['data'][$i]->getData();
             $ricette['data'][$i]->setData($data->format('Y-m-d'));
-            //$ricette['data'][$i]->setIngredienti(unserialize($ricette['data'][$i]->getIngredienti()));
+            $ricette['data'][$i]->setIngredienti(unserialize($ricette['data'][$i]->getIngredienti()));
             $categoria = $pm::search('FCategoria', array(['idCategoria', '=', $ricette['data'][$i]->getCategoria()]));
             $ricette['data'][$i]->setCategoria($categoria[0]->getCategoria());
+            //$immagine = $pm::search('FImmagine', array(['idImmagine', '=', $ricette['data'][$i]->getIdImmagine()]));
+            //$ricette['data'][$i]->setIdImmagine($immagine[0]);
         }
         VData::sendData($ricette);
     }
@@ -48,6 +51,7 @@ class CSearch {
         $params = self::getParams();
         if($params[0] != '') $domande = $pm::search('FPost', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
         else $domande = $pm::search('FPost', array(), $params[1], $params[2], $params[3], $params[4]);
+        $immagine = '';
         for($i = 0; $i < count($domande['data']); $i++){
             $data = $domande['data'][$i]->getDataPubblicazione();
             $domande['data'][$i]->setDataPubblicazione($data->format('Y-m-d'));
@@ -95,8 +99,10 @@ class CSearch {
         $params = self::getParams();
         if($params[0] != '') $Immagine = $pm::search('FImmagine', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
         else $Immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
-        $image = stream_get_contents($Immagine['data'][0]->getImmagine());
-        $Immagine['data'][0]->setImmagine($image);
+        for($i = 0; $i < count($Immagine['data']); $i++){
+            $image = stream_get_contents($Immagine['data'][$i]->getImmagine());
+            $Immagine['data'][$i]->setImmagine($image);
+        }
         VData::sendData($Immagine);
     }
 }

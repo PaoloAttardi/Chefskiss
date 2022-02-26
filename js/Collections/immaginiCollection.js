@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'Models/immagineModel'
+    'js/Models/immagineModel.js'
 ], function($, _, Backbone, immagineModel){
     var immaginiCollection = Backbone.Collection.extend({
         model: immagineModel,
