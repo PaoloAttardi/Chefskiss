@@ -12,9 +12,10 @@ define([
     'View/PostView',
     'View/RegistrazioneView',
     'View/NuovaRicettaView',
-    'View/NuovaDomandaView'
+    'View/NuovaDomandaView',
+    'View/ModificaProfiloView'
   ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView,
-             ForumView, ProfiloView, RicettaView, PostView, RegistrazioneView, NuovaRicettaView, NuovaDomandaView) {
+             ForumView, ProfiloView, RicettaView, PostView, RegistrazioneView, NuovaRicettaView, NuovaDomandaView,ModificaProfiloView) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
@@ -34,6 +35,8 @@ define([
         'NuovaRicetta': 'showNewRicetta',
 
         'NuovaDomanda': 'showNewDomanda',
+
+        'ModificaProfilo':'showModificaProfilo',
         
         // Default
         '*actions': 'defaultAction',
@@ -73,6 +76,12 @@ define([
           $(window).off('scroll');
           $('#page2').attr('style', 'display: none');
           var registrazioneView = new RegistrazioneView();
+        })
+
+        app_router.on('route:showModificaProfilo', function(){
+            $(window).off('scroll');
+            $('#page2').attr('style', 'display: none');
+            var modificaProfiloView = new ModificaProfiloView();
         })
 
         app_router.on('route:showPost', function(id){

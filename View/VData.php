@@ -51,4 +51,8 @@ class VData{
     static function getCommento(){
         return $_POST['commento'];
     }
+
+    static function getDescription(){
+        return $_POST['description'];
+    }
 }
