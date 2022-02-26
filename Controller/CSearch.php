@@ -89,4 +89,14 @@ class CSearch {
         else $commento = $pm::search('FCommento', array(), $params[1], $params[2], $params[3], $params[4]);
         VData::sendData($commento);
     }
+
+    static function getImmagine(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != '') $Immagine = $pm::search('FImmagine', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $Immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
+        $image = stream_get_contents($Immagine['data'][0]->getImmagine());
+        $Immagine['data'][0]->setImmagine($image);
+        VData::sendData($Immagine);
+    }
 }

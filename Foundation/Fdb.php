@@ -123,11 +123,12 @@ class Fdb
     }
 
 
-    public function storeMedia($object) {
+    public function storeMedia($object, $nome_file) {
 		try {
             $this->_em->persist($object);
             $this->_em->flush();
             $id = $object->getId();
+            unlink($_FILES[$nome_file]['tmp_name']);
             return $id;
         } catch (Exception $e) {
             echo $e->getMessage();

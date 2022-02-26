@@ -64,9 +64,8 @@ class CInsert {
         $type = $_FILES['file']['type'];
         $nome = $_FILES['file']['name'];
         $immagine = file_get_contents($_FILES['file']['tmp_name']);
-        $immagine = addslashes ($immagine);
-        $image = new EImmagine($nome, $size, $type, $immagine);
-        $pm::insert($image);
+        $image = new EImmagine($nome, $size, $type, base64_encode($immagine));
+        $pm::insertMedia($image, 'file');
         return $image->getId();
         }
     }
