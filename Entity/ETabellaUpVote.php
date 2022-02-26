@@ -46,7 +46,7 @@ class ETabellaUpVote
     /**
      * Get the value of idUser
      */ 
-    public function getIdUser()
+    public function getId()
     {
         return $this->idUser;
     }
@@ -56,7 +56,7 @@ class ETabellaUpVote
      *
      * @return  self
      */ 
-    public function setIdUser($idUser)
+    public function setId($idUser)
     {
         $this->idUser = $idUser;
 

@@ -52,4 +52,29 @@ class CUpdate
         }
         header("Location: ../index.html#/Profilo/0");
     }
+
+    static function like($id){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $session = USingleton::getInstance('USession');
+        $utente = unserialize($session->readValue('utente'));
+        $commento=$pm::search('FCommento', array(['idCommento', '=', $id]));
+        $upvote=$commento[0]->getUpVote();
+        $voti=$pm::search('FTabellaUpVote',array(['idCommento', '=', $id]));
+        $arrayVoti=array();
+        foreach ($voti as $v){
+            $arrayVoti[]=$v->getId();
+        }
+        if(in_array($utente->getId(),$arrayVoti)){
+            $exist=true;
+        }
+        else{$exist=false;}
+        if(!$exist) {
+            $coppia= new ETabellaUpVote($utente->getId(),$id);
+            $pm::update('upVote', $upvote + 1, 'idCommento', $id, FCommento::getClass());
+            $pm::insert($coppia);
+
+        }
+
+        header("Location: ../../index.html#/Post/". $commento[0]->getidPost());
+    }
 }
