@@ -59,7 +59,6 @@ define([
             var ricetta = this.model;
             var utente = this.collection.at(0);
             var immagine = this.immagineRicetta;
-            console.log(JSON.stringify(immagine.toJSON().data));
             var data={
                 ricetta: ricetta.toJSON().data,
                 utente: utente.toJSON().data,

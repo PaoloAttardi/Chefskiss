@@ -41,12 +41,20 @@ define([
         // Default
         '*actions': 'defaultAction',
 
+        'error':'error'
+
       }
     });
       
     var initialize = function(){
 
         var app_router = new AppRouter;
+
+        app_router.on('route:error', function(){
+            $(window).off('scroll');
+            $('#page2').attr('style', 'display: none');
+            var erroreView= new erroreView();
+        })
 
         app_router.on('route:showRicette', function(page, search){  
           $(window).off('scroll'); 
