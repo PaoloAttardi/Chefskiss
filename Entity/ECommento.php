@@ -14,7 +14,7 @@ class ECommento {
     **/
     public $autore;
 
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=1000) **/
     public $testo;
     
     /** @Column(type="integer") 

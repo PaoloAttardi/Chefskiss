@@ -9,10 +9,10 @@ class ERicetta
     /** @Id @Column(type="integer") @GeneratedValue**/
     public $idRicetta;
 
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=500) **/
     public $ingredienti;
     
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=10000) **/
     public $procedimento;
     
     /** @Column(type="integer") 
@@ -28,7 +28,7 @@ class ERicetta
     **/
     public $autore;
     
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=100) **/
     public $nomeRicetta;
     
     /** @Column(type="integer") **/

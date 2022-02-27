@@ -9,7 +9,7 @@ class EPost {
     /** @Id @Column(type="integer") @GeneratedValue**/
     public $idPost;
 
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=150) **/
     public $titolo;
     
     /** @Column(type="integer") 
@@ -17,7 +17,7 @@ class EPost {
     **/
     public $autore;
     
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=5000) **/
     public $domanda;
     
     /** @Column(type="integer") 

@@ -248,6 +248,7 @@ class Fdb
      * @return array|false
      */
     public function searchDb($class, $parametri = array(), $order = '', $offset = '',$limit = '', $like=''){
+        $this->_em->getConnection()->beginTransaction();
         try {
             $qb = $this->_em->createQueryBuilder();
             $qb->select($class::getAlias())
@@ -275,9 +276,11 @@ class Fdb
                 $query = $qb->getQuery();
                 $result = $query->getResult();
             }
+            $this->_em->getConnection()->commit();
             return $result;
         } catch (Exception $e){
             echo "Attenzione errore: " . $e->getMessage();
+            $this->_em->rollBack();
             return null;
         }
     }

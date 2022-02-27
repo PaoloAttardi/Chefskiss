@@ -9,7 +9,7 @@ class ERecensione
     /** @Id @Column(type="integer") @GeneratedValue**/
     public $idRecensione;
 
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=1000) **/
     public $commento;
     
     /** @Column(type="integer") **/
