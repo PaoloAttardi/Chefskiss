@@ -24,7 +24,7 @@ class CInsert {
             else; //errore caricamento immagine
         }
         else{
-            header('Location: index.html#/Profilo/0');
+            header('Location: index.html#/Login');
         }
     }
 
@@ -43,7 +43,7 @@ class CInsert {
             header("Location: ../index.html#/Post/" . $post->getId());
         }
         else{
-            header('Location: index.html#/Profilo/0');
+            header('Location: index.html#/Login');
         }
     }
 
@@ -85,7 +85,7 @@ class CInsert {
             header("Location: ../../index.html#/Ricetta/" . $id);
         }
         else{
-            header('Location: index.html#/Profilo/0');
+            header('Location: index.html#/Login');
         }
     }
 
@@ -103,7 +103,7 @@ class CInsert {
             header("Location: ../../index.html#/Post/" . $idPost);
         }
         else{
-            header('Location: index.html#/Profilo/0');
+            header('Location: index.html#/Login');
         }
 
     }

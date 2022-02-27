@@ -28,6 +28,13 @@ class CUtente{
         return $check;
     }
 
+    static function isLogin(){
+        if(CUtente::isLogged()){
+            header('Location: /chefskiss2/index.html#/Profilo/0');
+        }
+        else header('Location: /chefskiss2/index.html#/Login');
+    }
+
     static function verifica(){
         $pm = USingleton::getInstance('FPersistentManager');
         $utente = $pm->loadLogin(VData::getEmail(), VData::getPassword());
@@ -67,6 +74,6 @@ class CUtente{
         $session->unsetSession();
         $session->destroySession();
         setcookie('PHPSESSID', '');
-        header('Location: /chefskiss2/index.html#/Profilo/0');
+        header('Location: /chefskiss2/index.html#/Login');
     }
 }
