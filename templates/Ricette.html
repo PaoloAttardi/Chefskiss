@@ -33,25 +33,15 @@
     <div class="u-expanded-width u-list u-list-1">
       <div class="u-repeater u-repeater-1">
         <% _.each(ricette, function(ricetta, index, ricette){ %>
-        <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
-          <a href="#/Ricetta/<%= ricetta.idRicetta%>" class="block">
-            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
-              <h3 class="u-text u-text-default u-text-1"><%= ricetta.nomeRicetta %></h3>
-              <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.valutazione %> stelle</p>
-              <p class="u-text u-text-default u-text-2"><%= ricetta.data %></p>
-            </div>
-          </a>
-        </div>
-        <% }); %>
-        <% for(let index = _.size(ricette); index < 9; index++){ %>
-          <div class="u-container-style u-image u-list-item u-repeater-item u-shading u-image-9" data-image-width="2000" data-image-height="1333">
-            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
-              <h3 class="u-text u-text-default u-text-1"></h3>
-              <p class="u-text u-text-default u-text-2"></p>
-              <p class="u-text u-text-default u-text-2"></p>
+          <div class="u-container-style u-list-item u-repeater-item">
+            <div class="u-container-layout u-similar-container u-container-layout-1">
+              <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="2000" data-image-height="1333" src="data:<%= immagine.tipo %>;base64,<%= immagine.immagine %>">
+              <p class="u-text u-text-default u-text-2"><%= ricetta.nomeRicetta %> | <%= ricetta.valutazione %> stelle</p>
+              <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.data %></p>
+              <a href="#/Ricetta/<%= ricetta.idRicetta%>" class="u-active-none u-border-2 u-border-hover-palette-2-base u-border-palette-2-light-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1">leggi di più</a>
             </div>
           </div>
-        <% }; %>
+        <% }); %>
       </div>
     </div>
     <% if(page == 0 && nextPage != false){ %> 

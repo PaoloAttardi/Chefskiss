@@ -4,8 +4,10 @@ define([
     'backbone',
     'text!templates/Ricette.html',
     'js/Collections/RicetteCollection.js',
-    'js/Collections/categorieCollection.js'
-  ], function($, _, Backbone, ricetteTemplate, RicetteCollection, categorieCollection){
+    'js/Collections/categorieCollection.js',
+    'js/Models/immagineModel.js',
+    'js/Collections/immaginiCollection.js'
+  ], function($, _, Backbone, ricetteTemplate, RicetteCollection, categorieCollection, immagineModel, immaginiCollection){
 
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
@@ -29,6 +31,8 @@ define([
 
       loadData: function(number){
         var that = this;
+        immagine = new immagineModel();
+        this.immagini = new immaginiCollection();
         ricette = new RicetteCollection();
         categorie = new categorieCollection();
         var onDataHandler = function() {
@@ -47,7 +51,21 @@ define([
             categorie.fetch({
               success: function(){
                 that.categorie = categorie;
-                onDataHandler();
+                var imgRicette = ricette.at(0);
+                for(var i = 0; i < ricette.length; i++){
+                  var parametro = imgRicette.toJSON().data[i].idImmagine;
+                  immagine.fetch({
+                    data: $.param({ 
+                      parametri:['idImmagine','=', parametro],
+                      offset: 0,
+                      limit: 1,
+                    }),
+                    success: function(){
+                        that.immagini.add(immagine.toJSON().data);
+                        onDataHandler();
+                    }
+                  })
+                }
               }
             })
           }
@@ -63,6 +81,7 @@ define([
   
       render: function(number){
         var that = this;
+        var image = this.immagini.at(0);
         var ricette = this.collection.at(0);
         var categorie = this.categorie;
         var total = Number(ricette.toJSON().total);
@@ -72,6 +91,7 @@ define([
         } else var nPage = false;
         var pPage = number - 1;
         var data = {
+          immagine: image.get(0),
           ricette: ricette.toJSON().data,
           categorie: categorie.toJSON(),
           page: number,
