@@ -50,7 +50,7 @@ class CUpdate
             $session->setValue('privilegi', $privilegi);
             $session->setValue('utente', $savableData);
         }
-        header('Location: index.html#/Login');
+        header('Location: ../index.html#/Login/0');
     }
 
     static function like($id){
@@ -79,6 +79,6 @@ class CUpdate
 
             header("Location: ../../index.html#/Post/" . $commento[0]->getidPost());
         }
-        else    header('Location: index.html#/Login');
+        else    header('Location: ../../index.html#/Login/0');
     }
 }

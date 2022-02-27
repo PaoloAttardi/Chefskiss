@@ -32,7 +32,7 @@ class CUtente{
         if(CUtente::isLogged()){
             header('Location: /chefskiss2/index.html#/Profilo/0');
         }
-        else header('Location: /chefskiss2/index.html#/Login');
+        else header('Location: /chefskiss2/index.html#/Login/0');
     }
 
     static function verifica(){
@@ -48,12 +48,11 @@ class CUtente{
                     $session->setValue('utente', $savableData);
                     header('Location: /chefskiss2/index.html#/Profilo/0');
                 }
-            } else VData::sendData($utente->getDataFineBan());    
-        } else VData::sendData('Nome Utente o Password errati');
+            } else header('Location: /chefskiss2/index.html#/Login/2');
+        } else header('Location: /chefskiss2/index.html#/Login/1');
     }
 
-    static function registrazione()
-    {
+    static function registrazione(){
         $pm = USingleton::getInstance('FPersistentManager');
         $verify_email = $pm::exist('email', VData::getEmail(), 'FUtente');
         if ($verify_email) {

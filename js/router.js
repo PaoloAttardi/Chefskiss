@@ -40,7 +40,7 @@ define([
 
         'ModificaProfilo':'showModificaProfilo',
 
-        'Login':'showLogin',
+        'Login/:state':'showLogin',
         
         // Default
         '*actions': 'defaultAction',
@@ -60,10 +60,10 @@ define([
             var erroreView= new ErrorView();
         })
 
-        app_router.on('route:showLogin', function(){
+        app_router.on('route:showLogin', function(state){
             $(window).off('scroll');
             $('#page2').attr('style', 'display: none');
-            var loginView= new LoginView();
+            var loginView= new LoginView(state);
         })
 
         app_router.on('route:showRicette', function(page, search){  
