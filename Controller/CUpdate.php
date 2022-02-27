@@ -81,4 +81,35 @@ class CUpdate
         }
         else    header('Location: ../../index.html#/Login/0');
     }
+
+    static function modificaRicetta($id){
+        if(CUtente::isLogged()) {
+            $pm = USingleton::getInstance('FPersistentManager');
+            $oldRicetta=$pm::search('FRicetta', array(['idRicetta', '=', $id]));
+            if($oldRicetta[0]->getNomeRicetta()!=VData::getTitoloRicetta()){
+                $pm::update('nomeRicetta',VData::getTitoloRicetta(),'idRicetta',$id,FRicetta::getClass());
+            }
+            if($oldRicetta[0]->getProcedimento()!=VData::getProcedimentoRicetta()){
+                $pm::update('procedimento',VData::getProcedimentoRicetta(),'idRicetta',$id,FRicetta::getClass());
+            }
+
+            /**
+             * AGGIUNGERE L'IMMAGINE
+             */
+            $oldIngredienti=unserialize($oldRicetta[0]->getIngredienti());
+            $newIngredienti=VData::getIngredientiRicetta();
+            unset($newIngredienti[count($newIngredienti)-1]);
+            if($oldIngredienti!=$newIngredienti){
+                $pm::update('ingredienti',serialize($newIngredienti),'idRicetta',$id,FRicetta::getClass());
+            }
+            if($oldRicetta[0]->getCategoria()!=VData::getCategoriaRicetta()){
+                $pm::update('categoria',VData::getCategoriaRicetta(),'idRicetta',$id,FRicetta::getClass());
+            }
+            if($oldRicetta[0]->getDosiPersone()!=VData::getDosiRicetta()){
+                $pm::update('dosiPersone',VData::getDosiRicetta(),'idRicetta',$id,FRicetta::getClass());
+            }
+            header("Location: ../../index.html#/Ricetta/" . $id);
+        }
+        else    header('Location: ../../index.html#/Login/0');
+    }
 }

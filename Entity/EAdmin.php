@@ -4,7 +4,7 @@
  * @Entity @Table(name="admin")
  **/
 
- //require "EPersona.php";
+// require "EPersona.php";
 
 class EAdmin extends EPersona
 {

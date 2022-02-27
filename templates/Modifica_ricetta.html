@@ -1,0 +1,111 @@
+<script>document.getElementById('file_css').setAttribute('href', 'asset/css/new_recipe.css')</script>
+<div class="recipes-home-body inner-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-9">
+        <div class="recipe-set submit-recipe-set">
+          <h2>Pubblica una nuova ricetta</h2>
+          <div class="submit-recipe-form">
+            <form action="/chefskiss2/Update/modificaRicetta/<%=ricetta[0].idRicetta%>" method="post" enctype="multipart/form-data">
+              <label for="title">Dai un nome alla tua ricetta</label>
+              <input type="text" name="title" id="title" value="<%= ricetta[0].nomeRicetta %>" required/>
+              <br/>
+              <label for="recipe-content">Come hai realizzato la tua ricetta?</label>
+              <textarea name="content" id="recipe-content"  cols="30" rows="10" required><%= ricetta[0].procedimento%></textarea>
+              <label for="upload-image">Fai una foto al tuo piatto</label>
+              <input type="file" name="file" id="upload-image" required/>
+              <fieldset class="ingredient-set">
+                <label for="ingredients">Inserisci gli ingredienti usati</label>
+                <% for(var i=0; i<= ricetta[0].ingredienti.length; i++){ %>
+                <ul class="list-sortable ingredients-list">
+                  <li>
+                    <div class="add-fields">
+                      <span class="handler-list"><i class="fa fa-arrows"></i></span>
+                      <input type="text" placeholder="farina: 200g" name="ingredients[]" value="<%=ricetta[0].ingredienti[i]%>" id="ingredients"/>
+                      <span class="del-list"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg></i></span>
+                    </div>
+                  </li>
+                </ul>
+                <% }; %>
+                <span class="add-button add-ing pull-right">
+                      <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg></i>
+                  </span>
+              </fieldset>
+              <div class="row">
+                <div class="col-sm-6">
+                  <label for="recipe-type">Categoria</label>
+                  <div><select name="recipe-type" id="recipe-type" class="advance-selectable">
+                    <% if(ricetta[0].categoria=='Antipasti'){ %> <option value="1" selected  >Antipasti</option><% }; %>
+                    <% if(ricetta[0].categoria!='Antipasti'){ %><option value="1" >Antipasti</option><% }; %>
+                    <% if(ricetta[0].categoria=='Primi'){ %> <option value="2" selected  >Primi</option><% }; %>
+                    <% if(ricetta[0].categoria!='Primi'){ %><option value="2" >Primi</option><% }; %>
+                    <% if(ricetta[0].categoria=='Secondi'){ %> <option value="3" selected  >Secondi</option><% }; %>
+                    <% if(ricetta[0].categoria!='Secondi'){ %><option value="3" >Secondi</option><% }; %>
+                    <% if(ricetta[0].categoria=='Contorni'){ %> <option value="4" selected  >Contorni</option><% }; %>
+                    <% if(ricetta[0].categoria!='Contorni'){ %><option value="4" >Contorni</option><% }; %>
+                    <% if(ricetta[0].categoria=='Salse'){ %> <option value="5" selected  >Salse</option><% }; %>
+                    <% if(ricetta[0].categoria!='Salse'){ %><option value="5" >Salse</option><% }; %>
+                    <% if(ricetta[0].categoria=='Dessert'){ %> <option value="6" selected  >Dessert</option><% }; %>
+                    <% if(ricetta[0].categoria!='Dessert'){ %><option value="6" >Dessert</option><% }; %>
+                  </select></div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="servings">Numero Dosi </label>
+                  <br>
+                  <input type="number" min="1" placeholder="1" name="servings"  value="<%= ricetta[0].dosiPersone%>" id="servings" required/>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="recipe-submit-btn">Pubblica la tua ricetta</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <aside>
+          <div class="side-bar">
+            <img src="/chefskiss/smarty/libs/assets/bg-heading-02.jpg" alt="...">
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.add-button.add-ing').on("click",function(event){
+
+    var newMajesticItem= '<li style="display: none">' +
+            '<div class="add-fields">' +
+            ' <span class="handler-list"><i class="fa fa-arrows"></i></span>' +
+            ' <input type="text" name="ingredients[]" id="ingredients"/>' +
+            ' <span class="del-list"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
+            '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>' +
+            '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>' +
+            '</svg></i></span>' +
+            '</div>'+
+            '</li>';
+    $( '.list-sortable.ingredients-list').append( newMajesticItem );
+    $( '.list-sortable.ingredients-list').children("li").slideDown();
+    bindMajesticItem();
+
+    event.preventDefault();
+  });
+
+  function bindMajesticItem(){
+
+    /* Bind click event to remove detail icon button */
+
+    $('.del-list').on("click",function(event){
+      event.preventDefault();
+      var $this = $( this );
+      $this.closest( 'li' ).slideUp(function() { $(this).remove(); });
+    });
+  }
+</script>

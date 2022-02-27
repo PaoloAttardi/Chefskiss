@@ -14,10 +14,12 @@ define([
     'View/NuovaRicettaView',
     'View/NuovaDomandaView',
     'View/ModificaProfiloView',
+    'View/ModificaRicettaView',
     'View/LoginView',
     'View/ErrorView'
   ], function($, _, Backbone, HomeRicette, HomePost, FooterView, RicetteView,
-             ForumView, ProfiloView, RicettaView, PostView, RegistrazioneView, NuovaRicettaView, NuovaDomandaView,ModificaProfiloView,LoginView,ErrorView) {
+             ForumView, ProfiloView, RicettaView, PostView, RegistrazioneView, NuovaRicettaView,
+              NuovaDomandaView,ModificaProfiloView, ModificaRicettaView, LoginView, ErrorView) {
   
     var AppRouter = Backbone.Router.extend({
       routes: {
@@ -40,8 +42,10 @@ define([
 
         'ModificaProfilo':'showModificaProfilo',
 
+        'ModificaRicetta/:id':'showModificaRicetta',
+
         'Login/:state':'showLogin',
-        
+
         // Default
         '*actions': 'defaultAction',
 
@@ -100,6 +104,12 @@ define([
             $(window).off('scroll');
             $('#page2').attr('style', 'display: none');
             var modificaProfiloView = new ModificaProfiloView();
+        })
+
+        app_router.on('route:showModificaRicetta', function(id){
+            $(window).off('scroll');
+            $('#page2').attr('style', 'display: none');
+            var modificaRicettaView = new ModificaRicettaView(id);
         })
 
         app_router.on('route:showPost', function(id){

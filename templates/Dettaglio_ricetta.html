@@ -6,7 +6,7 @@
                 <div class="u-layout-row">
                     <div class="u-align-center u-container-style u-layout-cell u-left-cell u-size-60 u-size-xs-60 u-white u-layout-cell-1" >
                         <div class="u-container-layout u-container-layout-1">
-                            <h2 class="u-text u-text-1"><%= ricetta[0].nomeRicetta %></h2>
+                            <h2 class="u-text u-text-1"><%= ricetta[0].nomeRicetta %><a href="index.html#/ModificaRicetta/<%= ricetta[0].idRicetta %>" class="navbar-brand"><img src="../chefskiss2/asset/images/pencil.png" width="50" height="45" class="d-inline-block" alt=""></a></h2>
                             <% _.each(utente, function(u, index, utente){ %>
                             <a href=""> <h4 class="u-text u-text-2"><%= u.name %> <%= u.surname %></h4></a>
                             <% }); %>
