@@ -4,4 +4,5 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /chefskiss2/index.php [L]
+ErrorDocument 404 /chefskiss2/templates/404.html
 </IfModule>
