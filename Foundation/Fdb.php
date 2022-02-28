@@ -201,6 +201,7 @@ class Fdb
                     ->setParameter('id', $id);
                 $query = $qb->getQuery();
                 $result = $query->getResult();
+                $this->_em->getConnection()->commit();
                 $this->closeConn();
                 $result = true;
             }
