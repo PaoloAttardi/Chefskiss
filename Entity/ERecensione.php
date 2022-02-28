@@ -142,8 +142,8 @@ class ERecensione
         $idRicetta = $recensione->getIdRicetta();
         $valutazione = 0;
         $pm = USingleton::getInstance('FPersistentManager');
-        $recensioni = $pm::load('FRecensione', array(['idRicetta', '=', $idRicetta]));
-        $ricetta = $pm::load('FRicetta', array(['idRicetta', '=', $idRicetta]));
+        $recensioni = $pm::search('FRecensione', array(['idRicetta', '=', $idRicetta]));
+        $ricetta = $pm::search('FRicetta', array(['idRicetta', '=', $idRicetta]));
         if($recensione != null){
             if(is_array($recensioni)){
                 for($i = 0; $i < sizeof($recensioni); $i++){
@@ -153,17 +153,13 @@ class ERecensione
                 }
                 $voti[] = $recensione->getValutazione();
                 $valutazione = array_sum($voti)/sizeof($voti);
-                $ricetta->setValutazione((int)$valutazione);
             }
             else {
                 $valutazione = $recensione->getValutazione();
-                $ricetta->setValutazione($valutazione);
             }
         }
-        else $ricetta->setValutazione($valutazione);
-        $pm::update('valutazione', $valutazione, 'idRicetta', $idRicetta, 'FRicetta');
-        
-        return $valutazione;
+        $pm::update('valutazione',(int)$valutazione, 'idRicetta', $idRicetta, 'FRicetta');
+        return true;
     }
 }
 

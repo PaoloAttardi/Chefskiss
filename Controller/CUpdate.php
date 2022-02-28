@@ -3,14 +3,15 @@
 
 class CUpdate
 {
-    static function modificaProfilo(){
+    static function modificaProfilo()
+    {
         $pm = USingleton::getInstance('FPersistentManager');
         $session = USingleton::getInstance('USession');
-        $email=VData::getEmail();
+        $email = VData::getEmail();
         $verify_email = $pm::exist('email', $email, 'FUtente');
-        if(CUtente::isLogged()) {
+        if (CUtente::isLogged()) {
             if ($verify_email) {
-                $utente = $pm::search('FUtente', array(['email', '=',$email]));
+                $utente = $pm::search('FUtente', array(['email', '=', $email]));
                 $nome = VData::getNome();
                 $cognome = VData::getCognome();
                 $description = VData::getDescription();
@@ -23,9 +24,9 @@ class CUpdate
                 if ($description != $utente[0]->getDescription()) {
                     $pm::update('description', $description, 'idUser', $utente[0]->getId(), FUtente::getClass());
                 }
-            }else{
+            } else {
                 $utente = unserialize($session->readValue('utente'));
-                $email=VData::getEmail();
+                $email = VData::getEmail();
                 $nome = VData::getNome();
                 $cognome = VData::getCognome();
                 $description = VData::getDescription();
@@ -41,7 +42,7 @@ class CUpdate
                 }
             }
             $u = unserialize($session->readValue('utente'));
-            $utente=$pm::search('FUtente', array(['idUser', '=', $u->getId()]));
+            $utente = $pm::search('FUtente', array(['idUser', '=', $u->getId()]));
             $utente[0]->setName(VData::getNome());
             $utente[0]->setSurname(VData::getcognome());
             $utente[0]->setEmail(VData::getEmail());
@@ -53,8 +54,9 @@ class CUpdate
         header('Location: ../index.html#/Login/0');
     }
 
-    static function like($id){
-        if(CUtente::isLogged()) {
+    static function like($id)
+    {
+        if (CUtente::isLogged()) {
             $pm = USingleton::getInstance('FPersistentManager');
             $session = USingleton::getInstance('USession');
             $utente = unserialize($session->readValue('utente'));
@@ -78,38 +80,54 @@ class CUpdate
             }
 
             header("Location: ../../index.html#/Post/" . $commento[0]->getidPost());
-        }
-        else    header('Location: ../../index.html#/Login/0');
+        } else    header('Location: ../../index.html#/Login/0');
     }
 
-    static function modificaRicetta($id){
-        if(CUtente::isLogged()) {
+    static function modificaRicetta($id)
+    {
+        if (CUtente::isLogged()) {
             $pm = USingleton::getInstance('FPersistentManager');
-            $oldRicetta=$pm::search('FRicetta', array(['idRicetta', '=', $id]));
-            if($oldRicetta[0]->getNomeRicetta()!=VData::getTitoloRicetta()){
-                $pm::update('nomeRicetta',VData::getTitoloRicetta(),'idRicetta',$id,FRicetta::getClass());
+            $oldRicetta = $pm::search('FRicetta', array(['idRicetta', '=', $id]));
+            if ($oldRicetta[0]->getNomeRicetta() != VData::getTitoloRicetta()) {
+                $pm::update('nomeRicetta', VData::getTitoloRicetta(), 'idRicetta', $id, FRicetta::getClass());
             }
-            if($oldRicetta[0]->getProcedimento()!=VData::getProcedimentoRicetta()){
-                $pm::update('procedimento',VData::getProcedimentoRicetta(),'idRicetta',$id,FRicetta::getClass());
+            if ($oldRicetta[0]->getProcedimento() != VData::getProcedimentoRicetta()) {
+                $pm::update('procedimento', VData::getProcedimentoRicetta(), 'idRicetta', $id, FRicetta::getClass());
             }
 
             /**
              * AGGIUNGERE L'IMMAGINE
              */
-            $oldIngredienti=unserialize($oldRicetta[0]->getIngredienti());
-            $newIngredienti=VData::getIngredientiRicetta();
-            unset($newIngredienti[count($newIngredienti)-1]);
-            if($oldIngredienti!=$newIngredienti){
-                $pm::update('ingredienti',serialize($newIngredienti),'idRicetta',$id,FRicetta::getClass());
+            $oldIngredienti = unserialize($oldRicetta[0]->getIngredienti());
+            $newIngredienti = VData::getIngredientiRicetta();
+            unset($newIngredienti[count($newIngredienti) - 1]);
+            if ($oldIngredienti != $newIngredienti) {
+                $pm::update('ingredienti', serialize($newIngredienti), 'idRicetta', $id, FRicetta::getClass());
             }
-            if($oldRicetta[0]->getCategoria()!=VData::getCategoriaRicetta()){
-                $pm::update('categoria',VData::getCategoriaRicetta(),'idRicetta',$id,FRicetta::getClass());
+            if ($oldRicetta[0]->getCategoria() != VData::getCategoriaRicetta()) {
+                $pm::update('categoria', VData::getCategoriaRicetta(), 'idRicetta', $id, FRicetta::getClass());
             }
-            if($oldRicetta[0]->getDosiPersone()!=VData::getDosiRicetta()){
-                $pm::update('dosiPersone',VData::getDosiRicetta(),'idRicetta',$id,FRicetta::getClass());
+            if ($oldRicetta[0]->getDosiPersone() != VData::getDosiRicetta()) {
+                $pm::update('dosiPersone', VData::getDosiRicetta(), 'idRicetta', $id, FRicetta::getClass());
             }
             header("Location: ../../index.html#/Ricetta/" . $id);
-        }
-        else    header('Location: ../../index.html#/Login/0');
+        } else    header('Location: ../../index.html#/Login/0');
     }
+
+    static function eliminaRicetta($id)
+    {
+        if (CUtente::isLogged()) {
+            $pm = USingleton::getInstance('FPersistentManager');
+            $ricetta = $pm::search('FRicetta', array(['idRicetta', '=', $id]));
+            $session = USingleton::getInstance('USession');
+            $utente = unserialize($session->readValue('utente'));
+            if ($ricetta[0]->getAutore() == $utente->getId()) {
+                $pm::delete('idRicetta', $id, FRicetta::getClass());
+                $pm::delete('idRicetta', $id, FRecensione::getClass());
+            }
+            header("Location: ../../index.html#/Profilo/0");
+        } else    header('Location: ../../index.html#/Login/0');
+    }
+
+
 }

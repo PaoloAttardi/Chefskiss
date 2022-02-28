@@ -9,7 +9,7 @@ require '../Entity/ECategoria.php';
 //$prova = FCategoria::search(array(['categoria', '=', 'prova2']), '', 0, 2);
 
 //$prova2 = FCategoria::search(array(['categoria', '=', 'prova2']), '', count($prova['data']), $prova['total'] + 1);
-$b = FCategoria::update('categoria', 'Dessert', 'idCategoria', 6);
+$b = FCategoria::delete('idCategoria', '6');
 //$c = FCategoria::exist('idCategoria', 5);
 
 // il valore 'data' dell'array prova contiene tutti i risultati compresi tra i valori di offset e limite 

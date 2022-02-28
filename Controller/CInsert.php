@@ -81,6 +81,7 @@ class CInsert {
             $idRicetta=$id;
             $dataPubblicazione=new DateTime('now');
             $recensione= new ERecensione($testo,$valutazione,$idRicetta,$dataPubblicazione,$autore);
+            $recensione->getValutazioneRicetta($recensione);
             $pm::insert($recensione);
             header("Location: ../../index.html#/Ricetta/" . $id);
         }
