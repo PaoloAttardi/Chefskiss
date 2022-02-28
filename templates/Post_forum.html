@@ -12,6 +12,13 @@
           <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-47 u-white u-layout-cell-2">
             <div class="u-container-layout u-valign-bottom u-container-layout-2">
               <h2 class="u-text u-text-1"><%=post[0].titolo %></h2>
+              <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn"><b>...</b>
+                </button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">Elimina Post</a>
+                </div>
+              </div>
               <% _.each(utente, function(u, index, utente){ %>
               <a href=""> <h5 class="u-text u-text-2"><%= u.name %> <%= u.surname %></h5></a>
               <% }); %>
@@ -26,3 +33,4 @@
     </div>
   </div>
 </section>
+
