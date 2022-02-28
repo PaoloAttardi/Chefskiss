@@ -4,17 +4,14 @@ define([
     'backbone',
     'text!templates/ProfiloRicette.html',
     'js/Collections/RicetteCollection.js',
-    'js/Models/immagineModel.js',
     'js/Collections/immaginiCollection.js'
-  ], function($, _, Backbone, profiloTemplate, RicetteCollection, immagineModel, immaginiCollection){
+  ], function($, _, Backbone, profiloTemplate, RicetteCollection, immaginiCollection){
   
     var ProfiloRicetteView = Backbone.View.extend({
       el: $("#page2"),
 
     initialize: function(model, number) {
         var that = this;
-        immagine = new immagineModel();
-        this.immagini = new immaginiCollection();
         ricette = new RicetteCollection();
         var page = number * 9;
         var onDataHandler = function() {
@@ -67,7 +64,6 @@ define([
     render: function(number){
         var that = this;
         ricette = this.collection.at(0);
-        var image = this.immagini.at(0);
         var total = Number(ricette.toJSON().total);
         var n = number * 9 + 9;
         if(total > n){

@@ -5,8 +5,9 @@ define([
     'text!templates/Post_forum.html',
     'js/Models/postModel.js',
     'js/Collections/autoreCollection.js',
-    'js/View/CommentoView.js'
-], function($, _, Backbone, postTemplate, postModel,AutoreCollection,CommentoView) {
+    'js/View/CommentoView.js',
+    'js/Models/immagineModel.js'
+], function($, _, Backbone, postTemplate, postModel, AutoreCollection, CommentoView, immagineModel) {
 
     var PostView = Backbone.View.extend({
         el: $("#page1"),
@@ -14,11 +15,6 @@ define([
         initialize: function(id){
             var that = this;
             post = new postModel();
-            autore=new AutoreCollection();
-            var onDataHandler=function (){
-                that.render()
-            }
-
             post.fetch({
                 data: $.param({
                     parametri:['idPost','=',id],
@@ -27,14 +23,34 @@ define([
                 }),
                 success: function(){
                     that.model=post;
-                    autore.fetch({
+                    that.loadData();
+                }
+            })
+        },
+
+        loadData: function(){
+            var that = this;
+            autore = new AutoreCollection();
+            immagine = new immagineModel();
+            var onDataHandler=function (){
+                that.render()
+            }
+            autore.fetch({
+                data: $.param({
+                    parametri:['idUser','=',that.model.toJSON().data[0].autore],
+                    offset: 0,
+                    limit: 1,
+                }),
+                success: function(){
+                    that.collection = autore.at(0);
+                    immagine.fetch({
                         data: $.param({
-                            parametri:['idUser','=',post.toJSON().data[0].autore],
+                            parametri:['idImmagine','=',that.collection.toJSON().data[0].idImmagine],
                             offset: 0,
                             limit: 1,
                         }),
                         success: function(){
-                            that.collection=autore;
+                            that.immagineRicetta = immagine
                             onDataHandler()
                         }
                     })
@@ -45,10 +61,12 @@ define([
         render: function(){
             new CommentoView(this.model.toJSON().data[0].idPost);
             var post=this.model;
-            var utente=this.collection.at(0);
+            var utente = this.collection;
+            var immagine = this.immagineRicetta;
             var data={
                 post: post.toJSON().data,
                 utente: utente.toJSON().data,
+                immagine: immagine.toJSON().data,
                 _: _
             };
             var compiledTemplate= _.template(postTemplate, data);

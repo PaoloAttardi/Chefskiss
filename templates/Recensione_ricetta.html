@@ -1,50 +1,3 @@
-<style>
-  .rating {
-    float:left;
-  }
-  .rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
-  }
-  .rating:not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#ddd;
-    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-  }
-  .rating:not(:checked) > label:before {
-    content: '★ ';
-  }
-  .rating > input:checked ~ label {
-    color: #f70;
-    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-  }
-  .rating:not(:checked) > label:hover,
-  .rating:not(:checked) > label:hover ~ label {
-    color: gold;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-  }
-  .rating > input:checked + label:hover,
-  .rating > input:checked + label:hover ~ label,
-  .rating > input:checked ~ label:hover,
-  .rating > input:checked ~ label:hover ~ label,
-  .rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
-    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-  }
-  .rating > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
-  }
-</style>
 <section class="u-clearfix u-white u-section-4" id="sec-d761">
   <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
     <h1 class="u-text u-text-1"><u>Recensioni</u></h1>
@@ -85,9 +38,10 @@
             <h4 class="u-text u-text-default u-text-1"><%= a.name%> <%= a.surname%>
               <%for (i = 1; i <=r.valutazione; i++) {%>
               <img src="../chefskiss2/asset/images/1828970.png" width="30" height="30">
-              <%} %></h4>
+              <% } %>
+            </h4>
+            <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="data:<%= immagine[index].get('0').tipo %>;base64,<%= immagine[index].get('0').immagine %>" alt="" data-image-width="1280" data-image-height="1280">
             <% }); %>
-            <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="images/38c0975574c9b36b86269c1cf7b8a25b24be7919d180c9016ca6d1a7dbae59bd55f1952a52fde6c32922044039ba6e48bbc03b2e18ce532e2350ae_1280.png" alt="" data-image-width="1280" data-image-height="1280">
             <p class="u-text u-text-default u-text-2"><%= r.commento %>
               <a href=""><span class="del-list btn-danger"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
