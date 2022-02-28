@@ -94,15 +94,41 @@ class CSearch {
         VData::sendData($commento);
     }
 
+    static function getImmagini(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != ''){
+            $idImmagini = $params[0];
+            $Immagine = [];
+            for($i = 0; $i < count($idImmagini[2]); $i++){
+                $ImmagineArray[$i] = $pm::search('FImmagine', array([$idImmagini[0], $idImmagini[1], $idImmagini[2][$i]]), $params[1], $params[2], $params[3], $params[4]);
+                array_push($Immagine, $ImmagineArray[$i]);
+            }
+            for($i = 0; $i < count($Immagine); $i++){
+                $image = stream_get_contents($Immagine[$i][0]->getImmagine());
+                $Immagine[$i][0]->setImmagine($image);
+            }
+            VData::sendData($Immagine);
+        }
+        else {
+            $Immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
+            for($i = 0; $i < count($Immagine); $i++){
+                $image = stream_get_contents($Immagine[$i]->getImmagine());
+                $Immagine[$i]->setImmagine($image);
+            }
+            VData::sendData($Immagine);
+        }
+    }
+
     static function getImmagine(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
-        if($params[0] != '') $Immagine = $pm::search('FImmagine', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
-        else $Immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
-        for($i = 0; $i < count($Immagine['data']); $i++){
-            $image = stream_get_contents($Immagine['data'][$i]->getImmagine());
-            $Immagine['data'][$i]->setImmagine($image);
+        if($params[0] != '') $immagine = $pm::search('FImmagine', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+        else $immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
+        for($i = 0; $i < count($immagine['data']); $i++){
+            $image = stream_get_contents($immagine['data'][$i]->getImmagine());
+            $immagine['data'][$i]->setImmagine($image);
         }
-        VData::sendData($Immagine);
+        VData::sendData($immagine);
     }
 }

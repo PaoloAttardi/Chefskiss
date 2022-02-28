@@ -5,7 +5,7 @@ define([
 
     var post = Backbone.Model.extend({
         idAttribute: "idPost",
-        url: "/chefskiss2/api.php?url=Search/getPost",
+        url: "/chefskiss2/index.php?url=Search/getPost",
 
         initialize: function (){
 

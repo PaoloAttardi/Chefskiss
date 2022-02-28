@@ -6,7 +6,7 @@ define([
 ], function($, _, Backbone, commentoModel){
     var commentoCollection = Backbone.Collection.extend({
         model: commentoModel,
-        url: "/chefskiss2/api.php?url=Search/getCommento",
+        url: "/chefskiss2/index.php?url=Search/getCommento",
 
         initialize: function(){}
 

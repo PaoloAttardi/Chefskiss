@@ -35,7 +35,7 @@
         <% _.each(ricette, function(ricetta, index, ricette){ %>
           <div class="u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
-              <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="2000" data-image-height="1333" src="data:<%= immagine.tipo %>;base64,<%= immagine.immagine %>">
+              <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="2000" data-image-height="1333" src="data:<%= immagine[index].get('0').tipo %>;base64,<%= immagine[index].get('0').immagine %>">
               <p class="u-text u-text-default u-text-2"><%= ricetta.nomeRicetta %> | <%= ricetta.valutazione %> stelle</p>
               <p class="u-text u-text-default u-text-2"><%= ricetta.categoria %> | <%= ricetta.dosiPersone %> dosi | <%= ricetta.data %></p>
               <a href="#/Ricetta/<%= ricetta.idRicetta%>" class="u-active-none u-border-2 u-border-hover-palette-2-base u-border-palette-2-light-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1">leggi di più</a>

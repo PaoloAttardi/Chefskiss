@@ -18,7 +18,12 @@ define([
         ricette = new RicetteCollection();
         var page = number * 9;
         var onDataHandler = function() {
-          that.render(Number(number));
+          var imgRicette = ricette.at(0);
+          var imgParam = [];
+          for(var i = 0; i < imgRicette.toJSON().total; i++){
+            imgParam.push(imgRicette.toJSON().data[i].idImmagine);
+          }
+          that.loadImage(imgParam, number);
         }
         var limite = 9;
         ricette.fetch({
@@ -30,24 +35,33 @@ define([
                 like: ''
             }),
             success: function(){
-                that.collection = ricette;
-                var imgRicette = ricette.at(0);
-                for(var i = 0; i < ricette.length; i++){
-                  var parametro = imgRicette.toJSON().data[i].idImmagine;
-                  immagine.fetch({
-                    data: $.param({ 
-                      parametri:['idImmagine','=', parametro],
-                      offset: 0,
-                      limit: 1,
-                    }),
-                    success: function(){
-                        that.immagini.add(immagine.toJSON().data);
-                        onDataHandler();
-                    }
-                  })
-                }
+              that.collection = ricette;
+              onDataHandler();
             }
           })
+        },
+
+        loadImage: function(imgParam, number){
+          var that = this;
+          immagini = new immaginiCollection();
+          immagini.fetch({
+            data: $.param({ 
+              parametri:['idImmagine','=', imgParam],
+            }),
+            success: function(){
+                that.immagini = immagini;
+                that.render(Number(number));
+            }
+          })
+        },
+  
+        arrayImg: function(){
+          var that = this;
+          var arrayImg = [];
+          for(var i = 0; i < that.immagini.length; i++){
+            arrayImg.push(that.immagini.at(i));
+          }
+          return arrayImg;
         },
 
     render: function(number){
@@ -60,8 +74,9 @@ define([
           var nPage = number + 1;
         } else var nPage = false;
         var pPage = number - 1;
+        var arrayImg = this.arrayImg();
         var data = {
-            immagine: image.get(0),
+            immagine: arrayImg,
             ricette: ricette.toJSON().data,
             nRicette: ricette.toJSON().total,
             page: number,
@@ -69,7 +84,6 @@ define([
             previousPage: pPage,
             _: _
         }
-        
         that.$el.show();
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);

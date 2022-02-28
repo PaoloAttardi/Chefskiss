@@ -5,7 +5,7 @@ define([
 
     var commento = Backbone.Model.extend({
         idAttribute: "idCommento",
-        url: "/chefskiss2/api.php?url=Search/getCommento",
+        url: "/chefskiss2/index.php?url=Search/getCommento",
 
         initialize: function (){
 

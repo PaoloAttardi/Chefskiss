@@ -6,7 +6,7 @@ define([
   ], function($, _, Backbone, ricettaModel){
     var RicetteCollection = Backbone.Collection.extend({
       model: ricettaModel,
-      url: "/chefskiss2/api.php?url=Search/getRicette",
+      url: "/chefskiss2/index.php?url=Search/getRicette",
 
       initialize: function(){}
   

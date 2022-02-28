@@ -6,7 +6,7 @@ define([
 ], function($, _, Backbone, immagineModel){
     var immaginiCollection = Backbone.Collection.extend({
         model: immagineModel,
-        url: "/chefskiss2/api.php?url=Search/getImmagine",
+        url: "/chefskiss2/index.php?url=Search/getImmagini",
 
         initialize: function(){
 

@@ -3,10 +3,9 @@ define([
     'underscore',
     'backbone',
     'text!templates/HomeRicette.html',
-    'js/Models/immagineModel.js',
     'js/Collections/RicetteCollection.js',
     'js/Collections/immaginiCollection.js'
-  ], function($, _, Backbone, homeTemplate, immagineModel, RicetteCollection, immaginiCollection){
+  ], function($, _, Backbone, homeTemplate, RicetteCollection, immaginiCollection){
 
     var HomeView = Backbone.View.extend({
       el: $("#page1"),
@@ -14,9 +13,13 @@ define([
       initialize: function() {
         var that = this;
         var onDataHandler = function() {
-          that.render();
+          var imgRicette = ricette.at(0);
+          var imgParam = [];
+          for(var i = 0; i < imgRicette.toJSON().total; i++){
+            imgParam.push(imgRicette.toJSON().data[i].idImmagine);
+          }
+          that.loadImage(imgParam);
         }
-        immagine = new immagineModel();
         this.immagini = new immaginiCollection();
         ricette = new RicetteCollection();
         ricette.fetch({
@@ -27,32 +30,41 @@ define([
             like: ''
           }),
           success: function(){
-          that.collection = ricette;
-          var imgRicette = ricette.at(0);
-            for(var i = 0; i < ricette.length; i++){
-              var parametro = imgRicette.toJSON().data[i].idImmagine;
-              immagine.fetch({
-                data: $.param({ 
-                  parametri:['idImmagine','=', parametro],
-                  offset: 0,
-                  limit: 1,
-              }),
-              success: function(){
-                  that.immagini.add(immagine.toJSON().data);
-                  onDataHandler();
-              }
-            })
-          }
+            that.collection = ricette;
+            onDataHandler();
           }
         })
+      },
+
+      loadImage: function(imgParam){
+        var that = this;
+        immagini = new immaginiCollection();
+        immagini.fetch({
+          data: $.param({ 
+            parametri:['idImmagine','=', imgParam],
+          }),
+          success: function(){
+              that.immagini = immagini;
+              that.render();
+          }
+        })
+      },
+
+      arrayImg: function(){
+        var that = this;
+        var arrayImg = [];
+        for(var i = 0; i < that.immagini.length; i++){
+          arrayImg.push(that.immagini.at(i));
+        }
+        return arrayImg;
       },
   
       render: function(){
         var ricette = this.collection.at(0);
-        var image = this.immagini.at(0);
+        var arrayImg = this.arrayImg();
         var data = {
           ricette: ricette.toJSON().data,
-          immagine: image.get(0),
+          immagine: arrayImg,
           _: _
         };
         var compiledTemplate = _.template( homeTemplate, data );

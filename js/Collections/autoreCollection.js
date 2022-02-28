@@ -6,7 +6,7 @@ define([
 ], function($, _, Backbone, autoreModel){
     var autoreCollection = Backbone.Collection.extend({
         model: autoreModel,
-        url: "/chefskiss2/api.php?url=Search/getAutore",
+        url: "/chefskiss2/index.php?url=Search/getAutore",
 
         initialize: function(){
 

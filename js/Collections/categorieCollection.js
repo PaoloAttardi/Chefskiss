@@ -6,7 +6,7 @@ define([
   ], function($, _, Backbone, categoriaModel){
     var CategorieCollection = Backbone.Collection.extend({
       model: categoriaModel,
-      url: "/chefskiss2/api.php?url=Search/getCategorie",
+      url: "/chefskiss2/index.php?url=Search/getCategorie",
 
       initialize: function(){}
   

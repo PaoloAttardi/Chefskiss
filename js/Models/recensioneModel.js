@@ -4,7 +4,7 @@ define([
 ], function(_, Backbone) {
 
     var recensione = Backbone.Model.extend({
-        urlRoot: "/chefskiss2/api.php?url=Search/getRecensione",
+        urlRoot: "/chefskiss2/index.php?url=Search/getRecensione",
         idAttribute: "idRecensione",
 
         initialize: function (){},

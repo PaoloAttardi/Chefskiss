@@ -4,7 +4,7 @@ define([
   ], function(_, Backbone) {
     
     var utente = Backbone.Model.extend({
-        urlRoot: "/chefskiss2/api.php?url=Utente/login", 
+        urlRoot: "/chefskiss2/index.php?url=Utente/login", 
         idAttribute: "idUser",
 
         initialize: function (){},
