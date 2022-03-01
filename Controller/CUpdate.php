@@ -9,7 +9,7 @@ class CUpdate
         $session = USingleton::getInstance('USession');
         $email = VData::getEmail();
         $verify_email = $pm::exist('email', $email, 'FUtente');
-        if (CUtente::isLogged()) {
+        if (CUtente::isLogged()){
             if ($verify_email) {
                 $utente = $pm::search('FUtente', array(['email', '=', $email]));
                 $nome = VData::getNome();
@@ -17,6 +17,11 @@ class CUpdate
                 $description = VData::getDescription();
                 if ($nome != $utente[0]->getName()) {
                     $pm::update('name', $nome, 'idUser', $utente[0]->getId(), FUtente::getClass());
+                }
+                $id_immagine = self::upload();
+                if($id_immagine){
+                    $pm::update('idImmagine', $id_immagine,'idUser',$utente[0]->getId(),FUtente::getClass());
+                    $pm::delete('idImmagine',$utente[0]->getidImmagine(),FImmagine::getClass());
                 }
                 if ($cognome != $utente[0]->getSurname()) {
                     $pm::update('surname', $cognome, 'idUser', $utente[0]->getId(), FUtente::getClass());
@@ -37,6 +42,11 @@ class CUpdate
                 if ($cognome != $utente->getSurname()) {
                     $pm::update('surname', $cognome, 'idUser', $utente->getId(), FUtente::getClass());
                 }
+                $id_immagine = self::upload();
+                if($id_immagine){
+                    $pm::update('idImmagine',$id_immagine,'idUser',$utente->getId(),FUtente::getClass());
+                    $pm::delete('idImmagine',$utente->getidImmagine(),FImmagine::getClass());
+                }
                 if ($description != $utente->getDescription()) {
                     $pm::update('description', $description, 'idUser', $utente->getId(), FUtente::getClass());
                 }
@@ -44,14 +54,18 @@ class CUpdate
             $u = unserialize($session->readValue('utente'));
             $utente = $pm::search('FUtente', array(['idUser', '=', $u->getId()]));
             $utente[0]->setName(VData::getNome());
+            if($id_immagine!=false){
+                $utente[0]->setidImmagine($id_immagine);
+            }
             $utente[0]->setSurname(VData::getcognome());
             $utente[0]->setEmail(VData::getEmail());
             $savableData = serialize($utente[0]);
             $privilegi = $utente[0]->getDiscr();
             $session->setValue('privilegi', $privilegi);
             $session->setValue('utente', $savableData);
+            header('Location: /chefskiss2/index.html#/Profilo/0');
         }
-        header('Location: ../index.html#/Login/0');
+        else header('Location: ../index.html#/Login/0');
     }
 
     static function like($id)
@@ -94,10 +108,11 @@ class CUpdate
             if ($oldRicetta[0]->getProcedimento() != VData::getProcedimentoRicetta()) {
                 $pm::update('procedimento', VData::getProcedimentoRicetta(), 'idRicetta', $id, FRicetta::getClass());
             }
-
-            /**
-             * AGGIUNGERE L'IMMAGINE
-             */
+            $id_immagine = self::upload();
+            if($id_immagine){
+                $pm::delete('idImmagine',$oldRicetta[0]->getidImmagine(),FImmagine::getClass());
+                $pm::update('idImmagine',$id_immagine,'idRicetta',$id,FRicetta::getClass());
+            }
             $oldIngredienti = unserialize($oldRicetta[0]->getIngredienti());
             $newIngredienti = VData::getIngredientiRicetta();
             unset($newIngredienti[count($newIngredienti) - 1]);
@@ -127,6 +142,29 @@ class CUpdate
             }
             header("Location: ../../index.html#/Profilo/0");
         } else    header('Location: ../../index.html#/Login/0');
+    }
+
+    static function upload(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $result = false;
+        $max_size = 6000000;
+        $result = is_uploaded_file($_FILES['file']['tmp_name']);
+        if (!$result){
+            //echo "Impossibile eseguire l'upload.";
+            return false;
+        } else {
+            $size = $_FILES['file']['size'];
+            if ($size > $max_size){
+                //echo "Il file è troppo grande.";
+                return false;
+            }
+            $type = $_FILES['file']['type'];
+            $nome = $_FILES['file']['name'];
+            $immagine = file_get_contents($_FILES['file']['tmp_name']);
+            $image = new EImmagine($nome, $size, $type, base64_encode($immagine));
+            $pm::insertMedia($image, 'file');
+            return $image->getId();
+        }
     }
 
 

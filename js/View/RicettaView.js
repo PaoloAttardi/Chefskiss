@@ -7,7 +7,7 @@ define([
     'js/Collections/autoreCollection.js',
     'js/View/RecensioneView.js',
     'js/Models/immagineModel.js'
-], function($, _, Backbone, ricettaTemplate, RicettaModel, AutoreCollection, RecensioneView, immagineModel) {
+], function($, _, Backbone, ricettaTemplate, RicettaModel, AutoreModel, RecensioneView, immagineModel) {
 
     var RicettaView = Backbone.View.extend({
         el: $("#page1"),
@@ -15,7 +15,7 @@ define([
         initialize: function(id){
             var that = this;
             ricetta = new RicettaModel();
-            autore = new AutoreCollection();
+            autore = new AutoreModel();
             immagine = new immagineModel();
             var onDataHandler=function (){
                 that.render()
@@ -36,7 +36,7 @@ define([
                             limit: 1,
                         }),
                         success: function(){
-                            that.collection=autore;
+                            that.model1=autore.at(0);
                             immagine.fetch({
                                 data: $.param({
                                     parametri:['idImmagine','=',ricetta.toJSON().data[0].idImmagine],
@@ -57,7 +57,7 @@ define([
         render: function(){
             var recensione = new RecensioneView(this.model.toJSON().data[0].idRicetta);
             var ricetta = this.model;
-            var utente = this.collection.at(0);
+            var utente = this.model1;
             var immagine = this.immagineRicetta;
             var data={
                 ricetta: ricetta.toJSON().data,

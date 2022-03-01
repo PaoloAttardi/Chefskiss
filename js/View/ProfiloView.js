@@ -18,6 +18,7 @@ define([
         }
         immagine = new immagineModel();
         utente = new utenteModel();
+
         utente.fetch({
             success: function(){
                 that.model = utente;
@@ -28,6 +29,7 @@ define([
                       limit: 1,
                   }),
                   success: function(){
+                      console.log(utente);
                       that.immagineRicetta = immagine
                       onDataHandler()
                   }
@@ -45,7 +47,7 @@ define([
             immagine: immagine.toJSON().data,
             _: _
         }
-        var ricette = new ProfiloRicetteView(this.model, page);
+        var ricette = new ProfiloRicetteView(this.model.get('idUser'), page);
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);
 

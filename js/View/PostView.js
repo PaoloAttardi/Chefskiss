@@ -43,6 +43,7 @@ define([
                 }),
                 success: function(){
                     that.collection = autore.at(0);
+                    console.log(that.collection.toJSON().data[0].idImmagine)
                     immagine.fetch({
                         data: $.param({
                             parametri:['idImmagine','=',that.collection.toJSON().data[0].idImmagine],

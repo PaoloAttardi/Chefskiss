@@ -50,7 +50,7 @@ class CInsert {
     static function upload(){
         $pm = USingleton::getInstance('FPersistentManager');
         $result = false;
-        $max_size = 600000;
+        $max_size = 6000000;
         $result = is_uploaded_file($_FILES['file']['tmp_name']);
         if (!$result){
           //echo "Impossibile eseguire l'upload.";

@@ -34,14 +34,12 @@
       <% _.each(recensione, function(r, index, recensione){ %>
         <div class="u-container-style u-grey-10 u-list-item u-repeater-item">
           <div class="u-container-layout u-similar-container u-container-layout-1">
-            <% _.each(autore, function(a, index, autore){ %>
-            <h4 class="u-text u-text-default u-text-1"><%= a.name%> <%= a.surname%>
+            <h4 class="u-text u-text-default u-text-1"><%= autore.at(index).toJSON().data[0].name %> <%= autore.at(index).toJSON().data[0].surname %>
               <%for (i = 1; i <=r.valutazione; i++) {%>
               <img src="../chefskiss2/asset/images/1828970.png" width="30" height="30">
               <% } %>
             </h4>
-            <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="data:<%= immagine[index].get('0').tipo %>;base64,<%= immagine[index].get('0').immagine %>" alt="" data-image-width="1280" data-image-height="1280">
-            <% }); %>
+            <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="data:<%= immagine.at(index).toJSON()[0].tipo %>;base64,<%= immagine.at(index).toJSON()[0].immagine %>" alt="" data-image-width="1280" data-image-height="1280">
             <p class="u-text u-text-default u-text-2"><%= r.commento %>
               <a href=""><span class="del-list btn-danger"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

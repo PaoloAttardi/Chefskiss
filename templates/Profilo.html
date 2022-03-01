@@ -4,7 +4,9 @@
 </section>
 <section class="u-clearfix u-white u-section-2" id="sec-3e7b">
   <div class="u-clearfix u-sheet u-sheet-1">
-  <img class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" src="data:<%= immagine[0].tipo %>;base64,<%= immagine[0].immagine %>" data-image-width="1280" data-image-height="853">
+    <% if(utente.idImmagine!= 0){%>
+    <img class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" src="data:<%= immagine[0].tipo %>;base64,<%= immagine[0].immagine %>" data-image-width="1280" data-image-height="853">
+    <% };%>
     <h1 class="u-text u-text-default u-text-1"><%= utente.name %> <%= utente.surname %>
       <a href="index.html#/ModificaProfilo" class="navbar-brand" ><img src="../chefskiss2/asset/images/pencil.png" width="50" height="45" class="d-inline-block" alt=""></a>
       <div class="dropdown">
@@ -17,6 +19,7 @@
       </div>
     </h1>
     <br>
+    <h4 class="u-text u-text-default u-text-1"><%= utente.description %> </h4>
     <p class="u-align-center u-small-text u-text u-text-variant u-text-2">
       <span style="font-size: 1.25rem;"><%= utente.discr %></span>
     </p>

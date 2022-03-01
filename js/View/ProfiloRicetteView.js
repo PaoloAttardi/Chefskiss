@@ -25,7 +25,7 @@ define([
         var limite = 9;
         ricette.fetch({
             data: $.param({
-                parametri: ['autore', '=', model.get('idUser')],
+                parametri: ['autore', '=', model],
                 order: '',
                 offset: page,
                 limit: limite,

@@ -48,6 +48,15 @@ class CUtente{
                     $session->setValue('utente', $savableData);
                     header('Location: /chefskiss2/index.html#/Profilo/0');
                 }
+            } elseif(CAdmin::restoreUser($utente[0]->getId())){
+                if (USession::sessionStatus() == PHP_SESSION_NONE) {
+                    $session = USingleton::getInstance('USession');
+                    $savableData = serialize($utente[0]);
+                    $privilegi = $utente[0]->getDiscr();
+                    $session->setValue('privilegi', $privilegi);
+                    $session->setValue('utente', $savableData);
+                    header('Location: /chefskiss2/index.html#/Profilo/0');
+                }
             } else header('Location: /chefskiss2/index.html#/Login/2');
         } else header('Location: /chefskiss2/index.html#/Login/1');
     }
@@ -73,6 +82,6 @@ class CUtente{
         $session->unsetSession();
         $session->destroySession();
         setcookie('PHPSESSID', '');
-        header('Location: /chefskiss2/index.html#/Login');
+        header('Location: /chefskiss2/index.html#/Login/0');
     }
 }

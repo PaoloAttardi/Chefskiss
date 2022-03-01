@@ -9,7 +9,7 @@
               <h2 class="u-text u-text-default u-text-1">Modifica Profilo<span style="text-decoration: underline !important;"></span>
               </h2>
               <div class="u-form u-form-1">
-                <form action="../chefskiss2/Update/modificaProfilo" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;">
+                <form action="../chefskiss2/Update/modificaProfilo" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;" enctype="multipart/form-data">
                   <div class="u-form-email u-form-group u-label-top">
                     <label for="name-d268" class="u-custom-font u-font-lobster u-label u-label-1">Email</label>
                     <input type="email" placeholder="Inserisci la tua mail" value="<%= utente.email %>" id="name-d268" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-30 u-white" required="required">
@@ -24,7 +24,7 @@
                   </div>
                   <div class="u-form-group u-form-name u-label-top u-form-group-4">
                     <label for="name-e131" class="u-custom-font u-font-lobster u-label u-label-4">Immagine Profilo</label><br>
-                    <input type="file" name="file">
+                    <input type="file" name="file" id="upload-image" />
                   </div>
                   <div class="u-form-group u-form-name u-label-top u-form-group-4">
                     <label for="name-e1" class="u-custom-font u-font-lobster u-label u-label-4">Description</label>

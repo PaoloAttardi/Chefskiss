@@ -13,7 +13,7 @@
               <label for="recipe-content">Come hai realizzato la tua ricetta?</label>
               <textarea name="content" id="recipe-content"  cols="30" rows="10" required><%= ricetta[0].procedimento%></textarea>
               <label for="upload-image">Fai una foto al tuo piatto</label>
-              <input type="file" name="file" id="upload-image" required/>
+              <input type="file" name="file" id="upload-image"/>
               <fieldset class="ingredient-set">
                 <label for="ingredients">Inserisci gli ingredienti usati</label>
                 <% for(var i=0; i<= ricetta[0].ingredienti.length; i++){ %>

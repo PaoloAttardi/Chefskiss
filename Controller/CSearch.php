@@ -70,6 +70,28 @@ class CSearch {
         VData::sendData($categorie);
     }
 
+    static function getAutori(){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $params = self::getParams();
+        if($params[0] != ''){
+            if(is_string($params[0][2])){
+                $Autore = $pm::search('FPersona', array($params[0]), $params[1], $params[2], $params[3], $params[4]);
+            } else {
+                $idAutori = $params[0];
+                $Autore = [];
+                for ($i = 0; $i < count($idAutori[2]); $i++) {
+                    $AutoreArray[$i] = $pm::search('FPersona', array([$idAutori[0], $idAutori[1], $idAutori[2][$i]]), $params[1], $params[2], $params[3], $params[4]);
+                    array_push($Autore, $AutoreArray[$i]);
+                }
+            }
+           VData::sendData($Autore);
+        }
+        else {
+            $Autore = $pm::search('FPersona', array(), $params[1], $params[2], $params[3], $params[4]);
+            VData::sendData($Autore);
+        }
+    }
+
     static function getAutore(){
         $pm = USingleton::getInstance('FPersistentManager');
         $params = self::getParams();
@@ -105,13 +127,14 @@ class CSearch {
                 array_push($Immagine, $ImmagineArray[$i]);
             }
             for($i = 0; $i < count($Immagine); $i++){
-                $image = stream_get_contents($Immagine[$i][0]->getImmagine());
-                $Immagine[$i][0]->setImmagine($image);
+                $qualcosa=$Immagine[$i][0]->getImmagine();
+                $Immagine[$i][0]->setImmagine(stream_get_contents($qualcosa));
             }
             VData::sendData($Immagine);
         }
         else {
             $Immagine = $pm::search('FImmagine', array(), $params[1], $params[2], $params[3], $params[4]);
+
             for($i = 0; $i < count($Immagine); $i++){
                 $image = stream_get_contents($Immagine[$i]->getImmagine());
                 $Immagine[$i]->setImmagine($image);
