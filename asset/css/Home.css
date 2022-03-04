@@ -61,9 +61,10 @@
 }
 
 .u-section-2 .u-repeater-1 {
-  grid-template-columns: 33.3333% 33.3333% 33.3333%;
-  min-height: 829px;
-  grid-gap: 0px 0px;
+  grid-gap: 10px 10px;
+  grid-auto-columns: calc(33.3333% - 6.66667px);
+  grid-template-columns: calc(33.3333% - 6.66667px) calc(33.3333% - 6.66667px) calc(33.3333% - 6.66667px);
+  min-height: 375px;
 }
 
 .u-section-2 .u-container-layout-1 {
@@ -229,8 +230,9 @@
   }
 
   .u-section-2 .u-repeater-1 {
-    grid-template-columns: repeat(3, 33.333333333333336%);
-    min-height: 684px;
+    grid-auto-columns: calc(33.333333333333336% - 6.66667px);
+    grid-template-columns: repeat(3, calc(33.333333333333336% - 6.66667px));
+    min-height: 309px;
   }
 
   .u-section-2 .u-image-1 {
@@ -272,8 +274,9 @@
 
 @media (max-width: 991px) {
   .u-section-2 .u-repeater-1 {
-    grid-template-columns: repeat(2, 50%);
-    min-height: 1179px;
+    grid-auto-columns: calc(50% - 5.0000025px);
+    grid-template-columns: repeat(2, calc(50% - 5.0000025px));
+    min-height: 533px;
   }
 
   .u-section-2 .u-image-1 {
@@ -315,6 +318,7 @@
 
 @media (max-width: 767px) {
   .u-section-2 .u-repeater-1 {
+    grid-auto-columns: calc(100% - 0px);
     grid-template-columns: 100%;
   }
 
