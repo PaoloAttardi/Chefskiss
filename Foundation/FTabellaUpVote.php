@@ -51,17 +51,8 @@ class FTabellaUpVote extends Fdb
     public static function insert($object)
     {
         $db = parent::getInstance();
-        $id = $db->insertDb($object);
-        $object->setId($id);
+        $db->insertDBTable($object);
     }
-
-    /*public static function update($field, $newvalue, $pk, $val)
-    {
-        $db = parent::getInstance();
-        $result = $db->updateDB(self::getClass(), $field, $newvalue, $pk, $val);
-        if ($result) return true;
-        else return false;
-    }*/
 
     public static function delete($field, $id)
     {
