@@ -29,7 +29,6 @@ define([
                       limit: 1,
                   }),
                   success: function(){
-                      console.log(utente);
                       that.immagineRicetta = immagine
                       onDataHandler()
                   }

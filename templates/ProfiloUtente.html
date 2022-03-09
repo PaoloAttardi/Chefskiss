@@ -6,7 +6,9 @@
     <div class="u-clearfix u-sheet u-sheet-1">
         <% if(utente.idImmagine!= 0){%>
             <img class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" src="data:<%= immagine.tipo %>;base64,<%= immagine.immagine %>" data-image-width="1280" data-image-height="853">
-        <% };%>
+        <% } else{ %>
+            <img alt="" class="u-image u-image-circle u-image-1" src="../chefskiss2/asset/images/defaultUser.png" data-image-width="256" data-image-height="256">
+          <% }; %>
         <h1 class="u-text u-text-default u-text-1"><%= utente.name %> <%= utente.surname %>
             <div class="dropdown">
                 <button onclick="myFunction()" class="dropbtn"><b>...</b>

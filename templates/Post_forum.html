@@ -8,7 +8,9 @@
             <div class="u-container-layout u-container-layout-1">
               <% if(immagine[0]!=undefined){%>
               <img alt="" class="u-image u-image-circle u-image-1" src="data:<%= immagine[0].tipo %>;base64,<%= immagine[0].immagine %>" data-image-width="256" data-image-height="256">
-              <% };%>
+              <% } else{ %>
+                <img alt="" class="u-image u-image-circle u-image-1" src="../chefskiss2/asset/images/defaultUser.png" data-image-width="256" data-image-height="256">
+              <% }; %>
             </div>
           </div>
           <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-47 u-white u-layout-cell-2">

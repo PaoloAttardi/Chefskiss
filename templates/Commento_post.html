@@ -7,7 +7,11 @@
           <% _.each(autore, function(a, index, autore){ %>
           <div class="u-align-center u-container-style u-layout-cell u-left-cell u-size-13 u-layout-cell-1">
             <div class="u-container-layout u-container-layout-1">
+              <% if(immagine[index].get('0').idImmagine != 0){ %>
               <img alt="" class="u-image u-image-circle u-image-1" src="data:<%= immagine[index].get('0').tipo %>;base64,<%= immagine[index].get('0').immagine %>" data-image-width="256" data-image-height="256">
+              <% } else{ %>
+                <img alt="" class="u-image u-image-circle u-image-1" src="../chefskiss2/asset/images/defaultUser.png" data-image-width="256" data-image-height="256">
+              <% }; %>
             </div>
           </div>
           <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-47 u-layout-cell-2">

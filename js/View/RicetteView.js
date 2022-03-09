@@ -50,7 +50,9 @@ define([
         var onDataHandler = function() {
           var imgRicette = that.ricette.at(0);
           var imgParam = [];
-          for(var i = 0; i < imgRicette.toJSON().total; i++){
+          if(imgRicette.toJSON().total > that.page + 9) var value = that.page + 9;
+          else var value = imgRicette.toJSON().total - that.page;
+          for(var i = 0; i < value; i++){
             imgParam.push(imgRicette.toJSON().data[i].idImmagine);
           }
           that.loadImage(imgParam, number);

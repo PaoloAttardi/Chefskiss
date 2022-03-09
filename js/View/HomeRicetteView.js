@@ -14,8 +14,10 @@ define([
         var that = this;
         var onDataHandler = function() {
           var imgRicette = ricette.at(0);
+          if(imgRicette.toJSON().total > 6) var value = 6;
+          else var value = imgRicette.toJSON().total;
           var imgParam = [];
-          for(var i = 0; i < imgRicette.toJSON().total; i++){
+          for(var i = 0; i < value; i++){
             imgParam.push(imgRicette.toJSON().data[i].idImmagine);
           }
           that.loadImage(imgParam);

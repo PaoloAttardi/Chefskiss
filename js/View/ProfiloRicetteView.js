@@ -17,7 +17,9 @@ define([
         var onDataHandler = function() {
           var imgRicette = ricette.at(0);
           var imgParam = [];
-          for(var i = 0; i < imgRicette.toJSON().total; i++){
+          if(imgRicette.toJSON().total > that.page + 9) var value = that.page + 9;
+          else var value = imgRicette.toJSON().total - that.page;
+          for(var i = 0; i < value; i++){
             imgParam.push(imgRicette.toJSON().data[i].idImmagine);
           }
           that.loadImage(imgParam, number);
@@ -41,15 +43,20 @@ define([
         loadImage: function(imgParam, number){
           var that = this;
           immagini = new immaginiCollection();
-          immagini.fetch({
-            data: $.param({ 
-              parametri:['idImmagine','=', imgParam],
-            }),
-            success: function(){
-                that.immagini = immagini;
-                that.render(Number(number));
-            }
-          })
+          if(imgParam.length != 0){
+            immagini.fetch({
+              data: $.param({ 
+                parametri:['idImmagine','=', imgParam],
+              }),
+              success: function(){
+                  that.immagini = immagini;
+                  that.render(Number(number));
+              }
+            })
+          } else {
+            that.immagini = 0;
+            that.render(Number(number));
+          }
         },
   
         arrayImg: function(){
@@ -80,6 +87,7 @@ define([
             previousPage: pPage,
             _: _
         }
+        console.log(that.$el);
         that.$el.show();
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);
