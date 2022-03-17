@@ -13,7 +13,8 @@ define([
     initialize: function(model, number) {
         var that = this;
         ricette = new RicetteCollection();
-        var page = number * 9;
+        this.page = number * 9;
+
         var onDataHandler = function() {
           var imgRicette = ricette.at(0);
           var imgParam = [];
@@ -24,12 +25,13 @@ define([
           }
           that.loadImage(imgParam, number);
         }
+
         var limite = 9;
         ricette.fetch({
             data: $.param({
                 parametri: ['autore', '=', model],
                 order: '',
-                offset: page,
+                offset: that.page,
                 limit: limite,
                 like: ''
             }),
@@ -87,7 +89,6 @@ define([
             previousPage: pPage,
             _: _
         }
-        console.log(that.$el);
         that.$el.show();
         var compiledTemplate = _.template( profiloTemplate, data );
         that.$el.html(compiledTemplate);
