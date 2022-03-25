@@ -28,6 +28,10 @@ class ERecensione
     **/
     public $autore;
 
+    private static $entity = 'ERecensione';
+
+    private static $alias= 'recensione';
+
     /**
      * @param $commento
      * @param $valutazione
@@ -44,6 +48,21 @@ class ERecensione
         $this->autore = $autore;
     }
 
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
+    }
 
     public function getCommento()
     {
@@ -142,8 +161,8 @@ class ERecensione
         $idRicetta = $recensione->getIdRicetta();
         $valutazione = 0;
         $pm = USingleton::getInstance('FPersistentManager');
-        $recensioni = $pm::search('FRecensione', array(['idRicetta', '=', $idRicetta]));
-        $ricetta = $pm::search('FRicetta', array(['idRicetta', '=', $idRicetta]));
+        $recensioni = $pm::search('ERecensione', array(['idRicetta', '=', $idRicetta]));
+        $ricetta = $pm::search('ERicetta', array(['idRicetta', '=', $idRicetta]));
         if($recensione != null){
             if(is_array($recensioni)){
                 for($i = 0; $i < sizeof($recensioni); $i++){
@@ -158,7 +177,7 @@ class ERecensione
                 $valutazione = $recensione->getValutazione();
             }
         }
-        $pm::update('valutazione',(int)$valutazione, 'idRicetta', $idRicetta, 'FRicetta');
+        $pm::update('valutazione',(int)$valutazione, 'idRicetta', $idRicetta, 'ERicetta');
         return true;
     }
 }

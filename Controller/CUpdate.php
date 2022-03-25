@@ -8,26 +8,26 @@ class CUpdate
         $pm = USingleton::getInstance('FPersistentManager');
         $session = USingleton::getInstance('USession');
         $email = VData::getEmail();
-        $verify_email = $pm::exist('email', $email, 'FUtente');
+        $verify_email = $pm::exist('email', $email, 'EUtente');
         if (CUtente::isLogged()){
             if ($verify_email) {
-                $utente = $pm::search('FUtente', array(['email', '=', $email]));
+                $utente = $pm::search('EUtente', array(['email', '=', $email]));
                 $nome = VData::getNome();
                 $cognome = VData::getCognome();
                 $description = VData::getDescription();
                 if ($nome != $utente[0]->getName()) {
-                    $pm::update('name', $nome, 'idUser', $utente[0]->getId(), FUtente::getClass());
+                    $pm::update('name', $nome, 'idUser', $utente[0]->getId(), EUtente::getEntity());
                 }
                 $id_immagine = self::upload();
                 if($id_immagine){
-                    $pm::update('idImmagine', $id_immagine,'idUser',$utente[0]->getId(),FUtente::getClass());
-                    $pm::delete('idImmagine',$utente[0]->getidImmagine(),FImmagine::getClass());
+                    $pm::update('idImmagine', $id_immagine,'idUser',$utente[0]->getId(), EUtente::getEntity());
+                    $pm::delete('idImmagine',$utente[0]->getidImmagine(), EImmagine::getEntity());
                 }
                 if ($cognome != $utente[0]->getSurname()) {
-                    $pm::update('surname', $cognome, 'idUser', $utente[0]->getId(), FUtente::getClass());
+                    $pm::update('surname', $cognome, 'idUser', $utente[0]->getId(), EUtente::getEntity());
                 }
                 if ($description != $utente[0]->getDescription()) {
-                    $pm::update('description', $description, 'idUser', $utente[0]->getId(), FUtente::getClass());
+                    $pm::update('description', $description, 'idUser', $utente[0]->getId(), EUtente::getEntity());
                 }
             } else {
                 $utente = unserialize($session->readValue('utente'));
@@ -35,24 +35,24 @@ class CUpdate
                 $nome = VData::getNome();
                 $cognome = VData::getCognome();
                 $description = VData::getDescription();
-                $pm::update('email', $email, 'idUser', $utente->getId(), FUtente::getClass());
+                $pm::update('email', $email, 'idUser', $utente->getId(), EUtente::getEntity());
                 if ($nome != $utente->getName()) {
-                    $pm::update('name', $nome, 'idUser', $utente->getId(), FUtente::getClass());
+                    $pm::update('name', $nome, 'idUser', $utente->getId(), EUtente::getEntity());
                 }
                 if ($cognome != $utente->getSurname()) {
-                    $pm::update('surname', $cognome, 'idUser', $utente->getId(), FUtente::getClass());
+                    $pm::update('surname', $cognome, 'idUser', $utente->getId(), EUtente::getEntity());
                 }
                 $id_immagine = self::upload();
                 if($id_immagine){
-                    $pm::update('idImmagine',$id_immagine,'idUser',$utente->getId(),FUtente::getClass());
-                    $pm::delete('idImmagine',$utente->getidImmagine(),FImmagine::getClass());
+                    $pm::update('idImmagine',$id_immagine,'idUser',$utente->getId(), EUtente::getEntity());
+                    $pm::delete('idImmagine',$utente->getidImmagine(), EImmagine::getEntity());
                 }
                 if ($description != $utente->getDescription()) {
-                    $pm::update('description', $description, 'idUser', $utente->getId(), FUtente::getClass());
+                    $pm::update('description', $description, 'idUser', $utente->getId(), EUtente::getEntity());
                 }
             }
             $u = unserialize($session->readValue('utente'));
-            $utente = $pm::search('FUtente', array(['idUser', '=', $u->getId()]));
+            $utente = $pm::search('EUtente', array(['idUser', '=', $u->getId()]));
             $utente[0]->setName(VData::getNome());
             if($id_immagine!=false){
                 $utente[0]->setidImmagine($id_immagine);
@@ -74,9 +74,9 @@ class CUpdate
             $pm = USingleton::getInstance('FPersistentManager');
             $session = USingleton::getInstance('USession');
             $utente = unserialize($session->readValue('utente'));
-            $commento = $pm::search('FCommento', array(['idCommento', '=', $id]));
+            $commento = $pm::search('ECommento', array(['idCommento', '=', $id]));
             $upvote = $commento[0]->getUpVote();
-            $voti = $pm::search('FTabellaUpVote', array(['idCommento', '=', $id]));
+            $voti = $pm::search('ETabellaUpVote', array(['idCommento', '=', $id]));
             $arrayVoti = array();
             foreach ($voti as $v) {
                 $arrayVoti[] = $v->getId();
@@ -88,7 +88,7 @@ class CUpdate
             }
             if (!$exist) {
                 $coppia = new ETabellaUpVote($utente->getId(), $id);
-                $pm::update('upVote', $upvote + 1, 'idCommento', $id, FCommento::getClass());
+                $pm::update('upVote', $upvote + 1, 'idCommento', $id, ECommento::getEntity());
                 $pm::insert($coppia);
 
             }
@@ -101,29 +101,29 @@ class CUpdate
     {
         if (CUtente::isLogged()) {
             $pm = USingleton::getInstance('FPersistentManager');
-            $oldRicetta = $pm::search('FRicetta', array(['idRicetta', '=', $id]));
+            $oldRicetta = $pm::search('ERicetta', array(['idRicetta', '=', $id]));
             if ($oldRicetta[0]->getNomeRicetta() != VData::getTitoloRicetta()) {
-                $pm::update('nomeRicetta', VData::getTitoloRicetta(), 'idRicetta', $id, FRicetta::getClass());
+                $pm::update('nomeRicetta', VData::getTitoloRicetta(), 'idRicetta', $id, ERicetta::getEntity());
             }
             if ($oldRicetta[0]->getProcedimento() != VData::getProcedimentoRicetta()) {
-                $pm::update('procedimento', VData::getProcedimentoRicetta(), 'idRicetta', $id, FRicetta::getClass());
+                $pm::update('procedimento', VData::getProcedimentoRicetta(), 'idRicetta', $id, ERicetta::getEntity());
             }
             $id_immagine = self::upload();
             if($id_immagine){
-                $pm::delete('idImmagine',$oldRicetta[0]->getidImmagine(),FImmagine::getClass());
-                $pm::update('idImmagine',$id_immagine,'idRicetta',$id,FRicetta::getClass());
+                $pm::delete('idImmagine',$oldRicetta[0]->getidImmagine(),EImmagine::getEntity());
+                $pm::update('idImmagine',$id_immagine,'idRicetta',$id,ERicetta::getEntity());
             }
             $oldIngredienti = unserialize($oldRicetta[0]->getIngredienti());
             $newIngredienti = VData::getIngredientiRicetta();
             unset($newIngredienti[count($newIngredienti) - 1]);
             if ($oldIngredienti != $newIngredienti) {
-                $pm::update('ingredienti', serialize($newIngredienti), 'idRicetta', $id, FRicetta::getClass());
+                $pm::update('ingredienti', serialize($newIngredienti), 'idRicetta', $id, ERicetta::getEntity());
             }
             if ($oldRicetta[0]->getCategoria() != VData::getCategoriaRicetta()) {
-                $pm::update('categoria', VData::getCategoriaRicetta(), 'idRicetta', $id, FRicetta::getClass());
+                $pm::update('categoria', VData::getCategoriaRicetta(), 'idRicetta', $id, ERicetta::getEntity());
             }
             if ($oldRicetta[0]->getDosiPersone() != VData::getDosiRicetta()) {
-                $pm::update('dosiPersone', VData::getDosiRicetta(), 'idRicetta', $id, FRicetta::getClass());
+                $pm::update('dosiPersone', VData::getDosiRicetta(), 'idRicetta', $id, ERicetta::getEntity());
             }
             header("Location: ../../index.html#/Ricetta/" . $id);
         } else    header('Location: ../../index.html#/Login/0');
@@ -133,12 +133,12 @@ class CUpdate
     {
         if (CUtente::isLogged()) {
             $pm = USingleton::getInstance('FPersistentManager');
-            $ricetta = $pm::search('FRicetta', array(['idRicetta', '=', $id]));
+            $ricetta = $pm::search('ERicetta', array(['idRicetta', '=', $id]));
             $session = USingleton::getInstance('USession');
             $utente = unserialize($session->readValue('utente'));
             if ($ricetta[0]->getAutore() == $utente->getId()) {
-                $pm::delete('idRicetta', $id, FRicetta::getClass());
-                $pm::delete('idRicetta', $id, FRecensione::getClass());
+                $pm::delete('idRicetta', $id, ERicetta::getEntity());
+                $pm::delete('idRicetta', $id, ERecensione::getEntity());
             }
             header("Location: ../../index.html#/Profilo/0");
         } else    header('Location: ../../index.html#/Login/0');

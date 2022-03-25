@@ -42,6 +42,9 @@ class ERicetta
     /** @Column(type="integer"), options = {"default" : 0} **/
     public $valutazione;
 
+    private static $entity = 'ERicetta';
+
+    private static $alias= 'ricetta';
 
     /**
      * @param $ingredienti
@@ -62,6 +65,22 @@ class ERicetta
         $this->dosiPersone = $dosiPersone;
         $this->idImmagine = $idImmagine;
         $this->valutazione = $valutazione;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**

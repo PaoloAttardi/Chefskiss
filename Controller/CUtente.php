@@ -36,8 +36,7 @@ class CUtente{
     }
 
     static function verifica(){
-        $pm = USingleton::getInstance('FPersistentManager');
-        $utente = $pm->loadLogin(VData::getEmail(), VData::getPassword());
+        $utente = EPersona::loadLogin(VData::getEmail(), VData::getPassword());
         if ($utente != null) {
             if ($utente[0]->getBan() != true) {
                 if (USession::sessionStatus() == PHP_SESSION_NONE) {
@@ -63,7 +62,7 @@ class CUtente{
 
     static function registrazione(){
         $pm = USingleton::getInstance('FPersistentManager');
-        $verify_email = $pm::exist('email', VData::getEmail(), 'FUtente');
+        $verify_email = $pm::exist('email', VData::getEmail(), 'EUtente');
         if ($verify_email) {
             //aggiungere errore email già presente
         } else {

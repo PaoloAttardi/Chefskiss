@@ -19,6 +19,10 @@ class EModeratore extends EPersona
 
     public $discr = "moderator";
 
+    private static string $entity = 'EModeratore';
+
+    private static string $alias= 'moderatore';
+
     public function __construct($idBadge, $dataPromozione, $name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->dataPromozione = $dataPromozione;
@@ -29,6 +33,22 @@ class EModeratore extends EPersona
         $this->password = $password;
         $this->idImmagine = $idImmagine;
         $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**

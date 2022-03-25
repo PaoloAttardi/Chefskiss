@@ -28,6 +28,10 @@ class EPost {
     /** @Column(type="date") **/
     public $dataPubblicazione;
 
+    private static $entity = 'EPost';
+
+    private static $alias= 'post';
+
     /**
      * @param $autore
      * @param $domanda
@@ -41,6 +45,22 @@ class EPost {
         $this->domanda = $domanda;
         $this->categoria = $categoria;
         $this->dataPubblicazione = $dataPubblicazione;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**

@@ -61,7 +61,7 @@ class Fdb
     public function checkIfLogged($email, $pass){
         try {
             $qb = $this->_em->createQueryBuilder();
-            $class = 'FPersona';
+            $class = 'EPersona';
             $qb->select($class::getAlias())
                 ->from($class::getEntity(), $class::getAlias())
                 ->where($class::getAlias() . ".email = :email")
@@ -142,7 +142,7 @@ class Fdb
             $qb = $this->_em->createQueryBuilder();
             $query = $qb->update($class::getEntity(), $class::getAlias())
                     ->set($class::getAlias() . '.' . $field, ':identifier')
-                    ->where($class::getAlias() . '.' . $class::getValues() . ' = :id')
+                    ->where($class::getAlias() . '.' . $pk . ' = :id')
                     ->setParameter('identifier', $newvalue)
                     ->setParameter('id', $id)
                     ->getQuery();

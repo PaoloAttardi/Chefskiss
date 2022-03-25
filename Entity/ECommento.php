@@ -28,6 +28,10 @@ class ECommento {
     /** @Column(type="integer") **/
     public $upVote;
 
+    private static $entity = 'ECommento';
+
+    private static $alias= 'commento';
+
     /**
      * ECommento constructor.
      */
@@ -37,6 +41,23 @@ class ECommento {
         $this->testo = $testo;
         $this->data = $data;
         $this->upVote = $upVote;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**

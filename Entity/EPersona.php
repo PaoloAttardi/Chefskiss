@@ -37,6 +37,10 @@ class EPersona
 
     public $discr = "persona";
 
+    private static string $entity = 'EPersona';
+
+    private static string $alias= 'persona';
+
     public function __construct($name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->name = $name;
@@ -45,6 +49,22 @@ class EPersona
         $this->password = $password;
         $this->idImmagine = $idImmagine;
         $this->description = $description;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**
@@ -170,5 +190,16 @@ class EPersona
         $this->idUser = $idUser;
 
         return $this;
+    }
+
+    public static function loadLogin($user, $pass){
+        $pm = USingleton::getInstance('FPersistentManager');
+        $utente = null;
+        $db = Fdb::getInstance();
+        $result = $db->checkIfLogged($user, $pass);
+        if (isset($result)){
+            $utente = $pm::search( 'EPersona',  array(['email', '=', $user]));
+        }
+        return $utente;
     }
 }

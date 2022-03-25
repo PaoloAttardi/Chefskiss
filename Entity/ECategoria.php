@@ -17,6 +17,10 @@ class ECategoria{
     **/
     public $idImmagine;
 
+    private static $entity = 'ECategoria';
+
+    private static $alias= 'categoria';
+
     /**
      * @param $categoria
      * @param $idImmagine
@@ -26,6 +30,21 @@ class ECategoria{
         $this->idImmagine = $idImmagine;
     }
 
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
+    }
 
     /**
      * @return mixed

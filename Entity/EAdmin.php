@@ -17,6 +17,10 @@ class EAdmin extends EPersona
     public $idBadge;
 
     public $discr = "admin";
+    
+    private static string $entity = 'EAdmin';
+
+    private static string $alias = 'admin';
 
     public function __construct($idBadge, $name, $surname, $idImmagine, $password, $description, $email)
     {
@@ -29,6 +33,21 @@ class EAdmin extends EPersona
         $this->description = $description;
     }
 
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
+    }
 
     /**
      * Get the value of idBadge

@@ -20,6 +20,10 @@ class EImmagine{
     /** @Column(type="blob") **/
     public $immagine;
 
+    private static $entity = 'EImmagine';
+
+    private static $alias= 'immagine';
+
     /**
      * @param $nome
      * @param $dimensione
@@ -32,6 +36,22 @@ class EImmagine{
         $this->dimensione = $dimensione;
         $this->tipo = $tipo;
         $this->immagine = $immagine;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**

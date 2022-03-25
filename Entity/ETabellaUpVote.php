@@ -16,12 +16,31 @@ class ETabellaUpVote
      **/
     public $idUser;
 
+    private static string $entity = 'ETabellaUpVote';
+
+    private static string $alias = 'tabellaupvote';
+
     public function __construct($idUser, $idCommento)
     {
         $this->idUser = $idUser;
         $this->idCommento = $idCommento;
     }
 
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
+    }
 
     /**
      * Get the value of idCommento

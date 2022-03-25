@@ -20,6 +20,10 @@ class EUtente extends EPersona
 
     public $discr = "user";
 
+    private static $entity = 'EUtente';
+
+    private static $alias= 'user';
+
     public function __construct($ban, $dataFineBan, $idModerator, $name, $surname, $idImmagine, $password, $description, $email)
     {
         $this->ban = $ban;
@@ -31,6 +35,22 @@ class EUtente extends EPersona
         $this->password = $password;
         $this->idImmagine = $idImmagine;
         $this->description = $description;
+    }
+
+        /**
+     * @return string
+     */
+    public static function getEntity(): string
+    {
+        return self::$entity;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAlias(): string
+    {
+        return self::$alias;
     }
 
     /**
@@ -109,10 +129,5 @@ class EUtente extends EPersona
         $this->idUser = $idUser;
 
         return $this;
-    }
-
-    public function checkIfLogged(){
-        $pm = USingleton::getInstance('FPersistentManager');
-        return $pm::loadLogin($this->email, $this->password);
     }
 }
